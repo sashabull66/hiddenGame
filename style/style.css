@@ -1,0 +1,355 @@
+@import url(https://fonts.googleapis.com/css?family=Signika:700,300,600);
+@font-face {
+    font-family: Indie Flower; /* Имя шрифта */
+    src: url(../fonts/IndieFlower-Regular.woff2); /* Путь к файлу со шрифтом */
+}
+
+* {
+    font: bold 28px 'Indie Flower', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.fullScreen {
+    width: 100vw!important;
+    height: 100vh!important;
+}
+
+#root {
+    background-color: bisque;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100vw!important;
+    height: 100vh!important;
+    margin: 0;
+    padding: 0;
+}
+
+#root > div {
+    width: 800px;
+    height: 480px;
+}
+
+/*HELP*/
+.help {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 85px;
+    background: url("/images/help/help.jpg") no-repeat;
+    background-size: 100%;
+}
+
+.help h1 {
+    text-align: center;
+    color: azure;
+    text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.help p {
+    font-size: 22px;
+    font-weight: 100;
+    text-align: center;
+    color: azure;
+    text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.help img {
+}
+
+.help button {
+    margin: 10px 0 5px 0;
+    align-self: center;
+    width: max-content;
+    font-weight: 400;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 3px 10px 3px 10px;
+    text-decoration: none;
+    box-shadow: inset 0 1px 0 0 #fff;
+    background-color: #dcbf96;
+    color: #fff;
+    text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    border-radius: 4px;
+    border: 1px solid #47471a;
+}
+
+.help button:active {
+    color: yellow;
+    margin: 1px 0 0 1px;
+}
+
+/*CONTROLS*/
+.controlsWrapper {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 40px;
+    width: 160px;
+}
+
+.full-screen-btn {
+    cursor: pointer;
+    background-size: 40px 40px;
+    background: url("/images/menu/fullscreen-on.png") round;
+    width: 40px;
+    height: 40px;
+}
+
+.full-screen-btn.full {
+    background: url("/images/menu/fullscreen-off.png") round;
+}
+
+.background-sound-btn {
+    cursor: pointer;
+    background-size: 40px 40px;
+    background: url("/images/menu/music1.png") round;
+    width: 40px;
+    height: 40px;
+}
+
+.background-sound-btn.offMusic {
+    background: url("/images/menu/music2.png") round;
+}
+
+.action-sound-btn {
+    cursor: pointer;
+    background-size: 40px 40px;
+    background: url("/images/menu/sound1.png") round;
+    width: 40px;
+    height: 40px;
+}
+
+.action-sound-btn.offSound {
+    background: url("/images/menu/sound2.png") round;
+}
+
+/*MENU*/
+.main {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.menu {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+/*    grid-column-gap: 22px;
+    grid-row-gap: 28px;*/
+    flex-grow: 1;
+    flex-shrink: 0;
+    background: url("/images/menu/menu_back.jpg") no-repeat;
+    background-size: 100%;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-btn {
+    color: azure;
+    background: linear-gradient(
+            328deg, #44a45c, #38916c);
+    border-radius: 35px;
+    min-width: 70%;
+    padding: 20px 45px;
+    text-align: center;
+}
+
+.item1 {
+    grid-area: 3 / 1 / 4 / 2;
+}
+
+.item2 {
+    grid-area: 3 / 2 / 4 / 3;
+}
+
+.item3 {
+    grid-area: 3 / 3 / 4 / 4;
+}
+
+.div4 {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 20px 0 0;
+    align-items: center;
+    grid-area: 1 / 2 / 2 / 4;
+}
+
+.div4 > div > span {
+    font-size: 2.7vw !important;
+}
+
+/*MAIN*/
+.jumping-text {
+    font: bold 28px 'Indie Flower', sans-serif;
+    user-select: none;
+}
+
+.jumping-text span {
+    display: inline-block;
+    animation: float .2s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: none;
+    }
+    33% {
+        transform: translateY(-1px) rotate(-2deg);
+    }
+    66% {
+        transform: translateY(1px) rotate(2deg);
+    }
+}
+
+.jumping-text:hover span {
+    animation: bounce .6s;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translate(0);
+    }
+    25% {
+        transform: rotateX(20deg) translateY(2px) rotate(-3deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(3deg) scale(1.1);
+    }
+}
+
+span:nth-child(4n) {
+    color: hsl(50, 75%, 55%);
+    text-shadow: 1px 1px hsl(50, 75%, 45%), 2px 2px hsl(50, 45%, 45%), 3px 3px hsl(50, 45%, 45%), 4px 4px hsl(50, 75%, 45%);
+}
+
+span:nth-child(4n-1) {
+    color: hsl(135, 35%, 55%);
+    text-shadow: 1px 1px hsl(135, 35%, 45%), 2px 2px hsl(135, 35%, 45%), 3px 3px hsl(135, 35%, 45%), 4px 4px hsl(135, 35%, 45%);
+}
+
+span:nth-child(4n-2) {
+    color: #75BD9FFF;
+    text-shadow: 1px 1px hsl(155, 25%, 50%), 2px 2px hsl(155, 25%, 50%), 3px 3px hsl(155, 25%, 50%), 4px 4px hsl(140, 25%, 50%);
+}
+
+span:nth-child(4n-3) {
+    color: hsl(30, 65%, 60%);
+    text-shadow: 1px 1px hsl(30, 45%, 50%), 2px 2px hsl(30, 45%, 50%), 3px 3px hsl(30, 45%, 50%), 4px 4px hsl(30, 45%, 50%);
+}
+
+.jumping-text span:nth-child(2) {
+    animation-delay: .05s;
+}
+
+.jumping-text span:nth-child(3) {
+    animation-delay: .1s;
+}
+
+.jumping-text span:nth-child(4) {
+    animation-delay: .15s;
+}
+
+.jumping-text span:nth-child(5) {
+    animation-delay: .2s;
+}
+
+.jumping-text span:nth-child(6) {
+    animation-delay: .25s;
+}
+
+.jumping-text span:nth-child(7) {
+    animation-delay: .3s;
+}
+
+.jumping-text span:nth-child(8) {
+    animation-delay: .35s;
+}
+
+.jumping-text span:nth-child(9) {
+    animation-delay: .4s;
+}
+
+.jumping-text span:nth-child(10) {
+    animation-delay: .45s;
+}
+
+.jumping-text span:nth-child(11) {
+    animation-delay: .5s;
+}
+
+.jumping-text span:nth-child(12) {
+    animation-delay: .55s;
+}
+
+.jumping-text span:nth-child(13) {
+    animation-delay: .6s;
+}
+
+.jumping-text span:nth-child(14) {
+    animation-delay: .65s;
+}
+
+/*RESULTS*/
+.results {
+    position: relative;
+    overflow: auto;
+    overflow-x: hidden;
+    width: 800px;
+    height: 480px;
+    background: rgb(229,229,229);
+}
+
+.closeBtn {
+    background: url(/images/HighScores/close.png);
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    right: -34px;
+    top: -17px;
+}
+
+.head {
+    position: fixed;
+    width: 781px;
+    height: 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 3px;
+    grid-row-gap: 2px;
+    text-align: center;
+}
+
+.head > div {
+    background-color: rgb(250,250,250);
+    color: rgb(97,97,97);
+}
+
+.body {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 3px;
+    grid-row-gap: 2px;
+    margin: 45px 0 0 0;
+}
+
+.body > div {
+    background-color: rgb(255,255,255);
+}
