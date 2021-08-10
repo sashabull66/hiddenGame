@@ -2,6 +2,10 @@ import {initialState, offOnBackgroundMusic, offOnSpriteMusic, changeHash, launch
 
 export default function Main(root) {
     const state = initialState.getState();
+    state.screen.fullscreen ?
+        (root.classList.add('fullScreen'),document.onkeydown = launchFullScreen)
+        :
+        (root.classList.remove('fullScreen'), document.onkeydown = null)
     root.innerHTML = ''
     root.innerHTML +=
         `
@@ -34,6 +38,7 @@ export default function Main(root) {
         </div>
     </div>
         `
+
     function replaceLetter(string) {
         return string.split('').map(letter => {
             return `<span>${letter === ' ' ? `&nbsp` : letter}</span>` // сохраняю пробел заменяя пустую строку на неразрывный пробел
@@ -48,7 +53,7 @@ export default function Main(root) {
             case 'full-screen-btn' :
                 state.screen.fullscreen = !state.screen.fullscreen
                 initialState.editState(state)
-                launchFullScreen()
+                //launchFullScreen()
                 break
             case 'background-sound-btn':
                 state.audio.background.isPlay = !state.audio.background.isPlay
@@ -62,7 +67,7 @@ export default function Main(root) {
                 break
         }
     })
-    document.querySelector('.menu').addEventListener('click', (e)=>{
+    document.querySelector('.menu').addEventListener('click', (e) => {
         if (e.target.closest('.item1')) {
             changeHash('game')
         }
@@ -73,7 +78,6 @@ export default function Main(root) {
             changeHash('help')
         }
     })
-    launchFullScreen()
     offOnBackgroundMusic()
     offOnSpriteMusic()
 }

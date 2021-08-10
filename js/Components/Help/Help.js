@@ -2,6 +2,10 @@ import {initialState, offOnBackgroundMusic, offOnSpriteMusic, changeHash, launch
 
 export default function Help(root) {
     const state = initialState.getState();
+    state.screen.fullscreen ?
+        (root.classList.add('fullScreen'), document.onkeydown = launchFullScreen)
+        :
+        (root.classList.remove('fullScreen'), document.onkeydown = null)
     root.innerHTML = ''
     root.innerHTML +=
         `
@@ -26,7 +30,6 @@ export default function Help(root) {
             case 'full-screen-btn' :
                 state.screen.fullscreen = !state.screen.fullscreen
                 initialState.editState(state)
-                launchFullScreen()
                 break
             case 'background-sound-btn':
                 state.audio.background.isPlay = !state.audio.background.isPlay
@@ -40,7 +43,6 @@ export default function Help(root) {
                 break
         }
     })
-    launchFullScreen()
     offOnBackgroundMusic()
     offOnSpriteMusic()
 }

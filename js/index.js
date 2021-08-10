@@ -1,7 +1,7 @@
 import useState from "./state/useState.js";
 import Main from "./components/Main/Main.js";
 import Help from "./components/Help/Help.js";
-
+import Game from "./components/Game/Game.js";
 
 
 export const initialState = new useState({
@@ -17,7 +17,28 @@ export const initialState = new useState({
             title: 'инструкция'
         }
     },
-    game: {},
+    game: {
+        isPlayNow: false,
+        currentLevel: 1,
+        currentItems: null,
+        images: {
+            gameMenuBG: '/../images/game/gameMenu/gameMenu.png'
+        },
+        levels: {
+            1: {
+                backgroundImgSrc: '/../images/game/levelsImages/level1/background.jpg',
+                itemsSrc: '/../images/game/levelsImages/level1/',
+                gameElementsQuantity: 28,
+                elementsToInsert: null
+            },
+            2: {
+                backgroundImgSrc: '/../images/game/levelsImages/level2/background.jpg',
+                itemsSrc: '/../images/game/levelsImages/level2/',
+                gameElementsQuantity: 29,
+                elementsToInsert: null
+            },
+        }
+    },
     main: {
         title: 'HIDDEN SCHOOL',
         buttons: {
@@ -59,28 +80,28 @@ function renderAPP() {
     const hash = decodeURIComponent(window.location.hash.substr(1));
     switch (hash) {
         case 'game' : // если хэш равен game то запустить игру
-            initialState.addFollower(()=>{
-                ActiveGame(gameScreen)
+            initialState.addFollower(() => {
+                Game(gameScreen)
             })
 
             break;
         case '' : // если хэш пуст, то показать главную
-            initialState.addFollower(()=>{
+            initialState.addFollower(() => {
                 Main(gameScreen)
             })
             break;
         case 'scores': // если хэш равен scores то отрисовать эту страницу
-            initialState.addFollower(()=>{
-                HighScores(gameScreen)
+            initialState.addFollower(() => {
+                Scores(gameScreen)
             })
             break;
         case 'help': // если хэш равен scores то отрисовать эту страницу
-            initialState.addFollower(()=>{
+            initialState.addFollower(() => {
                 Help(gameScreen)
             })
             break;
         default:
-            initialState.addFollower(()=>{
+            initialState.addFollower(() => {
                 Main(gameScreen)
             }) // или отрисовать главную
     }
@@ -91,56 +112,30 @@ renderAPP(); // init start
 //const scalableElement = document.getElementById('root').children[0]
 //console.log(scalableElement)
 
-export function launchFullScreen() {
-    const scalableElement = document.getElementById('root').children[0]
-    if (initialState.getState().screen.fullscreen) {
-        /*if (scalableElement.requestFullScreen) {
-            scalableElement.requestFullScreen();
-        } else if (scalableElement.mozRequestFullScreen) {
-            scalableElement.mozRequestFullScreen();
-        } else if (scalableElement.webkitRequestFullScreen) {
-            scalableElement.webkitRequestFullScreen();
-        }*/
-        scalableElement.classList.add('fullScreen')
-        document.addEventListener('keydown', (e)=>{
-            if (e.code === 'Escape') {
-                scalableElement.classList.remove('fullScreen')
-            }
-        })
-    } else {
-        /*if (document.cancelFullScreen) {
-            document.cancelFullScreen();
-        } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-        } else if (document.webkitCancelFullScreen) {
-            document.webkitCancelFullScreen();
-        }*/
-        scalableElement.classList.remove('fullScreen')
-        document.removeEventListener('keydown', (e)=>{
-            if (e.code === 'Escape') {
-                scalableElement.classList.remove('fullScreen')
-            }
-        })
+export function launchFullScreen(event) {
+    if (event.key === 'Escape') {
+        initialState.editState(state)
     }
-
 
 } // full/normal screen
 export function offOnBackgroundMusic() {
-    if (initialState.getState().audio.background.isPlay)  {
+    if (initialState.getState().audio.background.isPlay) {
         window.audioBackground.play()
     }
     if (!initialState.getState().audio.background.isPlay) {
         window.audioBackground.pause()
     }
 }
+
 export function offOnSpriteMusic() {
-    if (initialState.getState().audio.sprite.isPlay)  {
+    if (initialState.getState().audio.sprite.isPlay) {
         window.audioSprite.play()
     }
     if (!initialState.getState().audio.sprite.isPlay) {
         window.audioSprite.pause()
     }
 }
+
 export function changeHash(newHashValue) {
     let r;
     if (newHashValue.includes('-')) {
