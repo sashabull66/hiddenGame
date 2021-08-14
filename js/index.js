@@ -2,8 +2,9 @@ import useState from "./state/useState.js";
 import Main from "./components/Main/Main.js";
 import Help from "./components/Help/Help.js";
 import Game from "./components/Game/Game.js";
+import VDom from "./libraries/VDom/VDom.js";
 
-
+export const virtualDom = new VDom();
 export const initialState = new useState({
     help: {
         title: 'Инструкция',
@@ -19,6 +20,23 @@ export const initialState = new useState({
     },
     game: {
         isPlayNow: false,
+        activeGame: {
+            score: 0,
+            time: null,
+            isWin: false,
+            gameTimers: {
+                1: 180000,
+                2: 144000,
+                3: 132000,
+                4: 120000,
+                5: 90000,
+                6: 81000,
+                7: 72000,
+                8: 66000,
+                9: 63000,
+                10: 60000,
+            }
+        },
         currentLevel: 1,
         currentItems: null,
         images: {
@@ -135,7 +153,26 @@ export function offOnSpriteMusic() {
         window.audioSprite.pause()
     }
 }
-
+export function initControls() {
+    document.querySelector('.controlsWrapper').addEventListener('click', (event) => {
+        switch (event.target.id) {
+            case 'full-screen-btn' :
+                state.screen.fullscreen = !state.screen.fullscreen
+                initialState.editState(state)
+                break
+            case 'background-sound-btn':
+                state.audio.background.isPlay = !state.audio.background.isPlay
+                initialState.editState(state)
+                offOnBackgroundMusic()
+                break
+            case 'action-sound-btn':
+                state.audio.sprite.isPlay = !state.audio.sprite.isPlay
+                initialState.editState(state)
+                offOnSpriteMusic()
+                break
+        }
+    })
+}
 export function changeHash(newHashValue) {
     let r;
     if (newHashValue.includes('-')) {

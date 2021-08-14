@@ -452,7 +452,7 @@ img[src$='level1/13.png'] {
 }
 img[src$='level1/14.png'] {
     top: 61%;
-    left: 12%;
+    left: 13%;
 }
 img[src$='level1/15.png'] {
     top: 62%;
@@ -507,8 +507,8 @@ img[src$='level1/27.png'] {
     left: 4%;
 }
 img[src$='level1/28.png'] {
-    top: 53.3%;
-    left: 42%;
+    top: 37.3%;
+    left: 6%;
 }
 
 .selector {

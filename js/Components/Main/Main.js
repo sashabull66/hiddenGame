@@ -1,4 +1,11 @@
-import {initialState, offOnBackgroundMusic, offOnSpriteMusic, changeHash, launchFullScreen} from "../../index.js";
+import {
+    initialState,
+    offOnBackgroundMusic,
+    offOnSpriteMusic,
+    changeHash,
+    launchFullScreen,
+    initControls
+} from "../../index.js";
 
 export default function Main(root) {
     const state = initialState.getState();
@@ -48,25 +55,7 @@ export default function Main(root) {
     document.querySelectorAll('.jumping-text').forEach((elem) => {
         elem.innerHTML = replaceLetter(elem.innerHTML)
     })
-    document.querySelector('.controlsWrapper').addEventListener('click', (event) => {
-        switch (event.target.id) {
-            case 'full-screen-btn' :
-                state.screen.fullscreen = !state.screen.fullscreen
-                initialState.editState(state)
-                //launchFullScreen()
-                break
-            case 'background-sound-btn':
-                state.audio.background.isPlay = !state.audio.background.isPlay
-                initialState.editState(state)
-                offOnBackgroundMusic()
-                break
-            case 'action-sound-btn':
-                state.audio.sprite.isPlay = !state.audio.sprite.isPlay
-                initialState.editState(state)
-                offOnSpriteMusic()
-                break
-        }
-    })
+    initControls()
     document.querySelector('.menu').addEventListener('click', (e) => {
         if (e.target.closest('.item1')) {
             changeHash('game')

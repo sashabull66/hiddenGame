@@ -1,4 +1,11 @@
-import {initialState, offOnBackgroundMusic, offOnSpriteMusic, changeHash, launchFullScreen} from "../../index.js";
+import {
+    initialState,
+    offOnBackgroundMusic,
+    offOnSpriteMusic,
+    changeHash,
+    launchFullScreen,
+    initControls
+} from "../../index.js";
 
 export default function Help(root) {
     const state = initialState.getState();
@@ -25,24 +32,7 @@ export default function Help(root) {
     document.querySelector('#back').onclick = () => {
         changeHash('')
     }
-    document.querySelector('.controlsWrapper').addEventListener('click', (event) => {
-        switch (event.target.id) {
-            case 'full-screen-btn' :
-                state.screen.fullscreen = !state.screen.fullscreen
-                initialState.editState(state)
-                break
-            case 'background-sound-btn':
-                state.audio.background.isPlay = !state.audio.background.isPlay
-                initialState.editState(state)
-                offOnBackgroundMusic()
-                break
-            case 'action-sound-btn':
-                state.audio.sprite.isPlay = !state.audio.sprite.isPlay
-                initialState.editState(state)
-                offOnSpriteMusic()
-                break
-        }
-    })
+    initControls()
     offOnBackgroundMusic()
     offOnSpriteMusic()
 }

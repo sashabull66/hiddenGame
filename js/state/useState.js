@@ -21,6 +21,14 @@ export default class useState {
             this.#notifyFollower() // уведомить подписчика
         }
     }
+    silentChangeState(newValue) {
+        if (typeof newValue === 'object') { // если тип добавляемых данных = объект
+            this.#state = {...this.#state, ...newValue} // вернуть старое состояние state + новое значение
+        } else {
+            this.#state = {...this.#state, ...{[`value_${this.#valueNumber}`]: newValue}} // вернуть старое состояние state + создать в state с динамическим ключом valueNumber входящее значение
+            this.#valueNumber++ // увеличить счетчик переменной-счетчика
+        }
+    }
     getState() { // метод по получению значения state
         return JSON.parse(JSON.stringify(this.#state)) // вернуть копию state
     }
