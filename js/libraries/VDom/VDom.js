@@ -30,7 +30,7 @@ createVirtualNode - функция для создания виртуально�
     и создать DOM элемент согласно данным и применить к нему атрибуты, а так же рекурсивно
     проделать действия выше для каждого ребенка и добавить все это внутрь первого элемента.
     */
-    createDomNodeFromVirtualNode (vNode) {
+    #createDomNodeFromVirtualNode (vNode) {
         if (typeof vNode === "string") {
             return document.createTextNode(vNode);
         }
@@ -39,10 +39,10 @@ createVirtualNode - функция для создания виртуально�
 
         const node = document.createElement(tagName);
 
-        this.compareOldVirtualAttributesWithNewVirtualAttributesAndMergeThem(node, {}, props);
+        this.#compareOldVirtualAttributesWithNewVirtualAttributesAndMergeThem(node, {}, props);
 
         children.forEach(child => {
-            node.appendChild(this.createDomNodeFromVirtualNode(child));
+            node.appendChild(this.#createDomNodeFromVirtualNode(child));
         });
 
         return node;
@@ -70,7 +70,7 @@ createVirtualNode - функция для создания виртуально�
     то заменяет этот DOM элемент на вновь созданный из новой виртуальной ноды
     DOM элемент...
     */
-    compareOldVirtualNodeWithNewVirtualNode (node, vNode, nextVNode) {
+    #compareOldVirtualNodeWithNewVirtualNode (node, vNode, nextVNode) {
         if (nextVNode === undefined) {
             node.remove();
             return;
@@ -78,7 +78,7 @@ createVirtualNode - функция для создания виртуально�
 
         if (typeof vNode === "string" || typeof nextVNode === "string") {
             if (vNode !== nextVNode) {
-                const nextNode = this.createDomNodeFromVirtualNode(nextVNode);
+                const nextNode = this.#createDomNodeFromVirtualNode(nextVNode);
                 node.replaceWith(nextNode);
                 return nextNode;
             }
@@ -87,13 +87,19 @@ createVirtualNode - функция для создания виртуально�
         }
 
         if (vNode.tagName !== nextVNode.tagName) {
-            const nextNode = this.createDomNodeFromVirtualNode(nextVNode);
+            const nextNode = this.#createDomNodeFromVirtualNode(nextVNode);
             node.replaceWith(nextNode);
             return nextNode;
         }
 
-        this.compareOldVirtualAttributesWithNewVirtualAttributesAndMergeThem(node, vNode.props, nextVNode.props);
-        this.compareOldVirtualChildrenWithNewVirtualChildren(node, vNode.children, nextVNode.children);
+        if (vNode.props.class !== nextVNode.props.class) {
+            const nextNode = this.#createDomNodeFromVirtualNode(nextVNode);
+            node.replaceWith(nextNode);
+            return nextNode;
+        }
+
+        this.#compareOldVirtualAttributesWithNewVirtualAttributesAndMergeThem(node, vNode.props, nextVNode.props);
+        this.#compareOldVirtualChildrenWithNewVirtualChildren(node, vNode.children, nextVNode.children);
 
         return node;
     }
@@ -107,16 +113,16 @@ createVirtualNode - функция для создания виртуально�
     Если под текущем именем атрибута нету нового значения (т.е. в новой виртуальной ноде этого атрибута нету),
     то удалить этот атрибут с DOM элемента. Иначе применить этот атрибут к DOM элементу.
     */
-    applyOrRemoveAttribute (node, key, value, nextValue) {
+   #applyOrRemoveAttribute (node, key, value, nextValue) {
         if (key.startsWith("on")) {
             const eventName = key.slice(2);
 
             node[eventName] = nextValue;
 
             if (!nextValue) {
-                node.removeEventListener(eventName, this.listener);
+                node.removeEventListener(eventName, this.#listener);
             } else if (!value) {
-                node.addEventListener(eventName, this.listener);
+                node.addEventListener(eventName, this.#listener);
             }
             return;
         }
@@ -138,12 +144,12 @@ createVirtualNode - функция для создания виртуально�
     Если старые атрибуты совпадают с новыми то ничего не делает. Если же есть отличия в старых атрибутах
     с новыми, вызывает функцию по применению/удалению атрибутов
     */
-    compareOldVirtualAttributesWithNewVirtualAttributesAndMergeThem (node, props, nextProps) {
+    #compareOldVirtualAttributesWithNewVirtualAttributesAndMergeThem (node, props, nextProps) {
         const mergedProps = {...props, ...nextProps};
 
         Object.keys(mergedProps).forEach(key => {
             if (props[key] !== nextProps[key]) {
-                this.applyOrRemoveAttribute(node, key, props[key], nextProps[key]);
+                this.#applyOrRemoveAttribute(node, key, props[key], nextProps[key]);
             }
         });
     }
@@ -158,13 +164,13 @@ createVirtualNode - функция для создания виртуально�
     в функцию compareOldVirtualNodeWithNewVirtualNode где происходит их сравнение,
     потом новые дочерние ноды просто добавляются в DOM
     */
-    compareOldVirtualChildrenWithNewVirtualChildren (parent, vChildren, nextVChildren) {
+    #compareOldVirtualChildrenWithNewVirtualChildren (parent, vChildren, nextVChildren) {
         parent.childNodes.forEach((childNode, i) => {
-            this.compareOldVirtualNodeWithNewVirtualNode(childNode, vChildren[i], nextVChildren[i]);
+            this.#compareOldVirtualNodeWithNewVirtualNode(childNode, vChildren[i], nextVChildren[i]);
         });
 
         nextVChildren.slice(vChildren.length).forEach(vChild => {
-            parent.appendChild(this.createDomNodeFromVirtualNode(vChild));
+            parent.appendChild(this.#createDomNodeFromVirtualNode(vChild));
         });
     }
 
@@ -179,9 +185,9 @@ createVirtualNode - функция для создания виртуально�
 
     */
     render (nextVNode, node) {
-        const vNode = node.v || this.createVirtualNodeFromDomElement(node);
+        const vNode = node.v || this.#createVirtualNodeFromDomElement(node);
 
-        node = this.compareOldVirtualNodeWithNewVirtualNode(node, vNode, nextVNode);
+        node = this.#compareOldVirtualNodeWithNewVirtualNode(node, vNode, nextVNode);
         node.v = nextVNode;
 
         return node;
@@ -193,7 +199,7 @@ createVirtualNode - функция для создания виртуально�
     Функция получает имя тега у DOM элемента. Дочерние атрибуты.
     После создает из этих данных виртуальную ноду на основе реальной.
     */
-    createVirtualNodeFromDomElement (node) {
+    #createVirtualNodeFromDomElement (node) {
         // Если текстовая нода - то возвращаем текст
         if (node.nodeType === 3) {
             return node.nodeValue;
@@ -202,7 +208,7 @@ createVirtualNode - функция для создания виртуально�
         const tagName = node.nodeName.toLowerCase();
 
         // Рекурсивно обрабатываем дочерние ноды
-        const children = [].map.call(node.childNodes, this.createVirtualNodeFromDomElement);
+        const children = [].map.call(node.childNodes, this.#createVirtualNodeFromDomElement);
 
         // Создаем виртуальную ноду из реальной
         return this.createVirtualNode(tagName, {}, children);
@@ -212,7 +218,7 @@ createVirtualNode - функция для создания виртуально�
     Эта функция будет вызываться при вызове события (например click), this указывает
     на DOM-элемент, this[event.type] на метод, который мы указываем в виртуальном элементе.
     */
-    listener (event) {
+    #listener (event) {
         return this[event.type](event)
     }
 }

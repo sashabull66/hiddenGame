@@ -1,7 +1,7 @@
 export default class useState {
     #state; // приватный state в котором будет все хранится
     #followers; // приватная переменная слушателей, а точнее слушателя, так как добавление слушателя всегда будет одним значением в массиве
-    #valueNumber = 0; // приватная переменная счетчик необходимая для записи в state не всех данных кроме object
+    #valueNumber = 0; // приватная переменная счетчик необходимая для записи в state всех данных кроме object
     constructor(initialState) {
         if (typeof initialState === 'object') { // если тип данных при инициализации = объект
             this.#state = {...initialState} // развернуть этот объект в state
@@ -21,16 +21,9 @@ export default class useState {
             this.#notifyFollower() // уведомить подписчика
         }
     }
-    silentChangeState(newValue) {
-        if (typeof newValue === 'object') { // если тип добавляемых данных = объект
-            this.#state = {...this.#state, ...newValue} // вернуть старое состояние state + новое значение
-        } else {
-            this.#state = {...this.#state, ...{[`value_${this.#valueNumber}`]: newValue}} // вернуть старое состояние state + создать в state с динамическим ключом valueNumber входящее значение
-            this.#valueNumber++ // увеличить счетчик переменной-счетчика
-        }
-    }
     getState() { // метод по получению значения state
-        return JSON.parse(JSON.stringify(this.#state)) // вернуть копию state
+        //return JSON.parse(JSON.stringify(this.#state)) // вернуть копию state
+        return {...this.#state}
     }
     addFollower(someFunction) { // метод по добавлению слушателя изменения state
         /*        if (!this.#followers) {

@@ -2,14 +2,14 @@ import useState from "./state/useState.js";
 import VDom from "./libraries/VDom/VDom.js";
 import Main from "./components/Main/Main.js";
 import Help from "./components/Help/Help.js";
-import Game, {tikTimer} from "./components/Game/Game.js";
+
 
 export const virtualDom = new VDom();
 export const initialState = new useState({
     help: {
         title: 'Инструкция',
         subtitles: {
-            first: 'Найди все спрятанные объекты в игре. Список текущих искомых элементов будет отображен в блоке внизу экрана. Найди объект на экране и щелкни по нему, чтобы выбрать его.',
+            first: 'Найди все спрятанные объекты в игре. Список текущих искомых элементов будет отображен в блоке на правой части экрана. Найди объект на экране и щелкни по нему, чтобы выбрать его.',
             second: 'Приятной игры!',
         },
         button: 'Вернуться',
@@ -37,7 +37,7 @@ export const initialState = new useState({
                 10: 60000,
             }
         },
-        currentLevel: 1,
+        currentLevel: 2,
         currentItems: null, // то что в меню
         images: {
             gameMenuBG: '/../images/game/gameMenu/gameMenu.png'
@@ -52,7 +52,7 @@ export const initialState = new useState({
             2: {
                 backgroundImgSrc: '/../images/game/levelsImages/level2/background.jpg',
                 itemsSrc: '/../images/game/levelsImages/level2/',
-                gameElementsQuantity: 29,
+                gameElementsQuantity: 28,
                 elementsToInsert: null
             },
         }
@@ -81,7 +81,7 @@ export const initialState = new useState({
     }
 });
 
-
+import Game, {resetGameStatus} from "./components/Game/Game.js";
 function renderAPP() {
     const state = initialState.getState();
     const root = document.getElementById('root');
@@ -94,29 +94,34 @@ function renderAPP() {
 
     const hashData = decodeURIComponent(window.location.hash.substr(1));
     switch (hashData) {
+
         case 'game' :
             initialState.addFollower(() => {
                 virtualDom.render(Game(), root)
             })
-
             break;
+
         case 'main' :
+            resetGameStatus(state)
             initialState.addFollower(() => {
                 virtualDom.render(Main(), root)
-                //replaceLetter(document.querySelectorAll('.jumping-text'))
             })
-
             break;
+
         case 'scores':
+            resetGameStatus(state)
             initialState.addFollower(() => {
                 Scores(gameScreen)
             })
             break;
+
         case 'help':
+            resetGameStatus(state)
             initialState.addFollower(() => {
                 virtualDom.render(Help(), root)
             })
             break;
+
         default:
             changeHash('main')
     }
@@ -172,6 +177,7 @@ function replaceLetter(selectors) {
 ])*/
 
 // virtualDom.createVirtualNode('', {}, [])
+
 
 
 
