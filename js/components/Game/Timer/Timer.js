@@ -27,6 +27,10 @@ export function stopStartTimer(command) {
             if (globalState.game.isPlayNow) {
                 state[cLevel] -= 1000
                 timerSettings.editState(state)
+
+               globalState.game.activeGame.time = state[cLevel]
+               initialState.editState(globalState)
+
                 const timeForDisplay = millisToMinutesAndSeconds(state[currentLevelNumber])
                 virtualDom.render(Timer(timeForDisplay), document.querySelector('#timerDisplay'))
             } else {

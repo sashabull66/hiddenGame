@@ -83,12 +83,10 @@ export default function Game()  {
                         },
                         id: 'Start'
                     },
-                    Stop: {
-                        title: 'Stop',
+                    Menu: {
+                        title: 'Menu',
                         onclick: () => {
-                            state.game.isPlayNow = true
-                            initialState.editState(state)
-                            stopStartTimer('start')
+                            changeHash('main')
                         },
                         id: 'Stop'
                     }
@@ -105,12 +103,12 @@ export function resetGameStatus (state) {
     levels.forEach((level)=>{ // убрать изображения для вставки на поле
         state.game.levels[level].elementsToInsert = null
     })
-    state.game.currentItems = null
-    state.game.isPlayNow = false
-    state.game.activeGame.score = 0
-    state.game.activeGame.time = 0
-    state.game.activeGame.isWin = false
-    stopStartTimer('stop')
+    state.game.currentItems = null;
+    state.game.isPlayNow = false;
+    state.game.activeGame.score = 0;
+    state.game.activeGame.time = null;
+    state.game.activeGame.isWin = false;
+    stopStartTimer('stop');
 
 
 /*___________________________________*/
@@ -166,6 +164,10 @@ function gameCLickListener(event) {
             state.game.levels[state.game.currentLevel].elementsToInsert = allGameElements.filter(img => img.props.src.substr(-13) !== event.target.src.substr(-13))
             state.game.activeGame.score += 10
             initialState.editState(state)
+            if (state.game.activeGame.time > 0 && state.game.isPlayNow && state.game.currentItems.length === 0) {
+                state.game.isPlayNow = false;
+                state.game.currentLevel += 1
+            }
         } else {
             state.game.activeGame.score += -5
             initialState.editState(state)

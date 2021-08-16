@@ -10,3 +10,5 @@ export default function Button(props) {
         }, [title])
     )
 }
+
+// props => title, onclick, id
