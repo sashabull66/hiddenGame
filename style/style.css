@@ -75,7 +75,7 @@
 .help img {
 }
 
-.help button {
+.Button {
     margin: 10px 0 5px 0;
     align-self: center;
     width: max-content;
@@ -83,7 +83,7 @@
     display: inline-block;
     cursor: pointer;
     font-size: 20px;
-    padding: 3px 10px 3px 10px;
+    padding: 3px 22px 3px 22px;
     text-decoration: none;
     box-shadow: inset 0 1px 0 0 #fff;
     background-color: #dcbf96;
@@ -93,7 +93,7 @@
     border: 1px solid #47471a;
 }
 
-.help button:active {
+.Button:active{
     color: yellow;
     margin: 1px 0 0 1px;
 }
@@ -101,6 +101,7 @@
 /*CONTROLS*/
 .controlsWrapper {
     position: absolute;
+    z-index: 99999;
     right: 5px;
     bottom: 5px;
     display: flex;
@@ -400,26 +401,6 @@ span:nth-child(4n-3) {
     padding: 3px 10px 3px 10px;
     color: #fff;
     text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-}
-
-.modalBtn {
-    text-align: center;
-    max-width: 50%;
-    cursor: pointer;
-    font-size: 20px;
-    padding: 3px 10px 3px 10px;
-    text-decoration: none;
-    box-shadow: inset 0 1px 0 0 #fff;
-    background-color: #dcbf96;
-    color: #fff;
-    text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-    border-radius: 4px;
-    border: 1px solid #47471a;
-}
-
-.modalBtn:active {
-    color: yellow;
-    margin: 1px 0 0 1px;
 }
 
 .game {

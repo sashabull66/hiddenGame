@@ -8,13 +8,14 @@ import {
 
 
 import Timer, {stopStartTimer} from "./Timer/Timer.js";
+import GameControls from "../GameControls/GameControls.js";
+import ModalWindow from "../UI/ModalWindow/ModalWindow.js";
 
 
 export default function Game()  {
     let game;
     const state = initialState.getState();
-
-    createGameElements(state)
+    createGameElements(state);
 
     game = virtualDom.createVirtualNode('main', {id: "root"}, [
         virtualDom.createVirtualNode('div', {
@@ -65,55 +66,34 @@ export default function Game()  {
                         ]),
                     ])
                 ]),
-                virtualDom.createVirtualNode('div', {class: 'controlsWrapper'}, [
-                    virtualDom.createVirtualNode('div', {
-                        class: `full-screen-btn ${state.screen.fullscreen ? 'full' : ''}`,
-                        id: 'full-screen-btn',
-                        title: 'развернуть/свернуть на весь экран',
-                        onclick: () => {
-                            state.screen.fullscreen = !state.screen.fullscreen
-                            initialState.editState(state)
-                        }
-                    }),
-                    virtualDom.createVirtualNode('div', {
-                        class: `background-sound-btn ${state.audio.background.isPlay ? '' : 'offMusic'}`,
-                        id: 'background-sound-btn',
-                        title: 'on/off background sound',
-                        onclick: () => {
-                            state.audio.background.isPlay = !state.audio.background.isPlay
-                            offOnBackgroundMusic(state)
-                            initialState.editState(state)
-                        }
-                    }),
-                    virtualDom.createVirtualNode('div', {
-                        class: `action-sound-btn ${state.audio.sprite.isPlay ? '' : 'offSound'}`,
-                        id: 'action-sound-btn',
-                        title: 'on/off action sound',
-                        onclick: () => {
-                            state.audio.sprite.isPlay = !state.audio.sprite.isPlay
-                            offOnSpriteMusic(state)
-                            initialState.editState(state)
-                        }
-                    })
-                ])
+                GameControls(state)
             ]),
             state.game.isPlayNow ?
                 ''
                 :
-                virtualDom.createVirtualNode('div', {class: 'modal'}, [
-                    virtualDom.createVirtualNode('div', {class: 'modalControls'}, [
-                        virtualDom.createVirtualNode('p', {}, ['Start game?']),
-                        virtualDom.createVirtualNode('div', {
-                            class: 'modalBtn',
-                            onclick: () => {
-                                state.game.isPlayNow = true
-                                initialState.editState(state)
-                                stopStartTimer('start')
-                                //startTimer(state)
-                            }
-                        }, ['Start'])
-                    ])
-                ])
+            ModalWindow({
+                title: 'Start game?',
+                buttons: {
+                    Start: {
+                        title: 'Start',
+                        onclick: () => {
+                            state.game.isPlayNow = true
+                            initialState.editState(state)
+                            stopStartTimer('start')
+                        },
+                        id: 'Start'
+                    },
+                    Stop: {
+                        title: 'Stop',
+                        onclick: () => {
+                            state.game.isPlayNow = true
+                            initialState.editState(state)
+                            stopStartTimer('start')
+                        },
+                        id: 'Stop'
+                    }
+                }
+            })
         ])
     ])
     return game

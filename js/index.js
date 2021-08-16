@@ -2,7 +2,7 @@ import useState from "./state/useState.js";
 import VDom from "./libraries/VDom/VDom.js";
 import Main from "./components/Main/Main.js";
 import Help from "./components/Help/Help.js";
-
+import Game, {resetGameStatus} from "./components/Game/Game.js";
 
 export const virtualDom = new VDom();
 export const initialState = new useState({
@@ -81,7 +81,6 @@ export const initialState = new useState({
     }
 });
 
-import Game, {resetGameStatus} from "./components/Game/Game.js";
 function renderAPP() {
     const state = initialState.getState();
     const root = document.getElementById('root');
@@ -130,13 +129,7 @@ function renderAPP() {
 window.onhashchange = renderAPP;
 renderAPP(); // init start
 
-export function launchFullScreen(event) {
-    if (event.key === 'Escape') {
-        state.screen.fullscreen = !state.screen.fullscreen
-        initialState.editState(state)
-    }
 
-} // full/normal screen
 export function offOnBackgroundMusic(state) {
     if (state.audio.background.isPlay) {
         window.audioBackground.play()
@@ -177,8 +170,6 @@ function replaceLetter(selectors) {
 ])*/
 
 // virtualDom.createVirtualNode('', {}, [])
-
-
 
 
 
