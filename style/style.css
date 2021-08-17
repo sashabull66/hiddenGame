@@ -10,6 +10,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    user-select: none;
 }
 
 .fullScreen {
@@ -27,12 +28,83 @@
     height: 100vh !important;
     margin: 0;
     padding: 0;
-    overflow-y:hidden; /*скрыть скролл*/
+    overflow-y: hidden; /*скрыть скролл*/
 }
 
 #root > div {
     width: 800px;
     height: 480px;
+}
+
+/*SCORES*/
+.scores {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 10px 10px 45px 10px;
+    background: url(/images/scores/background.jpg) no-repeat;
+    background-size: 103%;
+}
+
+
+.scores_wrapper {}
+
+.scores__header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+    min-width: 100%;
+    background-color: rgba(255,255,255, 0.3);
+    border-top: 1px solid white;
+    border-right: 1px solid white ;
+    border-left: 1px solid white;
+    border-bottom: 1px dotted white;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+}
+
+.scores__header-item {
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.scores__body {
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+    background-color: rgba(255,255,255, 0.3);
+}
+
+.scores__body-item {
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+    min-width: 100%;
+    color: #fff;
+    text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    border-right: 1px solid white ;
+    border-left: 1px solid white;
+    border-bottom: 1px solid white;
+}
+
+.scores__body-item > div {
+    font-size: 20px;
+}
+
+#scores__back {
+    position: absolute;
+    bottom: 1px;
+    right: 127px;
 }
 
 /*HELP*/
@@ -47,6 +119,14 @@
     padding: 85px;
     background: url("/images/help/help.jpg") no-repeat;
     background-size: 100%;
+}
+
+.help_wrapper {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .help h1 {
@@ -66,39 +146,17 @@
 .help img {
 }
 
-.help button {
-    margin: 10px 0 5px 0;
-    align-self: center;
-    width: max-content;
-    font-weight: 400;
-    display: inline-block;
-    cursor: pointer;
-    font-size: 20px;
-    padding: 3px 10px 3px 10px;
-    text-decoration: none;
-    box-shadow: inset 0 1px 0 0 #fff;
-    background-color: #dcbf96;
-    color: #fff;
-    text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-    border-radius: 4px;
-    border: 1px solid #47471a;
-}
-
-.help button:active {
-    color: yellow;
-    margin: 1px 0 0 1px;
-}
-
 /*CONTROLS*/
 .controlsWrapper {
     position: absolute;
+    z-index: 99999;
     right: 5px;
     bottom: 5px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     height: 40px;
-    width: 140px;
+    width: 120px;
 }
 
 .full-screen-btn {
@@ -357,6 +415,10 @@ span:nth-child(4n-3) {
 }
 
 /*GAME*/
+#gameScreen {
+    position: relative;
+}
+
 .game {
     position: relative;
     display: flex;
@@ -393,128 +455,345 @@ span:nth-child(4n-3) {
     height: 100%;
     width: 100%;
 }
-
+/*LEVEL 1 START*/
 img[src$='level1/0.png'] {
     top: 47%;
     left: 70%;
 }
+
 img[src$='level1/1.png'] {
     top: 85%;
     left: 84%;
 }
+
 img[src$='level1/2.png'] {
     top: 25%;
     left: 44.7%;
 }
-img[src$='/../images/game/levelsImages/level1/3.png'] {
+
+img[src$='level1/3.png'] {
     top: 50.2%;
     left: 24%;
 }
+
 img[src$='level1/4.png'] {
     top: 13%;
     left: 61%;
 }
+
 img[src$='level1/5.png'] {
     top: 58.2%;
     left: 39%;
 }
+
 img[src$='level1/6.png'] {
     top: 47.3%;
     left: 75%;
 }
+
 img[src$='level1/7.png'] {
     top: 61%;
     left: 8%;
 }
+
 img[src$='level1/8.png'] {
     top: 81%;
     left: 61%;
 }
+
 img[src$='level1/9.png'] {
     top: 58%;
     left: 51%;
 }
+
 img[src$='level1/10.png'] {
     top: 73%;
     left: 14%;
 }
+
 img[src$='level1/11.png'] {
     top: 90%;
     left: 53%;
 }
+
 img[src$='level1/12.png'] {
     top: 75%;
     left: 92%;
 }
+
 img[src$='level1/13.png'] {
     top: 16%;
     left: 71%;
 }
+
 img[src$='level1/14.png'] {
     top: 61%;
     left: 13%;
 }
+
 img[src$='level1/15.png'] {
     top: 62%;
     left: 44%;
 }
+
 img[src$='level1/16.png'] {
     top: 16%;
     left: 3%;
 }
+
 img[src$='level1/17.png'] {
     top: 50%;
     left: 60%;
 }
+
 img[src$='level1/18.png'] {
     top: 73%;
     left: 51%;
 }
+
 img[src$='level1/19.png'] {
     top: 16%;
     left: 34%;
 }
+
 img[src$='level1/20.png'] {
     top: 68%;
     left: 31%;
 }
+
 img[src$='level1/21.png'] {
     top: 65%;
     left: 84%;
 }
+
 img[src$='level1/22.png'] {
     top: 16%;
     left: 86%;
 }
+
 img[src$='level1/23.png'] {
     top: 62%;
     left: 93%;
 }
+
 img[src$='level1/24.png'] {
     top: 53%;
     left: 65%;
 }
+
 img[src$='level1/25.png'] {
     top: 50.8%;
     left: 41%;
 }
+
 img[src$='level1/26.png'] {
     top: 90%;
     left: 21%;
 }
+
 img[src$='level1/27.png'] {
     top: 62%;
     left: 4%;
 }
+
 img[src$='level1/28.png'] {
     top: 37.3%;
     left: 6%;
 }
+/*LEVEL 1 FINISH*/
+/*LEVEL 2 START*/
+img[src$='level2/0.png'] {
+    top: 60%;
+    left: 57%;
+}
+
+img[src$='level2/1.png'] {
+    top: 91%;
+    left: 2%;
+    width: 5%;
+}
+
+img[src$='level2/2.png'] {
+    top: 8%;
+    left: 44.7%;
+}
+
+img[src$='level2/3.png'] {
+    top: 76.2%;
+    left: 32%;
+}
+
+img[src$='level2/4.png'] {
+    top: 90%;
+    left: 36%;
+    width: 5%;
+}
+
+img[src$='level2/5.png'] {
+    top: 62.2%;
+    left: 75%;
+    width: 4%;
+}
+
+img[src$='level2/6.png'] {
+    transform: scale(-1, 1);
+    top: 56.3%;
+    left: 30%;
+    width: 4%;
+}
+
+img[src$='level2/7.png'] {
+    top: 25%;
+    left: 57%;
+    width: 5%;
+}
+
+img[src$='level2/8.png'] {
+    top: 36%;
+    left: 67%;
+    width: 6%;
+}
+
+img[src$='level2/9.png'] {
+    top: 73%;
+    left: 57%;
+}
+
+img[src$='level2/10.png'] {
+    top: 78%;
+    left: 82%;
+    width: 3%;
+}
+
+img[src$='level2/11.png'] {
+    top: 91%;
+    left: 92%;
+}
+
+img[src$='level2/12.png'] {
+    top: 78%;
+    width: 5%;
+    left: 96%;
+}
+
+img[src$='level2/13.png'] {
+    transform: scale(-1, 1);
+    width: 4%;
+    top: 68%;
+    left: 81%;
+}
+
+img[src$='level2/14.png'] {
+    top: 53%;
+    left: 1%;
+    width: 5%;
+}
+
+img[src$='level2/15.png'] {
+    top: 39%;
+    left: 44%;
+    width: 4%;
+}
+
+img[src$='level2/16.png'] {
+    top: 62%;
+    left: 54%;
+    width: 6%;
+}
+
+img[src$='level2/17.png'] {
+    top: 66%;
+    left: 37%;
+    width: 4%;
+}
+
+img[src$='level2/18.png'] {
+    top: 73%;
+    left: 91%;
+}
+
+img[src$='level2/19.png'] {
+    top: 88%;
+    left: 60%;
+    width: 6%;
+}
+
+img[src$='level2/20.png'] {
+    top: 93%;
+    left: 10%;
+    width: 5%;
+}
+
+img[src$='level2/21.png'] {
+    top: 60.5%;
+    left: 78%;
+    width: 5%;
+}
+
+img[src$='level2/22.png'] {
+    top: 85%;
+    left: 69%;
+    width: 7%;
+}
+
+img[src$='level2/23.png'] {
+    top: 66%;
+    left: 0%;
+    width: 6%;
+}
+
+img[src$='level2/24.png'] {
+    top: 83%;
+    left: 82%;
+    width: 3%;
+}
+
+img[src$='level2/25.png'] {
+    top: 44.8%;
+    left: 66%;
+    width: 4%;
+}
+
+img[src$='level2/26.png'] {
+    top: 95.5%;
+    left: 52%;
+    width: 4%;
+}
+
+img[src$='level2/27.png'] {
+    top: 72%;
+    left: 23%;
+}
+
+img[src$='level2/28.png'] {
+    top: 69.3%;
+    left: 17%;
+    width: 4%;
+}
+/*LEVEL 2 FINISH*/
+/*LEVEL 3 START*/
+/*LEVEL 3 FINISH*/
+/*LEVEL 4 START*/
+/*LEVEL 4 FINISH*/
+/*LEVEL 5 START*/
+/*LEVEL 5 FINISH*/
+/*LEVEL 6 START*/
+/*LEVEL 6 FINISH*/
+/*LEVEL 7 START*/
+/*LEVEL 7 FINISH*/
+/*LEVEL 8 START*/
+/*LEVEL 8 FINISH*/
+/*LEVEL 9 START*/
+/*LEVEL 9 FINISH*/
+/*LEVEL 10 START*/
+/*LEVEL 10 FINISH*/
 
 .selector {
     flex-grow: 1;
-    max-height: 90%;
-    max-width: 27%;
+/*    max-height: 90%;
+    max-width: 27%;*/
+    height: 90%;
+    width: 27%;
     display: grid;
     align-items: center;
     justify-items: center;
@@ -532,6 +811,8 @@ img[src$='level1/28.png'] {
 }
 
 .game_controls {
+    width: 73%;
+    height: 90%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -561,7 +842,7 @@ img[src$='level1/28.png'] {
     text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
-.label>p {
+.label > p {
     border-radius: 3px;
     display: block;
     min-width: 2rem;
@@ -573,11 +854,70 @@ img[src$='level1/28.png'] {
     left: 62%;
     top: 23%;
 }
+
 .label.score {
     left: 59%;
     top: 44%;
 }
+
 .label.level {
     left: 0;
     top: 0;
+}
+
+/* UI COMPONENTS */
+
+.Button {
+    margin: 10px 0 5px 0;
+    align-self: center;
+    width: max-content;
+    font-weight: 400;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 3px 22px 3px 22px;
+    text-decoration: none;
+    box-shadow: inset 0 1px 0 0 #fff;
+    background-color: #dcbf96;
+    color: #fff;
+    text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    border-radius: 4px;
+    border: 1px solid #47471a;
+}
+
+.Button:active{
+    color: yellow;
+    box-shadow: 0 0 0 1px black;
+}
+
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 80000;
+    background: rgba(1, 1, 1, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.modalControls {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 40%;
+    min-height: 40%;
+    background-color: #0f6666;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.modalControls > p {
+    font-size: 30px;
+    padding: 3px 10px 3px 10px;
+    color: #fff;
+    text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
