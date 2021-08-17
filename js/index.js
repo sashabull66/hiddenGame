@@ -153,6 +153,8 @@ function renderAPP() {
         window.audioSprite = new Audio(state.audio.sprite.src);
         window.audioBackground = new Audio(state.audio.background.src);
         window.audioBackground.loop = true;
+        window.audioBackground.autoplay = true;
+        window.audioBackground.muted = true;
     }
 
     const hashData = decodeURIComponent(window.location.hash.substr(1));
@@ -192,6 +194,10 @@ function renderAPP() {
 
 window.onhashchange = renderAPP;
 renderAPP(); // init start
+
+window.onload = ()=>{
+    setTimeout(()=>{document.querySelector('#background-sound-btn').click()},0)
+}
 
 
 export function offOnBackgroundMusic(state) {
