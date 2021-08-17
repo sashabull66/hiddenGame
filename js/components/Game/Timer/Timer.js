@@ -1,5 +1,6 @@
 import {virtualDom} from "../../../index.js";
 import {initialState} from "../../../index.js";
+import {checkGameStatus} from "../Game.js";
 
 
 export default function Timer(props) {
@@ -24,6 +25,7 @@ export function stopStartTimer() {
 
             const timeForDisplay = millisToMinutesAndSeconds(state.game.activeGame.time)
             virtualDom.render(Timer(timeForDisplay), document.querySelector('#timerDisplay'))
+            checkGameStatus(state)
         } else {
             clearInterval(timer)
         }

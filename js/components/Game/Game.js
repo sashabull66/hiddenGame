@@ -1,155 +1,30 @@
-import {
-    virtualDom,
-    initialState,
-    offOnBackgroundMusic,
-    offOnSpriteMusic,
-    changeHash,
-} from "../../index.js";
-
-
-import Timer, {stopStartTimer} from "./Timer/Timer.js";
+import {virtualDom, initialState} from "../../index.js";
+import {stopStartTimer} from "./Timer/Timer.js";
 import GameControls from "../GameControls/GameControls.js";
-import ModalWindow from "../UI/ModalWindow/ModalWindow.js";
-
+import BeforeEveryRoundModal from "./GameModals/BeforeEveryRoundModal.js";
+import DuringPauseModal from "./GameModals/DuringPauseModal.js";
+import TryingToQuitGameModal from "./GameModals/TryingToQuitGameModal.js";
+import GamePlayArea from "./GamePlayArea/GamePlayArea.js";
+import GameMenuArea from "./GameMenuArea/GameMenuArea.js";
 
 export default function Game() {
     let game;
     const state = initialState.getState();
     createGameElements(state)
     game = virtualDom.createVirtualNode('main', {id: "root"}, [
-        virtualDom.createVirtualNode('div', {
-            id: "gameScreen",
-            class: `gameScreen ${state.screen.fullscreen ? 'fullScreen' : ''}`
-        }, [
+        virtualDom.createVirtualNode('div', {id: "gameScreen", class: `gameScreen ${state.screen.fullscreen ? 'fullScreen' : ''}`}, [
             virtualDom.createVirtualNode('div', {class: 'game'}, [
-                state.game.isPause ? // модалка при нажатой паузе
-                    ModalWindow({
-                        title: 'Resume game?',
-                        buttons: {
-                            Resume: {
-                                title: 'Resume',
-                                onclick: () => {
-                                    state.game.isPause = false
-                                    initialState.editState(state)
-                                    stopStartTimer('start')
-                                },
-                                id: 'Resume'
-                            },
-                            Menu: {
-                                title: 'Menu',
-                                onclick: () => {
-                                    changeHash('main')
-                                },
-                                id: 'Stop'
-                            }
-                        }
-                    })
-                    :
-                    '',
-                state.game.isPlayNow ? // стартовая модалка
-                    ''
-                    :
-                    ModalWindow({
-                        title: 'Start game?',
-                        buttons: {
-                            Start: {
-                                title: 'Start',
-                                onclick: () => {
-                                    state.game.isPlayNow = true
-                                    initialState.editState(state)
-                                    stopStartTimer('start')
-                                },
-                                id: 'Start'
-                            },
-                            Menu: {
-                                title: 'Menu',
-                                onclick: () => {
-                                    changeHash('main')
-                                },
-                                id: 'Stop'
-                            }
-                        }
-                    }),
-                virtualDom.createVirtualNode('div', {
-                    class: 'game__play-area',
-                    style: `background: url('${state.game.levels[state.game.currentLevel].backgroundImgSrc}'); background-size: 100% 100%`,
-                    onclick: gameCLickListener
-                }, [
-                    // кликабельные картинки:
-                    ...state.game.levels[state.game.currentLevel].elementsToInsert
-                ]),
-                virtualDom.createVirtualNode('div', {class: 'game__menu-area'}, [
-                    //меню:
-                    virtualDom.createVirtualNode('div', {class: 'selector'}, [
-                        ...state.game.currentItems
-                    ]),
-                    virtualDom.createVirtualNode('div', {class: 'game_controls'}, [
-                        virtualDom.createVirtualNode('div', {class: 'game__btn'}, ['Hint']),
-                        virtualDom.createVirtualNode('div', {
-                            class: 'game__btn',
-                            onclick: ()=>{
-                                state.game.isPause = true;
-                                initialState.editState(state);
-                                stopStartTimer();
-                            }
-                        }, ['Pause']),
-                        virtualDom.createVirtualNode('div', {
-                            class: 'game__btn',
-                            onclick: () => {
-                                state.game.isPause2 = true;
-                                initialState.editState(state);
-                                stopStartTimer();
-                            }
-                        }, ['Menu']),
-                        virtualDom.createVirtualNode('div', {class: 'label time'}, [
-                            'Time',
-                            virtualDom.createVirtualNode('p', {}, [
-                                Timer()
-                            ])
-
-                        ]),
-                        virtualDom.createVirtualNode('div', {class: 'label score'}, [
-                            'Score',
-                            virtualDom.createVirtualNode('p', {}, [
-                                `${state.game.activeGame.score}`
-                            ])
-                        ]),
-                        virtualDom.createVirtualNode('div', {class: 'label level'}, [
-                            'Level',
-                            virtualDom.createVirtualNode('p', {}, [
-                                `${state.game.currentLevel}/${Object.keys(state.game.levels).length}`
-                            ])
-                        ]),
-                    ])
-                ]),
-                state.game.isPause2 ? ModalWindow({
-                        title: 'Are you sure you want to leave the game? All progress will be lost!',
-                        buttons: {
-                            Resume: {
-                                title: 'Resume',
-                                onclick: () => {
-                                    state.game.isPause2 = false
-                                    initialState.editState(state)
-                                    stopStartTimer()
-                                },
-                                id: 'Resume'
-                            },
-                            Menu: {
-                                title: 'Menu',
-                                onclick: () => {
-                                    changeHash('main')
-                                },
-                                id: 'Stop'
-                            }
-                        }
-                    }) : '',
+                state.game.isPause ? DuringPauseModal(state) : '',
+                state.game.isPlayNow ? '' : BeforeEveryRoundModal(state),
+                state.game.isPause2 ? TryingToQuitGameModal(state) : '',
+                GamePlayArea(state),
+                GameMenuArea(state),
                 GameControls(state)
             ]),
         ])
     ])
     return game
 }
-
 
 export function resetGameStatus(state) {
     state.game.isPause2 = false;
@@ -206,37 +81,19 @@ function createGameElements(state) {
     initialState.editState(state)
 }
 
-function gameCLickListener(event) {
-    const state = initialState.getState()
-    let currentActiveElements = state.game.currentItems // все картинки из блока задач
-    let allGameElements = state.game.levels[state.game.currentLevel].elementsToInsert // все картинки игрового поля
-
-    if (event.target !== event.currentTarget) { // клик был не по игровому полю...
-        if (currentActiveElements.find(img => img.props.src.substr(-13) === event.target.src.substr(-13))) {
-            state.game.currentItems = currentActiveElements.filter(img => img.props.src.substr(-13) !== event.target.src.substr(-13))
-            state.game.levels[state.game.currentLevel].elementsToInsert = allGameElements.filter(img => img.props.src.substr(-13) !== event.target.src.substr(-13))
-            state.game.activeGame.score += 10
-            initialState.editState(state)
-            if (state.game.activeGame.time > 0 && state.game.isPlayNow && state.game.currentItems.length === 0) {
-
-                // For next level*************************
-                state.game.currentItems = null
-                state.game.isPlayNow = false;
-                state.game.currentLevel += 1;
-                initialState.editState(state)
-
-
-            }
-        } else {
-            state.game.activeGame.score += -5
-            initialState.editState(state)
-        }
-
+export function checkGameStatus(state) {
+    // for next level
+    if (state.game.activeGame.time > 0 && state.game.isPlayNow && state.game.currentItems.length === 0) {
+        state.game.currentItems = null
+        state.game.isPlayNow = false;
+        state.game.currentLevel += 1;
+        state.game.activeGame.gameStatistics.totalPoints.push(state.game.activeGame.score);
+        console.log(state.game.activeGame.gameStatistics.totalPoints)
+        initialState.editState(state)
+    }
+    // for lose
+    if (state.game.activeGame.time <= 0) {
+        state.game.isPlayNow = false;
+        initialState.editState(state)
     }
 }
-
-
-
-
-
-
