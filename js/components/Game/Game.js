@@ -183,7 +183,7 @@ function createGameElements(state) {
         return Array.from(result)
     }
 
-    if (state.game.levels[state.game.currentLevel].elementsToInsert !== null && state.game.currentItems !== null) { // если есть в state img для контента и для задач
+    if (state.game.levels[state.game.currentLevel].elementsToInsert !== null && state.game.currentItems !== null) { // если есть в useState img для контента и для задач
         return null
     }
 
