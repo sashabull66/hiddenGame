@@ -22,6 +22,7 @@ export const initialState = new useState({
     game: {
         isPlayNow: false,
         isPause: false,
+        isPause2: false,
         activeGame: {
             score: 0,
             time: null,
@@ -141,7 +142,7 @@ export const initialState = new useState({
     },
     screen: {
         fullscreen: false,
-    }
+    },
 });
 
 function renderAPP() {

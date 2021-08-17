@@ -12,17 +12,64 @@ import GameControls from "../GameControls/GameControls.js";
 import ModalWindow from "../UI/ModalWindow/ModalWindow.js";
 
 
-export default function Game()  {
+export default function Game() {
     let game;
     const state = initialState.getState();
-    createGameElements(state);
-
+    createGameElements(state)
     game = virtualDom.createVirtualNode('main', {id: "root"}, [
         virtualDom.createVirtualNode('div', {
             id: "gameScreen",
             class: `gameScreen ${state.screen.fullscreen ? 'fullScreen' : ''}`
         }, [
             virtualDom.createVirtualNode('div', {class: 'game'}, [
+                state.game.isPause ? // модалка при нажатой паузе
+                    ModalWindow({
+                        title: 'Resume game?',
+                        buttons: {
+                            Resume: {
+                                title: 'Resume',
+                                onclick: () => {
+                                    state.game.isPause = false
+                                    initialState.editState(state)
+                                    stopStartTimer('start')
+                                },
+                                id: 'Resume'
+                            },
+                            Menu: {
+                                title: 'Menu',
+                                onclick: () => {
+                                    changeHash('main')
+                                },
+                                id: 'Stop'
+                            }
+                        }
+                    })
+                    :
+                    '',
+                state.game.isPlayNow ? // стартовая модалка
+                    ''
+                    :
+                    ModalWindow({
+                        title: 'Start game?',
+                        buttons: {
+                            Start: {
+                                title: 'Start',
+                                onclick: () => {
+                                    state.game.isPlayNow = true
+                                    initialState.editState(state)
+                                    stopStartTimer('start')
+                                },
+                                id: 'Start'
+                            },
+                            Menu: {
+                                title: 'Menu',
+                                onclick: () => {
+                                    changeHash('main')
+                                },
+                                id: 'Stop'
+                            }
+                        }
+                    }),
                 virtualDom.createVirtualNode('div', {
                     class: 'game__play-area',
                     style: `background: url('${state.game.levels[state.game.currentLevel].backgroundImgSrc}'); background-size: 100% 100%`,
@@ -38,11 +85,20 @@ export default function Game()  {
                     ]),
                     virtualDom.createVirtualNode('div', {class: 'game_controls'}, [
                         virtualDom.createVirtualNode('div', {class: 'game__btn'}, ['Hint']),
-                        virtualDom.createVirtualNode('div', {class: 'game__btn'}, ['Pause']),
+                        virtualDom.createVirtualNode('div', {
+                            class: 'game__btn',
+                            onclick: ()=>{
+                                state.game.isPause = true;
+                                initialState.editState(state);
+                                stopStartTimer();
+                            }
+                        }, ['Pause']),
                         virtualDom.createVirtualNode('div', {
                             class: 'game__btn',
                             onclick: () => {
-                                changeHash('main')
+                                state.game.isPause2 = true;
+                                initialState.editState(state);
+                                stopStartTimer();
                             }
                         }, ['Menu']),
                         virtualDom.createVirtualNode('div', {class: 'label time'}, [
@@ -66,53 +122,49 @@ export default function Game()  {
                         ]),
                     ])
                 ]),
+                state.game.isPause2 ? ModalWindow({
+                        title: 'Are you sure you want to leave the game? All progress will be lost!',
+                        buttons: {
+                            Resume: {
+                                title: 'Resume',
+                                onclick: () => {
+                                    state.game.isPause2 = false
+                                    initialState.editState(state)
+                                    stopStartTimer()
+                                },
+                                id: 'Resume'
+                            },
+                            Menu: {
+                                title: 'Menu',
+                                onclick: () => {
+                                    changeHash('main')
+                                },
+                                id: 'Stop'
+                            }
+                        }
+                    }) : '',
                 GameControls(state)
             ]),
-            state.game.isPlayNow ?
-                ''
-                :
-            ModalWindow({
-                title: 'Start game?',
-                buttons: {
-                    Start: {
-                        title: 'Start',
-                        onclick: () => {
-                            state.game.isPlayNow = true
-                            initialState.editState(state)
-                            stopStartTimer('start')
-                        },
-                        id: 'Start'
-                    },
-                    Menu: {
-                        title: 'Menu',
-                        onclick: () => {
-                            changeHash('main')
-                        },
-                        id: 'Stop'
-                    }
-                }
-            })
         ])
     ])
     return game
 }
 
 
-export function resetGameStatus (state) {
-    const levels = Object.keys(state.game.levels)
-    levels.forEach((level)=>{ // убрать изображения для вставки на поле
-        state.game.levels[level].elementsToInsert = null
-    })
+export function resetGameStatus(state) {
+    state.game.isPause2 = false;
     state.game.currentItems = null;
     state.game.isPlayNow = false;
+    state.game.isPause = false;
     state.game.activeGame.score = 0;
     state.game.activeGame.time = null;
     state.game.activeGame.isWin = false;
-    stopStartTimer('stop');
-
-
-/*___________________________________*/
+    const levels = Object.keys(state.game.levels)
+    levels.forEach((level) => { // убрать изображения для вставки на поле
+        state.game.levels[level].elementsToInsert = null
+    })
     initialState.editState(state)
+    stopStartTimer('stop');
 }
 
 function createGameElements(state) {
@@ -131,18 +183,18 @@ function createGameElements(state) {
         return Array.from(result)
     }
 
-    if (state.game.levels[state.game.currentLevel].elementsToInsert!==null && state.game.currentItems !==null) { // если есть в state img для контента и для задач
+    if (state.game.levels[state.game.currentLevel].elementsToInsert !== null && state.game.currentItems !== null) { // если есть в state img для контента и для задач
         return null
     }
 
-    if (state.game.levels[state.game.currentLevel].elementsToInsert === null) { // если нету img для контента
+    if (state.game.levels[state.game.currentLevel].elementsToInsert === null || !state.game.levels[state.game.currentLevel].elementsToInsert) { // если нету img для контента
         const allQuantity = state.game.levels[state.game.currentLevel].gameElementsQuantity
         const currentSrc = state.game.levels[state.game.currentLevel].itemsSrc
         state.game.levels[state.game.currentLevel].elementsToInsert = new Array(allQuantity + 1).fill('')
             .map((_, index) => virtualDom.createVirtualNode('img', {src: currentSrc + index + '.png', alt: ''}, []))
     }
 
-    if (state.game.currentItems === null) { // если нету картинок для блока задач
+    if (state.game.currentItems === null || !state.game.currentItems) { // если нету картинок для блока задач
         state.game.currentItems = getRandomObjects(state.game.levels[state.game.currentLevel].gameElementsQuantity).map(
             number => virtualDom.createVirtualNode('img', {
                 src: state.game.levels[state.game.currentLevel].itemsSrc + number + '.png',
@@ -153,6 +205,7 @@ function createGameElements(state) {
 
     initialState.editState(state)
 }
+
 function gameCLickListener(event) {
     const state = initialState.getState()
     let currentActiveElements = state.game.currentItems // все картинки из блока задач
@@ -165,8 +218,14 @@ function gameCLickListener(event) {
             state.game.activeGame.score += 10
             initialState.editState(state)
             if (state.game.activeGame.time > 0 && state.game.isPlayNow && state.game.currentItems.length === 0) {
+
+                // For next level*************************
+                state.game.currentItems = null
                 state.game.isPlayNow = false;
-                state.game.currentLevel += 1
+                state.game.currentLevel += 1;
+                initialState.editState(state)
+
+
             }
         } else {
             state.game.activeGame.score += -5

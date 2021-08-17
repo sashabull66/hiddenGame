@@ -908,8 +908,8 @@ img[src$='level2/28.png'] {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    width: 40%;
-    height: 40%;
+    max-width: 40%;
+    min-height: 40%;
     background-color: #0f6666;
     border-radius: 6px;
     padding: 20px;
