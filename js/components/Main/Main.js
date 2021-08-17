@@ -1,70 +1,72 @@
 import {
-    changeHash,
     initialState,
     offOnBackgroundMusic,
     offOnSpriteMusic,
-    virtualDom
+    changeHash,
+    launchFullScreen,
+    initControls
 } from "../../index.js";
-import GameControls from "../GameControls/GameControls.js";
 
+export default function Main(root) {
+    const state = initialState.getState();
+    state.screen.fullscreen ?
+        (root.classList.add('fullScreen'),document.onkeydown = launchFullScreen)
+        :
+        (root.classList.remove('fullScreen'), document.onkeydown = null)
+    root.innerHTML = ''
+    root.innerHTML +=
+        `
+        <div class="main">
+        <div class="menu">
+            <div class="div4">
+                <div class="jumping-text">${state.main.title}</div>
+            </div>
+            <div class="menu-item item1">
+                <div class="menu-btn">
+                    <div id="start" class="jumping-text">${state.main.buttons.start}</div>
+                </div>
+            </div>
+            <div class="menu-item item2">
+                <div class="menu-btn">
+                    <div id="score" class="jumping-text">${state.main.buttons.score}</div>
+                </div>
+            </div>
+            <div class="menu-item item3">
+                <div class="menu-btn">
+                    <div id="help" class="jumping-text">${state.main.buttons.help}</div>
+                </div>
+            </div>
+        </div>
+        <div class="controlsWrapper">
+        <div id="full-screen-btn" class="full-screen-btn ${state.screen.fullscreen ? 'full' : ''}" title="развернуть/свернуть на весь экран"></div>
+        <div id="background-sound-btn" class="background-sound-btn ${state.audio.background.isPlay ? '' : 'offMusic'}" title="on/off background sound"></div>
+        <div id="action-sound-btn" class="action-sound-btn ${state.audio.sprite.isPlay ? '' : 'offSound'}" title="on/off action sound"></div>
+        </div>
+        </div>
+    </div>
+        `
 
-export default function Main() {
-    const state = initialState.getState()
-    return (
-        virtualDom.createVirtualNode('main', {id: "root"}, [
-            virtualDom.createVirtualNode('div', {
-                id: "gameScreen",
-                class: `gameScreen ${state.screen.fullscreen ? 'fullScreen' : ''}`
-            }, [
-                virtualDom.createVirtualNode('div', {class: 'main'}, [
-                    virtualDom.createVirtualNode('div', {class: 'menu'}, [
-                        virtualDom.createVirtualNode('div', {class: 'div4'}, [
-                            virtualDom.createVirtualNode('div', {class: 'jumping-text'}, [state.main.title]),
-                        ]),
-                        virtualDom.createVirtualNode('div', {
-                            class: 'menu-item item1',
-                            onclick: () => {
-                                changeHash('game')
-                            }
-                        }, [
-                            virtualDom.createVirtualNode('div', {class: 'menu-btn'}, [
-                                virtualDom.createVirtualNode('div', {
-                                    class: 'jumping-text',
-                                    id: 'start'
-                                }, [state.main.buttons.start])
-                            ])
-                        ]),
-                        virtualDom.createVirtualNode('div', {
-                            class: 'menu-item item2',
-                            onclick: () => {
-                                changeHash('scores')
-                            }
-                        }, [
-                            virtualDom.createVirtualNode('div', {class: 'menu-btn'}, [
-                                virtualDom.createVirtualNode('div', {
-                                    class: 'jumping-text',
-                                    id: 'score'
-                                }, [state.main.buttons.score])
-                            ])
-                        ]),
-                        virtualDom.createVirtualNode('div', {
-                            class: 'menu-item item3',
-                            onclick: () => {
-                                changeHash('help')
-                            }
-                        }, [
-                            virtualDom.createVirtualNode('div', {class: 'menu-btn'}, [
-                                virtualDom.createVirtualNode('div', {
-                                    class: 'jumping-text',
-                                    id: 'help'
-                                }, [state.main.buttons.help])
-                            ])
-                        ]),
-                    ]),
-                    GameControls(state)
-                ])
-            ])
-        ])
-    )
+    function replaceLetter(string) {
+        return string.split('').map(letter => {
+            return `<span>${letter === ' ' ? `&nbsp` : letter}</span>` // сохраняю пробел заменяя пустую строку на неразрывный пробел
+        }).join('')
+    }
+
+    document.querySelectorAll('.jumping-text').forEach((elem) => {
+        elem.innerHTML = replaceLetter(elem.innerHTML)
+    })
+    initControls()
+    document.querySelector('.menu').addEventListener('click', (e) => {
+        if (e.target.closest('.item1')) {
+            changeHash('game')
+        }
+        if (e.target.closest('.item2')) {
+            changeHash('scores')
+        }
+        if (e.target.closest('.item3')) {
+            changeHash('help')
+        }
+    })
+    offOnBackgroundMusic()
+    offOnSpriteMusic()
 }
-

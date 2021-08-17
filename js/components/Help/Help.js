@@ -1,34 +1,38 @@
 import {
-    changeHash,
     initialState,
-    virtualDom
+    offOnBackgroundMusic,
+    offOnSpriteMusic,
+    changeHash,
+    launchFullScreen,
+    initControls
 } from "../../index.js";
-import GameControls from "../GameControls/GameControls.js";
-import Button from "../UI/Button/Button.js";
 
-
-export default function Help() {
+export default function Help(root) {
     const state = initialState.getState();
-    return (
-        virtualDom.createVirtualNode('main', {id: "root"}, [
-            virtualDom.createVirtualNode('div', {
-                id: "gameScreen",
-                class: `gameScreen ${state.screen.fullscreen ? 'fullScreen' : ''}`
-            }, [
-                virtualDom.createVirtualNode('div', {class: 'help'}, [
-                    virtualDom.createVirtualNode('div', {class: 'help_wrapper'}, [
-                        virtualDom.createVirtualNode('h1', {}, [state.help.title]),
-                        virtualDom.createVirtualNode('p', {}, [state.help.subtitles.first]),
-                        virtualDom.createVirtualNode('p', {}, [state.help.subtitles.second]),
-                        virtualDom.createVirtualNode('img', {
-                            src: state.help.image.src,
-                            alt: state.help.image.title,
-                        }, []),
-                        Button({title:state.help.button, onclick:() => {changeHash('main')}, id:'back'})
-                    ]),
-                    GameControls(state)
-                ])
-            ])
-        ])
-    )
+    state.screen.fullscreen ?
+        (root.classList.add('fullScreen'), document.onkeydown = launchFullScreen)
+        :
+        (root.classList.remove('fullScreen'), document.onkeydown = null)
+    root.innerHTML = ''
+    root.innerHTML +=
+        `
+        <div class="help">
+            <h1>${state.help.title}</h1>
+            <p>${state.help.subtitles.first}</p>
+            <p>${state.help.subtitles.second}</p>
+            <img src="${state.help.image.src}" alt="${state.help.image.title}">
+            <button id="back">${state.help.button}</button>
+            <div class="controlsWrapper">
+                <div id="full-screen-btn" class="full-screen-btn ${state.screen.fullscreen ? 'full' : ''}" title="развернуть/свернуть на весь экран"></div>
+                <div id="background-sound-btn" class="background-sound-btn ${state.audio.background.isPlay ? '' : 'offMusic'}" title="on/off background sound"></div>
+                <div id="action-sound-btn" class="action-sound-btn ${state.audio.sprite.isPlay ? '' : 'offSound'}" title="on/off action sound"></div>
+            </div>
+        </div>
+        `
+    document.querySelector('#back').onclick = () => {
+        changeHash('')
+    }
+    initControls()
+    offOnBackgroundMusic()
+    offOnSpriteMusic()
 }
