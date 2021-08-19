@@ -786,6 +786,170 @@ img[src$='level2/28.png'] {
 /*LEVEL 9 START*/
 /*LEVEL 9 FINISH*/
 /*LEVEL 10 START*/
+img[src$='level10/0.png'] {
+    top: 11%;
+    left: 32%;
+    width: 3%;
+}
+
+img[src$='level10/1.png'] {
+    top: 31%;
+    left: 19%;
+    width: 5%;
+}
+
+img[src$='level10/2.png'] {
+    top: 17%;
+    width: 6%;
+    left: 48.7%;
+}
+
+img[src$='level10/3.png'] {
+    top: 6.6%;
+    left: 72%;
+    height: 8%;
+    width: 6%;
+}
+
+img[src$='level10/4.png'] {
+    top: 24%;
+    left: 36%;
+    width: 5%;
+}
+
+img[src$='level10/5.png'] {
+    top: 26.2%;
+    left: 53%;
+    width: 4%;
+}
+
+img[src$='level10/6.png'] {
+    transform: scale(-1, 1);
+    top: 42.3%;
+    left: 26%;
+    width: 6%;
+}
+
+img[src$='level10/7.png'] {
+    top: 41%;
+    left: 79%;
+    width: 8%;
+}
+
+img[src$='level10/8.png'] {
+    top: 28%;
+    left: 26%;
+    width: 4%;
+}
+
+img[src$='level10/9.png'] {
+    top: 73%;
+    left: 28%;
+    width: 5%;
+}
+
+img[src$='level10/10.png'] {
+    top: 6%;
+    left: 80%;
+    width: 3%;
+}
+
+img[src$='level10/11.png'] {
+    top: 45%;
+    left: 1%;
+    width: 5%;
+}
+
+img[src$='level10/12.png'] {
+    top: 70%;
+    width: 5%;
+    left: 89%;
+}
+
+img[src$='level10/13.png'] {
+    transform: scale(-1, 1);
+    width: 4%;
+    top: 4%;
+    left: 92%;
+}
+
+img[src$='level10/14.png'] {
+    top: 32%;
+    left: 8%;
+    width: 5%;
+}
+
+img[src$='level10/15.png'] {
+    top: 39%;
+    left: 44%;
+    width: 4%;
+}
+
+img[src$='level10/16.png'] {
+    top: 29%;
+    left: 58%;
+    width: 4%;
+}
+
+img[src$='level10/17.png'] {
+    top: 38%;
+    left: 59%;
+    width: 6%;
+}
+
+img[src$='level10/18.png'] {
+    top: 29%;
+    left: 32%;
+    width: 4%;
+}
+
+img[src$='level10/19.png'] {
+    top: 63%;
+    left: 72%;
+    width: 4%;
+}
+
+img[src$='level10/20.png'] {
+    top: 55%;
+    left: 31%;
+    width: 5%;
+}
+
+img[src$='level10/21.png'] {
+    top: 59.5%;
+    left: 68%;
+    width: 3%;
+}
+
+img[src$='level10/22.png'] {
+    top: 85%;
+    left: 69%;
+    width: 7%;
+}
+
+img[src$='level10/23.png'] {
+    top: 49%;
+    left: 38%;
+    width: 31%;
+}
+
+img[src$='level10/24.png'] {
+    top: 50%;
+    left: -1%;
+    width: 16%;
+}
+
+img[src$='level10/25.png'] {
+    top: 43.8%;
+    left: 54%;
+    width: 5%;
+}
+
+img[src$='level10/26.png'] {
+    top: 3.5%;
+    left: 10%;
+    width: 4%;
+}
 /*LEVEL 10 FINISH*/
 
 .selector {
@@ -900,7 +1064,7 @@ img[src$='level2/28.png'] {
     top: 0;
     z-index: 80000;
     background: rgba(1, 1, 1, 0.2);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(30px);
 }
 
 .modalControls {
@@ -908,7 +1072,7 @@ img[src$='level2/28.png'] {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    max-width: 40%;
+    max-width: 60%;
     min-height: 40%;
     background-color: #0f6666;
     border-radius: 6px;

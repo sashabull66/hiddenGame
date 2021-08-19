@@ -6,17 +6,26 @@ import DuringPauseModal from "./GameModals/DuringPauseModal.js";
 import TryingToQuitGameModal from "./GameModals/TryingToQuitGameModal.js";
 import GamePlayArea from "./GamePlayArea/GamePlayArea.js";
 import GameMenuArea from "./GameMenuArea/GameMenuArea.js";
+import WhenLevelFailsModal from "./GameModals/WhenLevelFailsModal.js";
+import BeforeFirstRoundModal from "./GameModals/BeforeFirstRoundModal.js";
+import WhenWinGameModal from "./GameModals/WhenWinGameModal.js";
 
 export default function Game() {
     let game;
     const state = initialState.getState();
     createGameElements(state)
     game = virtualDom.createVirtualNode('main', {id: "root"}, [
-        virtualDom.createVirtualNode('div', {id: "gameScreen", class: `gameScreen ${state.screen.fullscreen ? 'fullScreen' : ''}`}, [
+        virtualDom.createVirtualNode('div', {
+            id: "gameScreen",
+            class: `gameScreen ${state.screen.fullscreen ? 'fullScreen' : ''}`
+        }, [
             virtualDom.createVirtualNode('div', {class: 'game'}, [
                 state.game.isPause ? DuringPauseModal(state) : '',
-                state.game.isPlayNow ? '' : BeforeEveryRoundModal(state),
+                state.game.currentLevel === 1 && !state.game.isPlayNow ? BeforeFirstRoundModal(state) : '',
+                state.game.currentLevel > 1 && !state.game.isPlayNow ? BeforeEveryRoundModal(state) : '',
                 state.game.isPause2 ? TryingToQuitGameModal(state) : '',
+                state.game.activeGame.isLose ? WhenLevelFailsModal(state) : '',
+                state.game.activeGame.isWin ? WhenWinGameModal(state) : '',
                 GamePlayArea(state),
                 GameMenuArea(state),
                 GameControls(state)
@@ -34,6 +43,7 @@ export function resetGameStatus(state) {
     state.game.activeGame.score = 0;
     state.game.activeGame.time = null;
     state.game.activeGame.isWin = false;
+    state.game.activeGame.isLose = false;
     const levels = Object.keys(state.game.levels)
     levels.forEach((level) => { // убрать изображения для вставки на поле
         state.game.levels[level].elementsToInsert = null
@@ -43,6 +53,10 @@ export function resetGameStatus(state) {
 }
 
 function createGameElements(state) {
+    if (state.game.currentLevel > Object.keys(state.game.levels).length) {
+        return
+    }
+
     function getRandomObjects(number) { // функция для получения 10 рандомные чисел из предела
         const quantity = 10;
         let result = new Set()
@@ -82,8 +96,15 @@ function createGameElements(state) {
 }
 
 export function checkGameStatus(state) {
+    // for first level
+
+
     // for next level
-    if (state.game.activeGame.time > 0 && state.game.isPlayNow && state.game.currentItems.length === 0) {
+    if (state.game.activeGame.time > 0 &&
+        state.game.isPlayNow &&
+        state.game.currentItems.length === 0 &&
+        state.game.currentLevel < Object.keys(state.game.levels).length
+    ) {
         state.game.currentItems = null
         state.game.isPlayNow = false;
         state.game.currentLevel += 1;
@@ -91,9 +112,23 @@ export function checkGameStatus(state) {
         console.log(state.game.activeGame.gameStatistics.totalPoints)
         initialState.editState(state)
     }
+
     // for lose
-    if (state.game.activeGame.time <= 0) {
-        state.game.isPlayNow = false;
+    if (state.game.activeGame.time <= 0 &&
+        state.game.currentItems.length > 0) {
+        state.game.isPlayNow = false; // остановить таймер
+        state.game.activeGame.isLose = true; // показать модалку при проигрыше
         initialState.editState(state)
     }
+
+    // for win all game
+    if (state.game.activeGame.time > 0 &&
+        state.game.isPlayNow &&
+        state.game.currentItems.length === 0 &&
+        state.game.currentLevel === Object.keys(state.game.levels).length) {
+        state.game.isPlayNow = false;
+        state.game.activeGame.isWin = true
+        initialState.editState(state)
+    }
+
 }

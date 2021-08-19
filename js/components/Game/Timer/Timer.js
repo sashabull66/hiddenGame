@@ -22,7 +22,6 @@ export function stopStartTimer() {
             timerValue -= 1000
             state.game.activeGame.time = timerValue
             initialState.editState(state)
-
             const timeForDisplay = millisToMinutesAndSeconds(state.game.activeGame.time)
             virtualDom.render(Timer(timeForDisplay), document.querySelector('#timerDisplay'))
             checkGameStatus(state)

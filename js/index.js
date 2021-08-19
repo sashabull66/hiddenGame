@@ -27,6 +27,7 @@ export const initialState = new useState({
             score: 0,
             time: null,
             isWin: false,
+            isLose: false,
             gameTimers: {
                 1: 180000,
                 2: 144000,
@@ -44,7 +45,7 @@ export const initialState = new useState({
                 playerName: null,
             }
         },
-        currentLevel: 1,
+        currentLevel: 10,
         currentItems: null, // то что в меню
         images: {
             gameMenuBG: '/../images/game/gameMenu/gameMenu.png'
