@@ -433,6 +433,7 @@ span:nth-child(4n-3) {
     background: black;
     width: 81.25%;
     height: 100%;
+    overflow: hidden;
 }
 
 .game__menu-area {
@@ -772,6 +773,146 @@ img[src$='level2/28.png'] {
 }
 /*LEVEL 2 FINISH*/
 /*LEVEL 3 START*/
+img[src$='level3/0.png'] {
+    top: 13%;
+    left: 32%;
+    width: 5%;
+}
+
+img[src$='level3/1.png'] {
+    top: 8%;
+    left: 69%;
+    width: 4%;
+}
+
+img[src$='level3/2.png'] {
+    top: 15%;
+    width: 6%;
+    left: 0.7%;
+}
+
+img[src$='level3/3.png'] {
+    top: 4.6%;
+    left: 72%;
+    height: 8%;
+    width: 6%;
+}
+
+img[src$='level3/4.png'] {
+    top: 5%;
+    left: 60%;
+    width: 5%;
+}
+
+img[src$='level3/5.png'] {
+    top: 25.2%;
+    left: 45%;
+    width: 4%;
+}
+
+img[src$='level3/6.png'] {
+    transform: scale(-1, 1);
+    top: 1.3%;
+    left: 6%;
+    width: 6%;
+}
+
+img[src$='level3/7.png'] {
+    top: 22%;
+    left: 30%;
+    width: 8%;
+}
+
+img[src$='level3/8.png'] {
+    top: 9%;
+    left: 20%;
+    width: 10%;
+}
+
+img[src$='level3/9.png'] {
+    top: 91%;
+    left: 56%;
+    width: 5%;
+}
+
+img[src$='level3/10.png'] {
+    top: 7%;
+    left: 95%;
+    width: 4%;
+}
+
+img[src$='level3/11.png'] {
+    top: 25%;
+    left: 72%;
+    width: 10%;
+}
+
+img[src$='level3/12.png'] {
+    top: 0.1%;
+    width: 13%;
+    left: 62%;
+}
+
+img[src$='level3/13.png'] {
+    transform: scale(-1, 1);
+    width: 9%;
+    top: 55%;
+    left: 65%;
+}
+
+img[src$='level3/14.png'] {
+    top: 32%;
+    left: 8%;
+    width: 5%;
+}
+
+img[src$='level3/15.png'] {
+    top: 29%;
+    left: 5%;
+    width: 4%;
+}
+
+img[src$='level3/16.png'] {
+    top: 0;
+    left: 13%;
+    width: 7%;
+}
+
+img[src$='level3/17.png'] {
+    top: 38%;
+    left: 59%;
+    width: 9%;
+}
+
+img[src$='level3/18.png'] {
+    top: 39%;
+    left: 95%;
+    width: 6%;
+}
+
+img[src$='level3/19.png'] {
+    top: 25%;
+    left: 92%;
+    width: 5%;
+}
+
+img[src$='level3/20.png'] {
+    top: 38%;
+    left: 40%;
+    width: 5%;
+}
+
+img[src$='level3/21.png'] {
+    top: 5.5%;
+    left: 46%;
+    width: 10%;
+}
+
+img[src$='level3/22.png'] {
+    top: 85%;
+    left: 54%;
+    width: 26%;
+}
 /*LEVEL 3 FINISH*/
 /*LEVEL 4 START*/
 /*LEVEL 4 FINISH*/
