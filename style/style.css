@@ -51,7 +51,8 @@
 }
 
 
-.scores_wrapper {}
+.scores_wrapper {
+}
 
 .scores__header {
     display: grid;
@@ -60,9 +61,9 @@
     grid-column-gap: 0;
     grid-row-gap: 0;
     min-width: 100%;
-    background-color: rgba(255,255,255, 0.3);
+    background-color: rgba(255, 255, 255, 0.3);
     border-top: 1px solid white;
-    border-right: 1px solid white ;
+    border-right: 1px solid white;
     border-left: 1px solid white;
     border-bottom: 1px dotted white;
     border-top-right-radius: 6px;
@@ -79,7 +80,7 @@
     display: flex;
     flex-direction: column;
     min-width: 100%;
-    background-color: rgba(255,255,255, 0.3);
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 .scores__body-item {
@@ -92,7 +93,7 @@
     min-width: 100%;
     color: #fff;
     text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-    border-right: 1px solid white ;
+    border-right: 1px solid white;
     border-left: 1px solid white;
     border-bottom: 1px solid white;
 }
@@ -456,6 +457,7 @@ span:nth-child(4n-3) {
     height: 100%;
     width: 100%;
 }
+
 /*LEVEL 1 START*/
 img[src$='level1/0.png'] {
     top: 47%;
@@ -601,6 +603,7 @@ img[src$='level1/28.png'] {
     top: 37.3%;
     left: 6%;
 }
+
 /*LEVEL 1 FINISH*/
 /*LEVEL 2 START*/
 img[src$='level2/0.png'] {
@@ -739,7 +742,7 @@ img[src$='level2/22.png'] {
 
 img[src$='level2/23.png'] {
     top: 66%;
-    left: 0%;
+    left: 0;
     width: 6%;
 }
 
@@ -771,6 +774,7 @@ img[src$='level2/28.png'] {
     left: 17%;
     width: 4%;
 }
+
 /*LEVEL 2 FINISH*/
 /*LEVEL 3 START*/
 img[src$='level3/0.png'] {
@@ -913,8 +917,149 @@ img[src$='level3/22.png'] {
     left: 54%;
     width: 26%;
 }
+
 /*LEVEL 3 FINISH*/
 /*LEVEL 4 START*/
+img[src$='level4/0.png'] {
+    top: 11%;
+    left: 64%;
+    width: 6%;
+}
+
+img[src$='level4/1.png'] {
+    top: 20%;
+    left: 12%;
+}
+
+img[src$='level4/2.png'] {
+    top: 65%;
+    left: -13.3%;
+    width: 33%;
+}
+
+img[src$='level4/3.png'] {
+    top: 12.2%;
+    left: 63%;
+    width: 15%;
+}
+
+img[src$='level4/4.png'] {
+    top: 34%;
+    width: 10%;
+    left: 61%;
+}
+
+img[src$='level4/5.png'] {
+    top: 9.2%;
+    left: 5%;
+}
+
+img[src$='level4/6.png'] {
+    top: 22.3%;
+    left: 79%;
+}
+
+img[src$='level4/7.png'] {
+    top: 16%;
+    left: 22%;
+    width: 9%;
+}
+
+img[src$='level4/8.png'] {
+    top: 52%;
+    width: 12%;
+    left: 61%;
+}
+
+img[src$='level4/9.png'] {
+    top: 80%;
+    left: 54%;
+    height: 9%;
+}
+
+img[src$='level4/10.png'] {
+    top: 40%;
+    left: 73%;
+    width: 15%;
+}
+
+img[src$='level4/11.png'] {
+    top: 9%;
+    left: 32%;
+}
+
+img[src$='level4/12.png'] {
+    top: 47%;
+    left: 0;
+}
+
+img[src$='level4/13.png'] {
+    top: 38%;
+    left: 51%;
+}
+
+img[src$='level4/14.png'] {
+    top: 57%;
+    left: 13%;
+}
+
+img[src$='level4/15.png'] {
+    top: 79%;
+    left: 43%;;
+}
+
+img[src$='level4/16.png'] {
+    top: 18%;
+    left: 17%;
+}
+
+img[src$='level4/17.png'] {
+    top: 50%;
+    left: 60%;
+    width: 9%;
+}
+
+img[src$='level4/18.png'] {
+    top: 73%;
+    left: 51%;
+}
+
+img[src$='level4/19.png'] {
+    top: 29%;
+    left: 58%;
+}
+
+img[src$='level4/20.png'] {
+    top: 50%;
+    left: 31%;
+}
+
+img[src$='level4/21.png'] {
+    top: 26%;
+    left: 91%;
+}
+
+img[src$='level4/22.png'] {
+    top: 21%;
+    left: 94%;
+}
+
+img[src$='level4/23.png'] {
+    top: 17%;
+    left: 35%;
+    width: 5%;
+}
+
+img[src$='level4/24.png'] {
+    top: 34%;
+    left: 68%;
+}
+
+img[src$='level4/25.png'] {
+    top: 50.8%;
+    left: 41%;
+}
+
 /*LEVEL 4 FINISH*/
 /*LEVEL 5 START*/
 /*LEVEL 5 FINISH*/
@@ -1091,12 +1236,13 @@ img[src$='level10/26.png'] {
     left: 10%;
     width: 4%;
 }
+
 /*LEVEL 10 FINISH*/
 
 .selector {
     flex-grow: 1;
-/*    max-height: 90%;
-    max-width: 27%;*/
+    /*    max-height: 90%;
+        max-width: 27%;*/
     height: 90%;
     width: 27%;
     display: grid;
@@ -1190,7 +1336,7 @@ img[src$='level10/26.png'] {
     border: 1px solid #47471a;
 }
 
-.Button:active{
+.Button:active {
     color: yellow;
     box-shadow: 0 0 0 1px black;
 }
