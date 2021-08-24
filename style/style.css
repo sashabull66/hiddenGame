@@ -1391,6 +1391,188 @@ img[src$='level8/26.png'] {
 }
 /*LEVEL 8 FINISH*/
 /*LEVEL 9 START*/
+img[src$='level9/0.png'] {
+    top: 59%;
+    left: 30%;
+    width: 4%;
+}
+
+img[src$='level9/1.png'] {
+    top: 77%;
+    left: 72%;
+    width: 10%;
+}
+
+img[src$='level9/2.png'] {
+    top: 21%;
+    width: 8%;
+    left: 18.7%;
+}
+
+img[src$='level9/3.png'] {
+    top: 21.6%;
+    left: 28%;
+    height: 8%;
+    width: 6%;
+}
+
+img[src$='level9/4.png'] {
+    top: 45%;
+    left: 49%;
+    width: 5%;
+}
+
+img[src$='level9/5.png'] {
+    top: 18.2%;
+    left: 73%;
+    width: 6%;
+}
+
+img[src$='level9/6.png'] {
+    transform: scale(-1, 1);
+    top: 42.3%;
+    left: 62%;
+    width: 6%;
+}
+
+img[src$='level9/7.png'] {
+    top: 80%;
+    left: 89%;
+    width: 11%;
+}
+
+img[src$='level9/8.png'] {
+    top: 71%;
+    left: 13%;
+    width: 11%;
+}
+
+img[src$='level9/9.png'] {
+    top: 73%;
+    left: 28%;
+    width: 7%;
+}
+
+img[src$='level9/10.png'] {
+    top: 78%;
+    left: 81%;
+    width: 7%;
+}
+
+img[src$='level9/11.png'] {
+    top: 35%;
+    left: 19%;
+    width: 6%;
+}
+
+img[src$='level9/12.png'] {
+    top: 72%;
+    width: 10%;
+    left: 63%;
+}
+
+img[src$='level9/13.png'] {
+    transform: scale(-1, 1);
+    width: 10%;
+    top: 82%;
+    left: 0;
+}
+
+img[src$='level9/14.png'] {
+    top: 72%;
+    left: 36%;
+    width: 7%;
+}
+
+img[src$='level9/15.png'] {
+    top: 20%;
+    left: 35%;
+    width: 9%;
+}
+
+img[src$='level9/16.png'] {
+    top: 33%;
+    left: 85%;
+    width: 4%;
+}
+
+img[src$='level9/17.png'] {
+    top: 34%;
+    left: 27%;
+    width: 6%;
+}
+
+img[src$='level9/18.png'] {
+    top: -1%;
+    left: 49%;
+    width: 11%;
+}
+
+img[src$='level9/19.png'] {
+    top: 31%;
+    left: 35%;
+    width: 6%;
+}
+
+img[src$='level9/20.png'] {
+    top: 45%;
+    left: 35%;
+    width: 7%;
+}
+
+img[src$='level9/21.png'] {
+    top: 30.5%;
+    left: 68%;
+    width: 6%;
+}
+
+img[src$='level9/22.png'] {
+    top: 40%;
+    left: 0;
+    width: 7%;
+}
+
+img[src$='level9/23.png'] {
+    top: 85%;
+    left: 71%;
+    width: 9%;
+}
+
+img[src$='level9/24.png'] {
+    top: 14%;
+    left: 80%;
+    width: 5%;
+}
+
+img[src$='level9/25.png'] {
+    top: 89.8%;
+    left: 90%;
+    width: 5%;
+}
+
+img[src$='level9/26.png'] {
+    top: 66.5%;
+    left: 27%;
+    width: 6%;
+}
+
+img[src$='level9/27.png'] {
+    top: 56%;
+    left: 43%;
+    width: 9%;
+}
+
+img[src$='level9/28.png'] {
+    top: 50%;
+    left: 92%;
+    width: 8%;
+}
+
+img[src$='level9/29.png'] {
+    top: 74.8%;
+    left: 49%;
+    width: 7%;
+}
 /*LEVEL 9 FINISH*/
 /*LEVEL 10 START*/
 img[src$='level10/0.png'] {
@@ -1557,7 +1739,6 @@ img[src$='level10/26.png'] {
     left: 10%;
     width: 4%;
 }
-
 /*LEVEL 10 FINISH*/
 
 .selector {
