@@ -1059,9 +1059,171 @@ img[src$='level4/25.png'] {
     top: 50.8%;
     left: 41%;
 }
-
 /*LEVEL 4 FINISH*/
 /*LEVEL 5 START*/
+img[src$='level5/0.png'] {
+    top: 84%;
+    left: 87%;
+    width: 6%;
+}
+
+img[src$='level5/1.png'] {
+    top: 48%;
+    left: 26%;
+}
+
+img[src$='level5/2.png'] {
+    top: 36%;
+    left: 24.7%;
+    width: 8%;
+}
+
+img[src$='level5/3.png'] {
+    top: 49.2%;
+    left: 10%;
+    width: 7%;
+}
+
+img[src$='level5/4.png'] {
+    top: 75%;
+    width: 4%;
+    left: 94%;
+}
+
+img[src$='level5/5.png'] {
+    top: 83.2%;
+    left: 15%;
+    width: 6%;
+}
+
+img[src$='level5/6.png'] {
+    top: 57.8%;
+    left: 35%;
+    width: 5%;
+}
+
+img[src$='level5/7.png'] {
+    top: 50.3%;
+    left: 8%;
+    width: 5%;
+}
+
+img[src$='level5/8.png'] {
+    top: 14%;
+    width: 5%;
+    left: 74%;
+}
+
+img[src$='level5/9.png'] {
+    top: 69%;
+    left: 30%;
+    width: 5%;
+}
+
+img[src$='level5/10.png'] {
+    top: 81%;
+    left: 58%;
+    width: 7%;
+}
+
+img[src$='level5/11.png'] {
+    top: 79%;
+    left: 85%;
+    width: 4%;
+}
+
+img[src$='level5/12.png'] {
+    top: 51.2%;
+    left: 5.8%;
+    width: 4%;
+}
+
+img[src$='level5/13.png'] {
+    top: 81%;
+    left: 24%;
+    width: 5%;
+}
+
+img[src$='level5/14.png'] {
+    top: 77%;
+    left: 29%;
+    width: 3%;
+}
+
+img[src$='level5/15.png'] {
+    top: 49%;
+    left: 78%;
+    width: 15%;
+}
+
+img[src$='level5/16.png'] {
+    top: 32%;
+    left: -1%;
+    width: 5%;
+    transform: scale(-1, 1);
+}
+
+img[src$='level5/17.png'] {
+    top: 58%;
+    left: 31%;
+    width: 5%;
+}
+
+img[src$='level5/18.png'] {
+    top: 88%;
+    left: 55%;
+    width: 6%;
+}
+
+img[src$='level5/19.png'] {
+    top: 86%;
+    left: 90%;
+}
+
+img[src$='level5/20.png'] {
+    top: 59.5%;
+    left: 7%;
+    width: 4%;
+}
+
+img[src$='level5/21.png'] {
+    top: 89%;
+    left: 87%;
+    width: 5%;
+}
+
+img[src$='level5/22.png'] {
+    top: 77%;
+    left: 61%;
+    width: 3%;
+}
+
+img[src$='level5/23.png'] {
+    top: 77%;
+    left: 97%;
+    width: 4%;
+}
+
+img[src$='level5/24.png'] {
+    top: 77%;
+    left: 21%;
+    width: 5%;
+}
+
+img[src$='level5/25.png'] {
+    top: 51.8%;
+    left: 92%;
+}
+
+img[src$='level5/26.png'] {
+    top: 40%;
+    left: 52%;
+}
+
+img[src$='level5/27.png'] {
+    top: 81.8%;
+    left: 69%;
+}
 /*LEVEL 5 FINISH*/
 /*LEVEL 6 START*/
 /*LEVEL 6 FINISH*/
