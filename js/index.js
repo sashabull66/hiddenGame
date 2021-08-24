@@ -45,7 +45,7 @@ export const initialState = new useState({
                 playerName: null,
             }
         },
-        currentLevel: 5,
+        currentLevel: 8,
         currentItems: null, // то что в меню
         images: {
             gameMenuBG: '/../images/game/gameMenu/gameMenu.png'
