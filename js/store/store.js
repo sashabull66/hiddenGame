@@ -44,7 +44,7 @@ export const store = new useState({  // создать экземпляр кла
                 playerName: null,
             }
         },
-        currentLevel: 9,
+        currentLevel: 1,
         currentItems: null, // то что render в меню
         images: {
             gameMenuBG: '/../images/game/gameMenu/gameMenu.png'
@@ -122,16 +122,9 @@ export const store = new useState({  // создать экземпляр кла
     scores: {
         title: 'High score table',
         scores: [
-            {
-                rank: 1,
-                name: 'Sasha',
-                score: 589,
-            },
-            {
-                rank: 2,
-                name: 'Masha',
-                score: 473,
-            }
+/*            {name: 'sasha1', score: 156},
+            {name: 'sasha2', score: 215},
+            {name: 'sasha3', score: 1070},*/
         ]
     },
     audio: {

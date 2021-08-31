@@ -96,27 +96,19 @@ function createGameElements(state) {
 }
 
 export function checkGameStatus(state) {
-    // for first level
-    //...
     // for next level
     if (state.game.activeGame.time > 0 && // если время таймера больше чем 0
         state.game.isPlayNow && // если статус игры true
         state.game.currentItems.length === 0 && // если массив элементов в панели задач равен 0
         state.game.currentLevel < Object.keys(state.game.levels).length // если раунд не последний (10 в этом случае)
     ) {
-        console.log('for next level...')
         state.game.currentItems = null // удалить элементы из блока задач
         state.game.isPlayNow = false; // остановить статус игры
-        //console.log('before', store.game.currentLevel)
         state.game.currentLevel += 1; // повысить уровень
-       // console.log('after', store.game.currentLevel)
-        //store.game.activeGame.time = null // занулить текущий таймер
         state.game.activeGame.gameStatistics.totalPoints += state.game.activeGame.score; // добавить к рекордам счет за текущий раунд
         state.game.activeGame.score = 0; // занулить очки для следующего раунда
-        //console.log(store.game.activeGame.gameStatistics.totalPoints)
         store.editState(state) // обновить глобальное состояние
     }
-
     // for lose
     if (state.game.activeGame.time <= 0 && // если время истекло
         state.game.currentItems.length > 0) { // если в панели задач не пусто
@@ -124,7 +116,6 @@ export function checkGameStatus(state) {
         state.game.activeGame.isLose = true; // показать модалку при проигрыше
         store.editState(state) // обновить глобальное состояние
     }
-
     // for win all game
     if (state.game.activeGame.time > 0 && // если время таймера больше чем 0
         state.game.isPlayNow && // если статус игры true
@@ -135,7 +126,6 @@ export function checkGameStatus(state) {
         state.game.activeGame.isWin = true // установить статус выигрыша
         store.editState(state) // обновить глобальное состояние
     }
-
 }
 
 export function stopStartTimer() {
@@ -158,4 +148,3 @@ export function stopStartTimer() {
         }
     }, 1000)
 }
-

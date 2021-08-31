@@ -1,20 +1,22 @@
 // libraries import
-import {store} from "./store/store.js";
 import VDom from "./libraries/VDom/VDom.js"; // импорт библиотеки по работе с VirtualDom
-import jquery from "./libraries/jquery/jquery.js"; // импорт библиотеки jquery
+//import jquery from "./libraries/jquery/jquery.js"; // импорт библиотеки jquery
+//import state
+import {store} from "./store/store.js";
 // components
 import Main from "./components/Main/Main.js"; // импорт компоненты "Меню"
 import Help from "./components/Help/Help.js"; // импорт компоненты "Помощь"
 import Scores from "./components/Scores/Scores.js"; // импорт компоненты "Результаты"
-import Game, {resetGameStatus} from "./components/Game/Game.js"; // импорт компоненты "Игра" => тут происходит весь игровой процесс
+import Game, {resetGameStatus} from "./components/Game/Game.js";
+import ScoresBodyItem from "./components/Scores/ScoresBody/ScoresBodyItem.js"; // импорт компоненты "Игра" => тут происходит весь игровой процесс
 // init libraries
-jquery(); // запустить скрипт jquery
+//jquery(); // запустить скрипт jquery
 export const virtualDom = new VDom(); // создать экземпляр класса VirtualDom
 
 function renderAPP() {
-    const state = store.getState();
-    const root = document.getElementById('root');
-
+    const state = store.getState(); // получить текущее состояние
+    const root = document.getElementById('root'); // найти рутовый элемент
+    state.scores.scores.length === 0 ? getScores(state) : null // запросить список рекордов с сервера
     if (!window.audioBackground || !window.audioSprite) { // add audio files
         window.audioSprite = new Audio(state.audio.sprite.src);
         window.audioBackground = new Audio(state.audio.background.src);
@@ -95,44 +97,17 @@ function replaceLetter(selectors) {
 
 }
 
-export function sendScoreToServer () {
-
-}
-
-
-// virtualDom.createVirtualNode('', {}, [])
-
-
-const score = [
-    {
-        name: 'Sasha',
-        score: 589,
-    },
-    {
-        name: 'Masha',
-        score: 473,
+function getScores(state) {
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://fe.it-academy.by/AjaxStringStorage2.php');
+    xhr.responseType = 'json';
+    let formData = new FormData() // создать объект formDATA
+    formData.append('f', 'READ') // заполнить объект formDATA
+    formData.append('n', 'HiidenGame_sashabull66') // заполнить объект formDATA
+    xhr.send(formData)
+    xhr.onload = function () {
+        state.scores.scores = JSON.parse(xhr.response.result);
+        console.log(xhr.response.result)
+        store.editState(state)
     }
-]
-
-function send() {
-    $.ajax(
-        {
-            url: 'https://fe.it-academy.by/AjaxStringStorage2.php',
-            type: 'POST',
-            data: {f: 'INSERT', n: 'HiidenGame_sashabull66', v:JSON.stringify({1:'dsfdsf'})},
-            cache: false,
-            success: OK,
-            error: FAIL
-        }
-    );
 }
-
-function OK (response) {
-    console.warn(response)
-}
-
-function FAIL (response) {
-    console.error(response)
-}
-
-send();
