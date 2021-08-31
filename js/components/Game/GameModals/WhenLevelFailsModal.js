@@ -1,5 +1,5 @@
 import ModalWindow from "../../UI/ModalWindow/ModalWindow.js";
-import {changeHash} from "../../../index.js";
+import {changeHash, playSpriteMusic} from "../../../index.js";
 import {resetGameStatus} from "../Game.js";
 
 
@@ -11,6 +11,7 @@ export default function WhenLevelFailsModal (state) {
                 Yes: {
                     title: 'Yes',
                     onclick: () => {
+                        playSpriteMusic(state, 'click')
                         resetGameStatus(state)
                     },
                     id: 'Yes'
@@ -18,6 +19,7 @@ export default function WhenLevelFailsModal (state) {
                 No: {
                     title: 'No',
                     onclick: () => {
+                        playSpriteMusic(state, 'click')
                         changeHash('main')
                     },
                     id: 'No'

@@ -1,4 +1,4 @@
-import {virtualDom} from "../../../index.js";
+import {playSpriteMusic, virtualDom} from "../../../index.js";
 import {store} from "../../../store/store.js";
 import {stopStartTimer} from "../Game.js";
 
@@ -15,6 +15,7 @@ export default function GameMenuArea (state) {
                 virtualDom.createVirtualNode('div', {
                     class: 'game__btn',
                     onclick: () => {
+                        playSpriteMusic(state, 'click')
                         state.game.isPause = true;
                         store.editState(state);
                         stopStartTimer();
@@ -23,6 +24,7 @@ export default function GameMenuArea (state) {
                 virtualDom.createVirtualNode('div', {
                     class: 'game__btn',
                     onclick: () => {
+                        playSpriteMusic(state, 'click')
                         state.game.isPause2 = true;
                         store.editState(state);
                         stopStartTimer();

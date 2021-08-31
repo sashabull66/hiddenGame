@@ -1,5 +1,5 @@
 import ModalWindow from "../../UI/ModalWindow/ModalWindow.js";
-import {changeHash} from "../../../index.js";
+import {changeHash, playSpriteMusic} from "../../../index.js";
 import {stopStartTimer} from "../Game.js";
 import {store} from "../../../store/store.js";
 
@@ -11,6 +11,7 @@ export default function BeforeEveryRoundModal (state) {
                 Start: {
                     title: 'Start',
                     onclick: () => {
+                        playSpriteMusic(state, 'click')
                         state.game.isPlayNow = true
                         state.game.activeGame.time = null
                         store.editState(state)
@@ -21,6 +22,7 @@ export default function BeforeEveryRoundModal (state) {
                 Menu: {
                     title: 'Menu',
                     onclick: () => {
+                        playSpriteMusic(state, 'click')
                         changeHash('main')
                     },
                     id: 'Stop'

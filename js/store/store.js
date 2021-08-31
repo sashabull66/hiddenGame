@@ -121,11 +121,7 @@ export const store = new useState({  // создать экземпляр кла
     },
     scores: {
         title: 'High score table',
-        scores: [
-/*            {name: 'sasha1', score: 156},
-            {name: 'sasha2', score: 215},
-            {name: 'sasha3', score: 1070},*/
-        ]
+        scores: [],
     },
     audio: {
         background: {
@@ -133,8 +129,11 @@ export const store = new useState({  // создать экземпляр кла
             isPlay: false,
         },
         sprite: {
-            src: '/../audio/sprite.mp3',
-            isPlay: false,
+            isPlay: true,
+            error: {src: '/../audio/error.mp3'},
+            success: {src: '/../audio/success.mp3'},
+            winLevel: {src: '/../audio/winLevel.mp3'},
+            click: {src: '/../audio/click.mp3'},
         }
     },
     screen: {

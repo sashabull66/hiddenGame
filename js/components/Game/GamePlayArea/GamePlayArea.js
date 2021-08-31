@@ -1,4 +1,4 @@
-import {virtualDom} from "../../../index.js";
+import {playSpriteMusic, virtualDom} from "../../../index.js";
 import {store} from "../../../store/store.js";
 import {checkGameStatus} from "../Game.js";
 
@@ -23,28 +23,20 @@ function gameCLickListener(event) {
 
     if (event.target !== event.currentTarget) { // клик был не по игровому полю...
         if (currentActiveElements.find(img => img.props.src.substr(-13) === event.target.src.substr(-13))) {
+            playSpriteMusic(state, 'success')
             state.game.currentItems = currentActiveElements.filter(img => img.props.src.substr(-13) !== event.target.src.substr(-13))
             state.game.levels[state.game.currentLevel].elementsToInsert = allGameElements.filter(img => img.props.src.substr(-13) !== event.target.src.substr(-13))
             state.game.activeGame.score += 10
             store.editState(state)
-            /*if (store.game.activeGame.time > 0 && store.game.isPlayNow && store.game.currentItems.length === 0) {
-                ///////// checkGameStatus (store) ////////////
-                // For next level*************************
-                /!*store.game.currentItems = null
-                store.game.isPlayNow = false;
-                store.game.currentLevel += 1;
-                initialState.editState(store)*!/
-                checkGameStatus(store)
-// перенес в таймер!!!!!!!!!!!!
-
-            }*/
             checkGameStatus(state)
         } else { // если клик был не по предмету из списка задач
+            playSpriteMusic(state, 'error')
             state.game.activeGame.score += -5
             store.editState(state)
         }
 
     } else { // если клик был по пустому месту (по игровому полю)
+        playSpriteMusic(state, 'error')
         state.game.activeGame.score += -5
         store.editState(state)
     }

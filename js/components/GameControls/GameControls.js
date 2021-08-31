@@ -1,4 +1,4 @@
-import {offOnBackgroundMusic, offOnSpriteMusic, virtualDom} from "../../index.js";
+import {playBackgroundMusic, playSpriteMusic, virtualDom} from "../../index.js";
 import {store} from "../../store/store.js";
 
 export default function GameControls(props) {
@@ -9,6 +9,7 @@ export default function GameControls(props) {
                 id: 'full-screen-btn',
                 title: 'развернуть/свернуть на весь экран',
                 onclick: () => {
+                    playSpriteMusic(props, 'click')
                     props.screen.fullscreen = !props.screen.fullscreen
                     store.editState(props)
                 }
@@ -18,8 +19,9 @@ export default function GameControls(props) {
                 id: 'background-sound-btn',
                 title: 'on/off background sound',
                 onclick: () => {
+                    playSpriteMusic(props, 'click')
                     props.audio.background.isPlay = !props.audio.background.isPlay
-                    offOnBackgroundMusic(props)
+                    playBackgroundMusic(props)
                     store.editState(props)
                 }
             }),
@@ -29,7 +31,7 @@ export default function GameControls(props) {
                 title: 'on/off action sound',
                 onclick: () => {
                     props.audio.sprite.isPlay = !props.audio.sprite.isPlay
-                    offOnSpriteMusic(props)
+                    playSpriteMusic(props, 'click')
                     store.editState(props)
                 }
             })

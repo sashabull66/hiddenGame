@@ -1,4 +1,4 @@
-import {changeHash, virtualDom} from "../../index.js";
+import {changeHash, playSpriteMusic, virtualDom} from "../../index.js";
 import {store} from "../../store/store.js";
 import GameControls from "../GameControls/GameControls.js";
 import Button from "../UI/Button/Button.js";
@@ -21,7 +21,13 @@ export default function Help() {
                             src: state.help.image.src,
                             alt: state.help.image.title,
                         }, []),
-                        Button({title:state.help.button, onclick:() => {changeHash('main')}, id:'back'})
+                        Button({
+                            title:state.help.button,
+                            onclick:() => {
+                                playSpriteMusic(state, 'click')
+                                changeHash('main')
+                            },
+                            id:'back'})
                     ]),
                     GameControls(state)
                 ])

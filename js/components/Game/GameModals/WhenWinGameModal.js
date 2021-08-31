@@ -1,6 +1,6 @@
 import ModalWindow from "../../UI/ModalWindow/ModalWindow.js";
 import {store} from "../../../store/store.js";
-import {changeHash} from "../../../index.js";
+import {changeHash, playSpriteMusic} from "../../../index.js";
 
 export default function WhenWinGameModal(state) {
     return (
@@ -15,14 +15,15 @@ export default function WhenWinGameModal(state) {
                 Save: {
                     title: 'Save',
                     onclick: () => {
+                        playSpriteMusic(state, 'click')
                         printWinner()
-                        //resetGameStatus(store)
                     },
                     id: 'Save'
                 },
                 Menu: {
                     title: 'Menu',
                     onclick: () => {
+                        playSpriteMusic(state, 'click')
                         changeHash('main')
                     },
                     id: 'Menu'
@@ -40,7 +41,7 @@ function printWinner() {
     state.scores.scores.push({name: name, score: score})
     updateScore(state.scores.scores)
     store.editState(state)
-    console.log(state.game.activeGame.gameStatistics)
+    changeHash('main')
 }
 
 function addName (e) {
@@ -48,11 +49,6 @@ function addName (e) {
     state.game.activeGame.gameStatistics.playerName = e.target.value
     store.editState(state)
 }
-
-
-// modal props => {title, buttons, input?}
-// btn props => {title, onclick, id}
-// input props => {placeholder}
 
 function updateScore(newValue) {
     return new Promise((resolve, reject) => {

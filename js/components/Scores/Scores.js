@@ -1,4 +1,4 @@
-import {changeHash, virtualDom} from "../../index.js";
+import {changeHash, playSpriteMusic, virtualDom} from "../../index.js";
 import {store} from "../../store/store.js";
 import Button from "../UI/Button/Button.js";
 import GameControls from "../GameControls/GameControls.js";
@@ -25,6 +25,7 @@ return (virtualDom.createVirtualNode('main', {id: "root"}, [
             ]),
             Button({
                 title: 'В меню', onclick: () => {
+                    playSpriteMusic(state, 'click')
                     changeHash('main')
                 }, id: 'scores__back'
             }),

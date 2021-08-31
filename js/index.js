@@ -1,28 +1,21 @@
 // libraries import
 import VDom from "./libraries/VDom/VDom.js"; // импорт библиотеки по работе с VirtualDom
-//import jquery from "./libraries/jquery/jquery.js"; // импорт библиотеки jquery
-//import state
 import {store} from "./store/store.js";
+
 // components
 import Main from "./components/Main/Main.js"; // импорт компоненты "Меню"
 import Help from "./components/Help/Help.js"; // импорт компоненты "Помощь"
 import Scores from "./components/Scores/Scores.js"; // импорт компоненты "Результаты"
-import Game, {resetGameStatus} from "./components/Game/Game.js";
-import ScoresBodyItem from "./components/Scores/ScoresBody/ScoresBodyItem.js"; // импорт компоненты "Игра" => тут происходит весь игровой процесс
+import Game, {resetGameStatus} from "./components/Game/Game.js"; // импорт компоненты "Игра" => тут происходит весь игровой процесс
+
 // init libraries
-//jquery(); // запустить скрипт jquery
 export const virtualDom = new VDom(); // создать экземпляр класса VirtualDom
 
 function renderAPP() {
     const state = store.getState(); // получить текущее состояние
     const root = document.getElementById('root'); // найти рутовый элемент
     state.scores.scores.length === 0 ? getScores(state) : null // запросить список рекордов с сервера
-    if (!window.audioBackground || !window.audioSprite) { // add audio files
-        window.audioSprite = new Audio(state.audio.sprite.src);
-        window.audioBackground = new Audio(state.audio.background.src);
-        window.audioBackground.loop = true;
-    }
-
+    initAudio(state)
     const hashData = decodeURIComponent(window.location.hash.substr(1));
     switch (hashData) {
 
@@ -62,21 +55,18 @@ window.onhashchange = renderAPP; // установить слушатель на
 renderAPP(); // init start
 
 
-export function offOnBackgroundMusic(state) {
+export function playBackgroundMusic(state) {
     if (state.audio.background.isPlay) {
-        window.audioBackground.play()
+        window.gameAudio.Background.play()
     }
     if (!state.audio.background.isPlay) {
-        window.audioBackground.pause()
+        window.gameAudio.Background.pause()
     }
 }
 
-export function offOnSpriteMusic(state) {
+export function playSpriteMusic(state, audioName) {
     if (state.audio.sprite.isPlay) {
-        window.audioSprite.play()
-    }
-    if (!state.audio.sprite.isPlay) {
-        window.audioSprite.pause()
+        window.gameAudio[audioName].play()
     }
 }
 
@@ -107,7 +97,22 @@ function getScores(state) {
     xhr.send(formData)
     xhr.onload = function () {
         state.scores.scores = JSON.parse(xhr.response.result);
-        console.log(xhr.response.result)
         store.editState(state)
+    }
+}
+
+function initAudio(state) {
+    if (!window.gameAudio) { // add audio files
+        window.gameAudio = {};
+        window.gameAudio.Background = new Audio(state.audio.background.src);
+        window.gameAudio.Background.volume = 0.010
+
+        window.gameAudio.success = new Audio(state.audio.sprite.success.src);
+        window.gameAudio.success.volume = 0.010
+        window.gameAudio.error = new Audio(state.audio.sprite.error.src);
+        window.gameAudio.error.volume = 0.030
+        window.gameAudio.error.loop = false
+        window.gameAudio.winLevel = new Audio(state.audio.sprite.winLevel.src);
+        window.gameAudio.click = new Audio(state.audio.sprite.click.src);
     }
 }

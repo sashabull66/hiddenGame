@@ -1,4 +1,4 @@
-import {changeHash, virtualDom} from "../../index.js";
+import {changeHash, playSpriteMusic, virtualDom} from "../../index.js";
 import {store} from "../../store/store.js";
 import GameControls from "../GameControls/GameControls.js";
 
@@ -19,6 +19,7 @@ export default function Main() {
                         virtualDom.createVirtualNode('div', {
                             class: 'menu-item item1',
                             onclick: () => {
+                                playSpriteMusic(state, 'click')
                                 changeHash('game')
                             }
                         }, [
@@ -32,6 +33,7 @@ export default function Main() {
                         virtualDom.createVirtualNode('div', {
                             class: 'menu-item item2',
                             onclick: () => {
+                                playSpriteMusic(state, 'click')
                                 changeHash('scores')
                             }
                         }, [
@@ -45,6 +47,7 @@ export default function Main() {
                         virtualDom.createVirtualNode('div', {
                             class: 'menu-item item3',
                             onclick: () => {
+                                playSpriteMusic(state, 'click')
                                 changeHash('help')
                             }
                         }, [

@@ -1,4 +1,4 @@
-import {virtualDom} from "../../index.js";
+import {playSpriteMusic, virtualDom} from "../../index.js";
 import {store} from "../../store/store.js";
 import GameControls from "../GameControls/GameControls.js";
 import BeforeEveryRoundModal from "./GameModals/BeforeEveryRoundModal.js";
@@ -36,10 +36,11 @@ export default function Game() {
 }
 
 export function resetGameStatus(state) {
-    state.game.isPause2 = false;
-    state.game.currentItems = null;
     state.game.isPlayNow = false;
+    state.game.isPause2 = false;
     state.game.isPause = false;
+    state.game.currentLevel = 1;
+    state.game.currentItems = null;
     state.game.activeGame.score = 0;
     state.game.activeGame.time = null;
     state.game.activeGame.isWin = false;
@@ -102,6 +103,7 @@ export function checkGameStatus(state) {
         state.game.currentItems.length === 0 && // если массив элементов в панели задач равен 0
         state.game.currentLevel < Object.keys(state.game.levels).length // если раунд не последний (10 в этом случае)
     ) {
+        playSpriteMusic(state, 'winLevel')
         state.game.currentItems = null // удалить элементы из блока задач
         state.game.isPlayNow = false; // остановить статус игры
         state.game.currentLevel += 1; // повысить уровень
@@ -111,8 +113,8 @@ export function checkGameStatus(state) {
     }
     // for lose
     if (state.game.activeGame.time <= 0 && // если время истекло
-        state.game.currentItems.length > 0) { // если в панели задач не пусто
-        state.game.isPlayNow = false; // остановить таймер
+        state.game.currentItems.length > 0  // если в меню задач что-то есть
+        || state.game.activeGame.score < 0) { // если очков меньше 0...
         state.game.activeGame.isLose = true; // показать модалку при проигрыше
         store.editState(state) // обновить глобальное состояние
     }
