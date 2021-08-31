@@ -55,6 +55,8 @@ window.onhashchange = renderAPP; // установить слушатель на
 renderAPP(); // init start
 
 
+
+
 export function playBackgroundMusic(state) {
     if (state.audio.background.isPlay) {
         window.gameAudio.Background.play()
@@ -122,7 +124,6 @@ function initAudio(state) {
 
 export function requestFullScreen(element = document.querySelector('#root').childNodes[0]) {
     const state = store.getState()
-    console.log(state.screen.fullscreen)
     if (state.screen.fullscreen) {
         if(element.requestFullScreen) {
             element.requestFullScreen();
