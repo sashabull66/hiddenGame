@@ -106,6 +106,8 @@ function initAudio(state) {
         window.gameAudio = {};
         window.gameAudio.Background = new Audio(state.audio.background.src);
         window.gameAudio.Background.volume = 0.010
+        window.gameAudio.Background.loop = true
+
 
         window.gameAudio.success = new Audio(state.audio.sprite.success.src);
         window.gameAudio.success.volume = 0.010
@@ -113,6 +115,7 @@ function initAudio(state) {
         window.gameAudio.error.volume = 0.030
         window.gameAudio.error.loop = false
         window.gameAudio.winLevel = new Audio(state.audio.sprite.winLevel.src);
+        window.gameAudio.winLevel.volume = 0.040
         window.gameAudio.click = new Audio(state.audio.sprite.click.src);
     }
 }

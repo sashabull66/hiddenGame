@@ -225,7 +225,8 @@
 .menu-btn {
     color: azure;
     background: linear-gradient(
-            328deg, #44a45c, #38916c);
+            328deg
+            , rgba(1,1,1,0.1), #326851);
     border-radius: 35px;
     min-width: 70%;
     padding: 20px 45px;
