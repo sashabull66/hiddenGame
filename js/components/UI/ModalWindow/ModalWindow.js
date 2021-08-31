@@ -31,7 +31,3 @@ export default function ModalWindow(props) {
 // modal props => {title, buttons, input?}
 // btn props => {title, onclick, id}
 // input props => {placeholder, id}
-
-function rrr (ev) {
-    console.log(ev.value)
-}

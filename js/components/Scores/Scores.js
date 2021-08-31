@@ -1,10 +1,11 @@
-import {changeHash, initialState, virtualDom} from "../../index.js";
+import {changeHash, virtualDom} from "../../index.js";
+import {store} from "../../store/store.js";
 import Button from "../UI/Button/Button.js";
 import GameControls from "../GameControls/GameControls.js";
 import ScoresBodyItem from "./ScoresBody/ScoresBodyItem.js";
 // props => title, onclick, id
 export default function Scores() {
-    const state = initialState.getState()
+    const state = store.getState()
     return (
         virtualDom.createVirtualNode('main', {id: "root"}, [
             virtualDom.createVirtualNode('div', {

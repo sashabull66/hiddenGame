@@ -1,5 +1,5 @@
 import ModalWindow from "../../UI/ModalWindow/ModalWindow.js";
-import {initialState} from "../../../index.js";
+import {store} from "../../../store/store.js";
 import {stopStartTimer} from "../Game.js";
 
 
@@ -12,7 +12,7 @@ export default function DuringPauseModal (state) {
                     title: 'Continue',
                     onclick: () => {
                         state.game.isPause = false
-                        initialState.editState(state)
+                        store.editState(state)
                         stopStartTimer('start')
                     },
                     id: 'Resume'
@@ -21,7 +21,7 @@ export default function DuringPauseModal (state) {
                     title: 'Menu',
                     onclick: () => {
                         state.game.isPause2 = true;
-                        initialState.editState(state)
+                        store.editState(state)
                         stopStartTimer('start')
                     },
                     id: 'Menu'

@@ -1,4 +1,5 @@
-import {initialState, virtualDom} from "../../../index.js";
+import {virtualDom} from "../../../index.js";
+import {store} from "../../../store/store.js";
 import {stopStartTimer} from "../Game.js";
 
 
@@ -15,7 +16,7 @@ export default function GameMenuArea (state) {
                     class: 'game__btn',
                     onclick: () => {
                         state.game.isPause = true;
-                        initialState.editState(state);
+                        store.editState(state);
                         stopStartTimer();
                     }
                 }, ['Pause']),
@@ -23,7 +24,7 @@ export default function GameMenuArea (state) {
                     class: 'game__btn',
                     onclick: () => {
                         state.game.isPause2 = true;
-                        initialState.editState(state);
+                        store.editState(state);
                         stopStartTimer();
                     }
                 }, ['Menu']),

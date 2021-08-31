@@ -3149,7 +3149,7 @@ export default function jquery () {
                     disabled: function() {
                         return !list;
                     },
-                    // Lock the list in its current state
+                    // Lock the list in its current store
                     lock: function() {
                         stack = undefined;
                         if ( !memory ) {
@@ -3193,7 +3193,7 @@ export default function jquery () {
 
             Deferred: function( func ) {
                 var tuples = [
-                        // action, add listener, listener list, final state
+                        // action, add listener, listener list, final store
                         [ "resolve", "done", jQuery.Callbacks("once memory"), "resolved" ],
                         [ "reject", "fail", jQuery.Callbacks("once memory"), "rejected" ],
                         [ "notify", "progress", jQuery.Callbacks("memory") ]
@@ -3247,10 +3247,10 @@ export default function jquery () {
                     // promise[ done | fail | progress ] = list.add
                     promise[ tuple[1] ] = list.add;
 
-                    // Handle state
+                    // Handle store
                     if ( stateString ) {
                         list.add(function() {
-                            // state = [ resolved | rejected ]
+                            // store = [ resolved | rejected ]
                             state = stateString;
 
                             // [ reject_list | resolve_list ].disable; progress_list.lock
@@ -4003,7 +4003,7 @@ export default function jquery () {
             div.appendChild( input );
 
             // Support: Safari 5.1, iOS 5.1, Android 4.x, Android 2.3
-            // old WebKit doesn't clone checked state correctly in fragments
+            // old WebKit doesn't clone checked store correctly in fragments
             support.checkClone = div.cloneNode( true ).cloneNode( true ).lastChild.checked;
 
             // Make sure textarea (and checkbox) defaultValue is properly cloned
@@ -4570,7 +4570,7 @@ export default function jquery () {
                     delegateType: "focusout"
                 },
                 click: {
-                    // For checkbox, fire native event so checked state will be right
+                    // For checkbox, fire native event so checked store will be right
                     trigger: function() {
                         if ( this.type === "checkbox" && this.click && jQuery.nodeName( this, "input" ) ) {
                             this.click();
@@ -4990,11 +4990,11 @@ export default function jquery () {
         function fixInput( src, dest ) {
             var nodeName = dest.nodeName.toLowerCase();
 
-            // Fails to persist the checked state of a cloned checkbox or radio button.
+            // Fails to persist the checked store of a cloned checkbox or radio button.
             if ( nodeName === "input" && rcheckableType.test( src.type ) ) {
                 dest.checked = src.checked;
 
-                // Fails to return the selected option to the default selected state when cloning options
+                // Fails to return the selected option to the default selected store when cloning options
             } else if ( nodeName === "input" || nodeName === "textarea" ) {
                 dest.defaultValue = src.defaultValue;
             }
@@ -6416,7 +6416,7 @@ export default function jquery () {
                     dataShow = data_priv.access( elem, "fxshow", {} );
                 }
 
-                // store state if its toggle - enables .stop().toggle() to "reverse"
+                // store store if its toggle - enables .stop().toggle() to "reverse"
                 if ( toggle ) {
                     dataShow.hidden = !hidden;
                 }
@@ -7917,7 +7917,7 @@ export default function jquery () {
                     // Headers (they are sent all at once)
                     requestHeaders = {},
                     requestHeadersNames = {},
-                    // The jqXHR state
+                    // The jqXHR store
                     state = 0,
                     // Default abort message
                     strAbort = "canceled",

@@ -1,5 +1,6 @@
 import ModalWindow from "../../UI/ModalWindow/ModalWindow.js";
-import {changeHash, initialState} from "../../../index.js";
+import {store} from "../../../store/store.js";
+import {changeHash} from "../../../index.js";
 
 export default function WhenWinGameModal(state) {
     return (
@@ -15,7 +16,7 @@ export default function WhenWinGameModal(state) {
                     title: 'Save',
                     onclick: () => {
                         printWinner()
-                        //resetGameStatus(state)
+                        //resetGameStatus(store)
                     },
                     id: 'Save'
                 },
@@ -39,7 +40,7 @@ function updateScore(newScore) {
 }
 
 function printWinner() {
-    const state = initialState.getState()
+    const state = store.getState()
 
     const name = state.game.activeGame.gameStatistics.playerName;
     const score = state.game.activeGame.gameStatistics.totalPoints;
@@ -48,9 +49,9 @@ function printWinner() {
 }
 
 function addName (e) {
-   const state = initialState.getState()
+   const state = store.getState()
     state.game.activeGame.gameStatistics.playerName = e.target.value
-    initialState.editState(state)
+    store.editState(state)
 }
 
 

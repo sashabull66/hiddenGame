@@ -1,5 +1,6 @@
 import ModalWindow from "../../UI/ModalWindow/ModalWindow.js";
-import {changeHash, initialState} from "../../../index.js";
+import {changeHash} from "../../../index.js";
+import {store} from "../../../store/store.js";
 import {stopStartTimer} from "../Game.js";
 
 export default function TryingToQuitGameModal (state) {
@@ -11,7 +12,7 @@ export default function TryingToQuitGameModal (state) {
                     title: 'Resume',
                     onclick: () => {
                         state.game.isPause2 = false
-                        initialState.editState(state)
+                        store.editState(state)
                         stopStartTimer()
                     },
                     id: 'Resume'

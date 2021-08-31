@@ -1,15 +1,10 @@
-import {
-    changeHash,
-    initialState,
-    offOnBackgroundMusic,
-    offOnSpriteMusic,
-    virtualDom
-} from "../../index.js";
+import {changeHash, virtualDom} from "../../index.js";
+import {store} from "../../store/store.js";
 import GameControls from "../GameControls/GameControls.js";
 
 
 export default function Main() {
-    const state = initialState.getState()
+    const state = store.getState()
     return (
         virtualDom.createVirtualNode('main', {id: "root"}, [
             virtualDom.createVirtualNode('div', {

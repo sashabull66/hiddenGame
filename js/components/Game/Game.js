@@ -1,4 +1,5 @@
-import {virtualDom, initialState} from "../../index.js";
+import {virtualDom} from "../../index.js";
+import {store} from "../../store/store.js";
 import GameControls from "../GameControls/GameControls.js";
 import BeforeEveryRoundModal from "./GameModals/BeforeEveryRoundModal.js";
 import DuringPauseModal from "./GameModals/DuringPauseModal.js";
@@ -11,7 +12,7 @@ import WhenWinGameModal from "./GameModals/WhenWinGameModal.js";
 
 export default function Game() {
     let game;
-    const state = initialState.getState();
+    const state = store.getState();
     createGameElements(state)
     game = virtualDom.createVirtualNode('main', {id: "root"}, [
         virtualDom.createVirtualNode('div', {
@@ -47,7 +48,7 @@ export function resetGameStatus(state) {
     levels.forEach((level) => { // убрать изображения для вставки на поле
         state.game.levels[level].elementsToInsert = null
     })
-    initialState.editState(state)
+    store.editState(state)
     stopStartTimer('stop');
 }
 
@@ -91,7 +92,7 @@ function createGameElements(state) {
         )
     }
 
-    initialState.editState(state)
+    store.editState(state)
 }
 
 export function checkGameStatus(state) {
@@ -106,14 +107,14 @@ export function checkGameStatus(state) {
         console.log('for next level...')
         state.game.currentItems = null // удалить элементы из блока задач
         state.game.isPlayNow = false; // остановить статус игры
-        //console.log('before', state.game.currentLevel)
+        //console.log('before', store.game.currentLevel)
         state.game.currentLevel += 1; // повысить уровень
-       // console.log('after', state.game.currentLevel)
-        //state.game.activeGame.time = null // занулить текущий таймер
+       // console.log('after', store.game.currentLevel)
+        //store.game.activeGame.time = null // занулить текущий таймер
         state.game.activeGame.gameStatistics.totalPoints += state.game.activeGame.score; // добавить к рекордам счет за текущий раунд
         state.game.activeGame.score = 0; // занулить очки для следующего раунда
-        //console.log(state.game.activeGame.gameStatistics.totalPoints)
-        initialState.editState(state) // обновить глобальное состояние
+        //console.log(store.game.activeGame.gameStatistics.totalPoints)
+        store.editState(state) // обновить глобальное состояние
     }
 
     // for lose
@@ -121,7 +122,7 @@ export function checkGameStatus(state) {
         state.game.currentItems.length > 0) { // если в панели задач не пусто
         state.game.isPlayNow = false; // остановить таймер
         state.game.activeGame.isLose = true; // показать модалку при проигрыше
-        initialState.editState(state) // обновить глобальное состояние
+        store.editState(state) // обновить глобальное состояние
     }
 
     // for win all game
@@ -132,13 +133,13 @@ export function checkGameStatus(state) {
         state.game.activeGame.gameStatistics.totalPoints += state.game.activeGame.score // добавить к глобальному счету счет текущего раунда
         state.game.isPlayNow = false; // остановить статус игры
         state.game.activeGame.isWin = true // установить статус выигрыша
-        initialState.editState(state) // обновить глобальное состояние
+        store.editState(state) // обновить глобальное состояние
     }
 
 }
 
 export function stopStartTimer() {
-    const state = initialState.getState()
+    const state = store.getState()
     let timerSettings = {
         ...state.game.activeGame.gameTimers,
         currentLevelNumber: state.game.currentLevel
@@ -150,7 +151,7 @@ export function stopStartTimer() {
         if (state.game.isPlayNow && !state.game.isPause && !state.game.isPause2) {
             timerValue -= 1000
             state.game.activeGame.time = timerValue
-            initialState.editState(state)
+            store.editState(state)
             checkGameStatus(state)
         } else {
             clearInterval(timer)

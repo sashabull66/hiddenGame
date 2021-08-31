@@ -1,10 +1,5 @@
-import {
-    initialState,
-    offOnBackgroundMusic,
-    offOnSpriteMusic,
-    virtualDom
-}
-    from "../../index.js";
+import {offOnBackgroundMusic, offOnSpriteMusic, virtualDom} from "../../index.js";
+import {store} from "../../store/store.js";
 
 export default function GameControls(props) {
     return (
@@ -15,7 +10,7 @@ export default function GameControls(props) {
                 title: 'развернуть/свернуть на весь экран',
                 onclick: () => {
                     props.screen.fullscreen = !props.screen.fullscreen
-                    initialState.editState(props)
+                    store.editState(props)
                 }
             }),
             virtualDom.createVirtualNode('div', {
@@ -25,7 +20,7 @@ export default function GameControls(props) {
                 onclick: () => {
                     props.audio.background.isPlay = !props.audio.background.isPlay
                     offOnBackgroundMusic(props)
-                    initialState.editState(props)
+                    store.editState(props)
                 }
             }),
             virtualDom.createVirtualNode('div', {
@@ -35,7 +30,7 @@ export default function GameControls(props) {
                 onclick: () => {
                     props.audio.sprite.isPlay = !props.audio.sprite.isPlay
                     offOnSpriteMusic(props)
-                    initialState.editState(props)
+                    store.editState(props)
                 }
             })
         ])

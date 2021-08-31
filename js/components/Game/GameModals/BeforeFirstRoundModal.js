@@ -1,5 +1,6 @@
 import ModalWindow from "../../UI/ModalWindow/ModalWindow.js";
-import {changeHash, initialState} from "../../../index.js";
+import {changeHash} from "../../../index.js";
+import {store} from "../../../store/store.js";
 import {stopStartTimer} from "../Game.js";
 
 
@@ -12,7 +13,7 @@ export default function BeforeFirstRoundModal(state) {
                     title: 'Start',
                     onclick: () => {
                         state.game.isPlayNow = true
-                        initialState.editState(state)
+                        store.editState(state)
                         stopStartTimer('start')
                     },
                     id: 'Start'

@@ -1,14 +1,11 @@
-import {
-    changeHash,
-    initialState,
-    virtualDom
-} from "../../index.js";
+import {changeHash, virtualDom} from "../../index.js";
+import {store} from "../../store/store.js";
 import GameControls from "../GameControls/GameControls.js";
 import Button from "../UI/Button/Button.js";
 
 
 export default function Help() {
-    const state = initialState.getState();
+    const state = store.getState();
     return (
         virtualDom.createVirtualNode('main', {id: "root"}, [
             virtualDom.createVirtualNode('div', {
