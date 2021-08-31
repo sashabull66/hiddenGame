@@ -1,4 +1,4 @@
-import {playBackgroundMusic, playSpriteMusic, virtualDom} from "../../index.js";
+import {playBackgroundMusic, playSpriteMusic, requestFullScreen, virtualDom} from "../../index.js";
 import {store} from "../../store/store.js";
 
 export default function GameControls(props) {
@@ -12,6 +12,7 @@ export default function GameControls(props) {
                     playSpriteMusic(props, 'click')
                     props.screen.fullscreen = !props.screen.fullscreen
                     store.editState(props)
+                    requestFullScreen()
                 }
             }),
             virtualDom.createVirtualNode('div', {

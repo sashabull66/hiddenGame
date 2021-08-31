@@ -119,3 +119,29 @@ function initAudio(state) {
         window.gameAudio.click = new Audio(state.audio.sprite.click.src);
     }
 }
+
+export function requestFullScreen(element = document.querySelector('#root').childNodes[0]) {
+    const state = store.getState()
+    console.log(state.screen.fullscreen)
+    if (state.screen.fullscreen) {
+        if(element.requestFullScreen) {
+            element.requestFullScreen();
+        } else if(element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        } else if(element.webkitRequestFullScreen) {
+            element.webkitRequestFullScreen();
+        }
+    }
+    if (!state.screen.fullscreen) {
+        if(document.cancelFullScreen) {
+            document.cancelFullScreen();
+        } else if(document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if(document.webkitCancelFullScreen) {
+            document.webkitCancelFullScreen();
+        }
+    }
+
+
+    //document.querySelector('#root').childNodes[0].requestFullScreen() || document.querySelector('#root').childNodes[0].cancelFullScreen()
+}
