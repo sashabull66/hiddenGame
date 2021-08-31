@@ -1,5 +1,4 @@
 import {virtualDom, initialState} from "../../index.js";
-import {stopStartTimer} from "./Timer/Timer.js";
 import GameControls from "../GameControls/GameControls.js";
 import BeforeEveryRoundModal from "./GameModals/BeforeEveryRoundModal.js";
 import DuringPauseModal from "./GameModals/DuringPauseModal.js";
@@ -24,11 +23,11 @@ export default function Game() {
                 state.game.currentLevel === 1 && !state.game.isPlayNow ? BeforeFirstRoundModal(state) : '',
                 state.game.currentLevel > 1 && !state.game.isPlayNow ? BeforeEveryRoundModal(state) : '',
                 state.game.isPause2 ? TryingToQuitGameModal(state) : '',
-                state.game.activeGame.isLose ? WhenLevelFailsModal(state) : '',
+                state.game.activeGame.isLose && state.game.currentItems.length > 0 ? WhenLevelFailsModal(state) : '', // ??? WTF ???
                 state.game.activeGame.isWin ? WhenWinGameModal(state) : '',
-                GamePlayArea(state),
-                GameMenuArea(state),
-                GameControls(state)
+                GamePlayArea(state), // components
+                GameMenuArea(state), // components
+                GameControls(state) // components
             ]),
         ])
     ])
@@ -97,38 +96,65 @@ function createGameElements(state) {
 
 export function checkGameStatus(state) {
     // for first level
-
-
+    //...
     // for next level
-    if (state.game.activeGame.time > 0 &&
-        state.game.isPlayNow &&
-        state.game.currentItems.length === 0 &&
-        state.game.currentLevel < Object.keys(state.game.levels).length
+    if (state.game.activeGame.time > 0 && // если время таймера больше чем 0
+        state.game.isPlayNow && // если статус игры true
+        state.game.currentItems.length === 0 && // если массив элементов в панели задач равен 0
+        state.game.currentLevel < Object.keys(state.game.levels).length // если раунд не последний (10 в этом случае)
     ) {
-        state.game.currentItems = null
-        state.game.isPlayNow = false;
-        state.game.currentLevel += 1;
-        state.game.activeGame.gameStatistics.totalPoints.push(state.game.activeGame.score);
-        console.log(state.game.activeGame.gameStatistics.totalPoints)
-        initialState.editState(state)
+        console.log('for next level...')
+        state.game.currentItems = null // удалить элементы из блока задач
+        state.game.isPlayNow = false; // остановить статус игры
+        //console.log('before', state.game.currentLevel)
+        state.game.currentLevel += 1; // повысить уровень
+       // console.log('after', state.game.currentLevel)
+        //state.game.activeGame.time = null // занулить текущий таймер
+        state.game.activeGame.gameStatistics.totalPoints += state.game.activeGame.score; // добавить к рекордам счет за текущий раунд
+        state.game.activeGame.score = 0; // занулить очки для следующего раунда
+        //console.log(state.game.activeGame.gameStatistics.totalPoints)
+        initialState.editState(state) // обновить глобальное состояние
     }
 
     // for lose
-    if (state.game.activeGame.time <= 0 &&
-        state.game.currentItems.length > 0) {
+    if (state.game.activeGame.time <= 0 && // если время истекло
+        state.game.currentItems.length > 0) { // если в панели задач не пусто
         state.game.isPlayNow = false; // остановить таймер
         state.game.activeGame.isLose = true; // показать модалку при проигрыше
-        initialState.editState(state)
+        initialState.editState(state) // обновить глобальное состояние
     }
 
     // for win all game
-    if (state.game.activeGame.time > 0 &&
-        state.game.isPlayNow &&
-        state.game.currentItems.length === 0 &&
-        state.game.currentLevel === Object.keys(state.game.levels).length) {
-        state.game.isPlayNow = false;
-        state.game.activeGame.isWin = true
-        initialState.editState(state)
+    if (state.game.activeGame.time > 0 && // если время таймера больше чем 0
+        state.game.isPlayNow && // если статус игры true
+        state.game.currentItems.length === 0 &&  // если массив элементов в панели задач равен 0
+        state.game.currentLevel === Object.keys(state.game.levels).length) { // если это последний раунд
+        state.game.activeGame.gameStatistics.totalPoints += state.game.activeGame.score // добавить к глобальному счету счет текущего раунда
+        state.game.isPlayNow = false; // остановить статус игры
+        state.game.activeGame.isWin = true // установить статус выигрыша
+        initialState.editState(state) // обновить глобальное состояние
     }
 
 }
+
+export function stopStartTimer() {
+    const state = initialState.getState()
+    let timerSettings = {
+        ...state.game.activeGame.gameTimers,
+        currentLevelNumber: state.game.currentLevel
+    }
+    const levelNumber = timerSettings.currentLevelNumber
+    let timerValue = state.game.activeGame.time || timerSettings[levelNumber]
+
+    let timer = setInterval(() => {
+        if (state.game.isPlayNow && !state.game.isPause && !state.game.isPause2) {
+            timerValue -= 1000
+            state.game.activeGame.time = timerValue
+            initialState.editState(state)
+            checkGameStatus(state)
+        } else {
+            clearInterval(timer)
+        }
+    }, 1000)
+}
+

@@ -1,6 +1,6 @@
 import ModalWindow from "../../UI/ModalWindow/ModalWindow.js";
 import {changeHash, initialState} from "../../../index.js";
-import {stopStartTimer} from "../Timer/Timer.js";
+import {stopStartTimer} from "../Game.js";
 
 export default function BeforeEveryRoundModal (state) {
     return (
@@ -11,8 +11,9 @@ export default function BeforeEveryRoundModal (state) {
                     title: 'Start',
                     onclick: () => {
                         state.game.isPlayNow = true
+                        state.game.activeGame.time = null
                         initialState.editState(state)
-                        stopStartTimer('start')
+                        stopStartTimer()
                     },
                     id: 'Start'
                 },

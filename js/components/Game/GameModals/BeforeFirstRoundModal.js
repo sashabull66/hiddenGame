@@ -1,7 +1,6 @@
 import ModalWindow from "../../UI/ModalWindow/ModalWindow.js";
 import {changeHash, initialState} from "../../../index.js";
-import {resetGameStatus} from "../Game.js";
-import {stopStartTimer} from "../Timer/Timer.js";
+import {stopStartTimer} from "../Game.js";
 
 
 export default function BeforeFirstRoundModal(state) {

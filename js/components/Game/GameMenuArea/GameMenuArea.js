@@ -1,5 +1,5 @@
 import {initialState, virtualDom} from "../../../index.js";
-import Timer, {stopStartTimer} from "../Timer/Timer.js";
+import {stopStartTimer} from "../Game.js";
 
 
 export default function GameMenuArea (state) {
@@ -30,7 +30,7 @@ export default function GameMenuArea (state) {
                 virtualDom.createVirtualNode('div', {class: 'label time'}, [
                     'Time',
                     virtualDom.createVirtualNode('p', {}, [
-                        Timer()
+                        millisToMinutesAndSeconds(state.game.activeGame.time)
                     ])
 
                 ]),
@@ -49,4 +49,10 @@ export default function GameMenuArea (state) {
             ])
         ])
     )
+}
+
+function millisToMinutesAndSeconds(millis) { // функция для конверсии миллисекунд в минуты и секунды с разделителем ":"
+    let minutes = Math.floor(millis / 60000);
+    let seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 }

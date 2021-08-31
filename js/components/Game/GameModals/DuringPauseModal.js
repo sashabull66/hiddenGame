@@ -1,6 +1,6 @@
 import ModalWindow from "../../UI/ModalWindow/ModalWindow.js";
 import {initialState} from "../../../index.js";
-import {stopStartTimer} from "../Timer/Timer.js";
+import {stopStartTimer} from "../Game.js";
 
 
 export default function DuringPauseModal (state) {

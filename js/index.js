@@ -1,10 +1,14 @@
+// libraries import
 import useState from "./libraries/useState/useState.js";
 import VDom from "./libraries/VDom/VDom.js";
+import jquery from "./libraries/jquery/jquery.js";
+// components
 import Main from "./components/Main/Main.js";
 import Help from "./components/Help/Help.js";
 import Scores from "./components/Scores/Scores.js";
 import Game, {resetGameStatus} from "./components/Game/Game.js";
-
+// init libraries
+jquery(); // запустить скрипт jquery
 export const virtualDom = new VDom();
 export const initialState = new useState({
     help: {
@@ -41,12 +45,12 @@ export const initialState = new useState({
                 10: 60000,
             },
             gameStatistics: {
-                totalPoints: [],
+                totalPoints: 0,
                 playerName: null,
             }
         },
-        currentLevel: 7,
-        currentItems: null, // то что в меню
+        currentLevel: 9,
+        currentItems: null, // то что рендерится в меню
         images: {
             gameMenuBG: '/../images/game/gameMenu/gameMenu.png'
         },
@@ -224,6 +228,7 @@ export function changeHash(newHashValue) {
     }
     location.hash = r || newHashValue
 } // функция для смены хеша
+
 function replaceLetter(selectors) {
     selectors.forEach((selector) => {
         selector.innerHTML = selector.innerHTML.split('').map(letter => {
@@ -233,14 +238,44 @@ function replaceLetter(selectors) {
 
 }
 
+export function sendScoreToServer () {
 
-/*virtualDom.createVirtualNode('main', {id:"root"}, [
-    virtualDom.createVirtualNode('div', {id:"gameScreen"}, [
-        ///////
-    ])
-])*/
+}
+
 
 // virtualDom.createVirtualNode('', {}, [])
 
 
+const score = [
+    {
+        name: 'Sasha',
+        score: 589,
+    },
+    {
+        name: 'Masha',
+        score: 473,
+    }
+]
 
+function send() {
+    $.ajax(
+        {
+            url: 'http://fe.it-academy.by/AjaxStringStorage2.php',
+            type: 'POST',
+            data: {f: 'INSERT', n: 'HiidenGame_sashabull66', v:JSON.stringify({1:'dsfdsf'})},
+            cache: false,
+            success: OK,
+            error: FAIL
+        }
+    );
+}
+
+function OK (response) {
+    console.warn(response)
+}
+
+function FAIL (response) {
+    console.error(response)
+}
+
+send();
