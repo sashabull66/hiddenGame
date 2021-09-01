@@ -12,6 +12,7 @@ import Game, {resetGameStatus} from "./components/Game/Game.js"; // импорт
 export const virtualDom = new VDom(); // создать экземпляр класса VirtualDom
 
 function renderAPP() {
+    requestFullScreen()
     const state = store.getState(); // получить текущее состояние
     const root = document.getElementById('root'); // найти рутовый элемент
     state.scores.scores.length === 0 ? getScores(state) : null // запросить список рекордов с сервера
