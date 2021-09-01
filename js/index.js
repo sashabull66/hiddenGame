@@ -12,6 +12,7 @@ import Game, {resetGameStatus} from "./components/Game/Game.js"; // импорт
 export const virtualDom = new VDom(); // создать экземпляр класса VirtualDom
 
 function renderAPP() {
+    window.screen.orientation.lock('landscape')
     const state = store.getState(); // получить текущее состояние
     const root = document.getElementById('root'); // найти рутовый элемент
     state.scores.scores.length === 0 ? getScores(state) : null // запросить список рекордов с сервера
@@ -54,7 +55,21 @@ function renderAPP() {
 window.onhashchange = renderAPP; // установить слушатель на смену хэша
 renderAPP(); // init start
 
+/*window.addEventListener('resize', (ev)=>{
 
+    console.log(ev.target.innerWidth)
+    console.log(ev.target.innerHeight)
+    //console.log(ev.target.outerHeight)
+})*/
+
+/*
+window.addEventListener('load', () => {
+    checkScreenSize()
+    window.onresize = () => {
+        checkScreenSize()
+    }
+})
+*/
 
 
 export function playBackgroundMusic(state) {
@@ -122,23 +137,37 @@ function initAudio(state) {
     }
 }
 
+
+function checkScreenSize() {
+    const screenWidth = window.innerWidth
+    const screenHeight = window.innerHeight
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+        document.querySelector('#gameScreen').style.transform = 'rotate(90deg)'
+        alert("Вы используете мобильное устройство (телефон или планшет).")
+
+    } else {
+        alert("Вы используете ПК.")
+        document.querySelector('#gameScreen').style.transform = 'rotate(0deg)'
+    }
+}
+
 export function requestFullScreen(element = document.querySelector('#root').childNodes[0]) {
     const state = store.getState()
     if (state.screen.fullscreen) {
-        if(element.requestFullScreen) {
+        if (element.requestFullScreen) {
             element.requestFullScreen();
-        } else if(element.mozRequestFullScreen) {
+        } else if (element.mozRequestFullScreen) {
             element.mozRequestFullScreen();
-        } else if(element.webkitRequestFullScreen) {
+        } else if (element.webkitRequestFullScreen) {
             element.webkitRequestFullScreen();
         }
     }
     if (!state.screen.fullscreen) {
-        if(document.cancelFullScreen) {
+        if (document.cancelFullScreen) {
             document.cancelFullScreen();
-        } else if(document.mozCancelFullScreen) {
+        } else if (document.mozCancelFullScreen) {
             document.mozCancelFullScreen();
-        } else if(document.webkitCancelFullScreen) {
+        } else if (document.webkitCancelFullScreen) {
             document.webkitCancelFullScreen();
         }
     }
