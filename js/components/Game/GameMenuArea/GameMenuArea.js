@@ -3,7 +3,7 @@ import {store} from "../../../store/store.js";
 import {stopStartTimer} from "../Game.js";
 
 
-export default function GameMenuArea (state) {
+export default function GameMenuArea(state) {
     return (
         virtualDom.createVirtualNode('div', {class: 'game__menu-area'}, [
             //меню:
@@ -11,7 +11,12 @@ export default function GameMenuArea (state) {
                 ...state.game.currentItems
             ]),
             virtualDom.createVirtualNode('div', {class: 'game_controls'}, [
-                virtualDom.createVirtualNode('div', {class: 'game__btn'}, ['Hint']),
+                virtualDom.createVirtualNode('div', {
+                    class: 'game__btn',
+                    onclick: () => {
+                        getHint(state)
+                    }
+                }, ['Hint']),
                 virtualDom.createVirtualNode('div', {
                     class: 'game__btn',
                     onclick: () => {
@@ -58,4 +63,21 @@ function millisToMinutesAndSeconds(millis) { // функция для конве
     let minutes = Math.floor(millis / 60000);
     let seconds = ((millis % 60000) / 1000).toFixed(0);
     return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+}
+
+function getHint(state) {
+    function getRandomNumberFromRange(minValue, maxValue) {
+        return (
+            Math.floor(Math.random() * (maxValue - minValue + 1) + minValue)
+        )
+    }
+    const currentElements = state.game.currentItems;
+    const currentElementsQuantity = currentElements.length - 1;
+    const randomElementNumber = getRandomNumberFromRange(0, currentElementsQuantity)
+    const src = 'img[src$=' + '"' + currentElements[randomElementNumber].props.src.substr(-13).toString() + '"' + ']'
+    const randomElement = document.querySelector(src)
+    state.game.activeGame.hint.showHint = true;
+    state.game.activeGame.hint.left = randomElement.offsetLeft - 5
+    state.game.activeGame.hint.top = randomElement.offsetTop - 5
+    store.editState(state)
 }

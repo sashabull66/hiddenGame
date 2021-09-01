@@ -785,8 +785,8 @@ img[src$='level3/0.png'] {
 }
 
 img[src$='level3/1.png'] {
-    top: 8%;
-    left: 69%;
+    top: 11%;
+    left: 57%;
     width: 4%;
 }
 
@@ -1271,7 +1271,7 @@ img[src$='level6/6.png'] {
 }
 
 img[src$='level6/7.png'] {
-    top: 29%;
+    top: 79%;
     left: 38%;
     width: 11%;
 }
@@ -2246,7 +2246,7 @@ img[src$='level10/26.png'] {
     text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
-.lds-dual-ring {
+/*.lds-dual-ring {
     display: inline-block;
     width: 80px;
     height: 80px;
@@ -2269,4 +2269,12 @@ img[src$='level10/26.png'] {
     100% {
         transform: rotate(360deg);
     }
+}*/
+
+.hint {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 2px solid red;
+    border-radius: 50%;
 }

@@ -27,11 +27,16 @@ export const store = new useState({  // создать экземпляр кла
         isPause2: false,
         activeGame: {
             score: 0,
+            hint: {
+                showHint: false,
+                top: null,
+                left: null,
+            },
             time: null,
             isWin: false,
             isLose: false,
             gameTimers: {
-                1: 180000,
+                1: 150000,
                 2: 144000,
                 3: 132000,
                 4: 120000,
@@ -137,9 +142,10 @@ export const store = new useState({  // создать экземпляр кла
             success: {src: '/../audio/success.mp3'},
             winLevel: {src: '/../audio/winLevel.mp3'},
             click: {src: '/../audio/click.mp3'},
+            drums: {src: '/../audio/drums.mp3'},
         }
     },
     screen: {
-        fullscreen: true,
+        fullscreen: false,
     },
 });

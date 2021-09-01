@@ -143,6 +143,9 @@ export function stopStartTimer() {
         if (state.game.isPlayNow && !state.game.isPause && !state.game.isPause2) {
             timerValue -= 1000
             state.game.activeGame.time = timerValue
+            if (timerValue === 2000 && state.game.isPlayNow) {
+                playSpriteMusic(state, 'drums')
+            }
             store.editState(state)
             checkGameStatus(state)
         } else {

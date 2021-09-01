@@ -22,7 +22,6 @@ function renderAPP() {
         case 'game' :
             store.addFollower(() => { // добавить в store слушателя - функцию игровой страницы
                 virtualDom.render(Game(), root)
-                requestFullScreen()
             })
             break;
 
@@ -30,7 +29,6 @@ function renderAPP() {
             resetGameStatus(state) // занулить игровой прогресс
             store.addFollower(() => { // добавить в store слушателя - функцию рендера главной страницы
                 virtualDom.render(Main(), root)
-                requestFullScreen()
             })
             break;
 
@@ -38,7 +36,6 @@ function renderAPP() {
             resetGameStatus(state) // занулить игровой прогресс
             store.addFollower(() => { // добавить в store слушателя - функцию рендера страницы рекордов
                 virtualDom.render(Scores(), root)
-                requestFullScreen()
             })
             break;
 
@@ -46,7 +43,6 @@ function renderAPP() {
             resetGameStatus(state) // занулить игровой прогресс
             store.addFollower(() => { // добавить в store слушателя - функцию рендера страницы помощь
                 virtualDom.render(Help(), root)
-                requestFullScreen()
             })
             break;
 
@@ -58,8 +54,10 @@ function renderAPP() {
 window.onhashchange = renderAPP; // установить слушатель на смену хэша
 renderAPP(); // init start
 
-var myScreenOrientation = window.screen.orientation;
-myScreenOrientation.lock("landscape");
+window.onload = ()=>{requestFullScreen()}
+
+/*var myScreenOrientation = window.screen.orientation;
+myScreenOrientation.lock("landscape");*/
 
 /*window.addEventListener('resize', (ev)=>{
 
@@ -131,15 +129,20 @@ function initAudio(state) {
         window.gameAudio.Background.volume = 0.010
         window.gameAudio.Background.loop = true
 
-
         window.gameAudio.success = new Audio(state.audio.sprite.success.src);
         window.gameAudio.success.volume = 0.010
+
         window.gameAudio.error = new Audio(state.audio.sprite.error.src);
         window.gameAudio.error.volume = 0.030
         window.gameAudio.error.loop = false
+
         window.gameAudio.winLevel = new Audio(state.audio.sprite.winLevel.src);
         window.gameAudio.winLevel.volume = 0.040
+
         window.gameAudio.click = new Audio(state.audio.sprite.click.src);
+
+        window.gameAudio.drums = new Audio(state.audio.sprite.drums.src);
+        window.gameAudio.drums.volume = 0.070
     }
 }
 
@@ -177,7 +180,4 @@ export function requestFullScreen(element = document.querySelector('#root').chil
             document.webkitCancelFullScreen();
         }
     }
-
-
-    //document.querySelector('#root').childNodes[0].requestFullScreen() || document.querySelector('#root').childNodes[0].cancelFullScreen()
 }

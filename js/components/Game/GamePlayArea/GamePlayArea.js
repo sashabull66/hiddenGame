@@ -11,7 +11,8 @@ export default function GamePlayArea (state) {
             onclick: gameCLickListener
         }, [
             // кликабельные картинки:
-            ...state.game.levels[state.game.currentLevel].elementsToInsert
+            ...state.game.levels[state.game.currentLevel].elementsToInsert,
+            state.game.activeGame.hint.showHint ? virtualDom.createVirtualNode('div', {class: 'hint', style:`top: ${state.game.activeGame.hint.top}px; left: ${state.game.activeGame.hint.left}px;`}) : ''
         ])
     )
 }
