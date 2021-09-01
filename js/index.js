@@ -12,7 +12,6 @@ import Game, {resetGameStatus} from "./components/Game/Game.js"; // импорт
 export const virtualDom = new VDom(); // создать экземпляр класса VirtualDom
 
 function renderAPP() {
-    window.screen.orientation.lock('landscape')
     const state = store.getState(); // получить текущее состояние
     const root = document.getElementById('root'); // найти рутовый элемент
     state.scores.scores.length === 0 ? getScores(state) : null // запросить список рекордов с сервера
@@ -54,6 +53,9 @@ function renderAPP() {
 
 window.onhashchange = renderAPP; // установить слушатель на смену хэша
 renderAPP(); // init start
+
+var myScreenOrientation = window.screen.orientation;
+myScreenOrientation.lock("landscape");
 
 /*window.addEventListener('resize', (ev)=>{
 
