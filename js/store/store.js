@@ -140,6 +140,6 @@ export const store = new useState({  // создать экземпляр кла
         }
     },
     screen: {
-        fullscreen: false,
+        fullscreen: true,
     },
 });
