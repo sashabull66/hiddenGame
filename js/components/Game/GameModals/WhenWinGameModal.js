@@ -84,9 +84,9 @@ function updateScore(newValue) {
                 xhr.send(formData)
                 xhr.onload = function () {
                     if (xhr.status >= 200 || xhr.status < 300) {
-                        console.log(xhr.response)
+                        return null
                     } else {
-                        console.log(new Error('Усё пропало!'))
+                        console.error(new Error('Усё пропало!'))
                     }
                 }
             }

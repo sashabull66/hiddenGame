@@ -105,12 +105,10 @@ export function checkGameStatus(state) {
         state.game.currentLevel < Object.keys(state.game.levels).length // если раунд не последний (10 в этом случае)
     ) {
         playSpriteMusic(state, 'winLevel')
-        console.log('level:'+state.game.currentLevel+' points:'+state.game.activeGame.score)
         state.game.currentItems = null // удалить элементы из блока задач
         state.game.isPlayNow = false; // остановить статус игры
         state.game.currentLevel += 1; // повысить уровень
         state.game.activeGame.gameStatistics.totalPoints += state.game.activeGame.score; // добавить к рекордам счет за текущий раунд
-        console.log('total:'+state.game.activeGame.gameStatistics.totalPoints)
         state.game.activeGame.score = 0; // занулить очки для следующего раунда
         store.editState(state) // обновить глобальное состояние
     }

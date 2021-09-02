@@ -18,11 +18,13 @@ export default function ModalWindow(props) {
                             value: input.value
                         },
                         []) : '',
-                ...buttonsTitles.map(title => Button({
-                    title: title,
-                    onclick: buttons[title].onclick,
-                    id: buttons[title].id
-                })),
+                virtualDom.createVirtualNode('div', {class:'btnWrapper'},[
+                    ...buttonsTitles.map(title => Button({
+                        title: title,
+                        onclick: buttons[title].onclick,
+                        id: buttons[title].id
+                    })),
+                ])
             ])
         ])
     )

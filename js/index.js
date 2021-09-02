@@ -1,5 +1,7 @@
-// libraries import
+// library import
 import VDom from "./libraries/VDom/VDom.js"; // импорт библиотеки по работе с VirtualDom
+
+// main state import
 import {store} from "./store/store.js";
 
 // components
@@ -8,22 +10,22 @@ import Help from "./components/Help/Help.js"; // импорт компонент
 import Scores from "./components/Scores/Scores.js"; // импорт компоненты "Результаты"
 import Game, {resetGameStatus} from "./components/Game/Game.js"; // импорт компоненты "Игра" => тут происходит весь игровой процесс
 
-// init libraries
+// init library virtualDom
 export const virtualDom = new VDom(); // создать экземпляр класса VirtualDom
 
+renderAPP(); // init start
+window.onhashchange = renderAPP; // установить слушатель на смену хэша
+
+// main render function
 function renderAPP() {
-
-
     const state = store.getState(); // получить текущее состояние
     const root = document.getElementById('root'); // найти рутовый элемент
     state.scores.scores.length === 0 ? getScores(state) : null // запросить список рекордов с сервера
     initAudio(state)
     const hashData = decodeURIComponent(window.location.hash.substr(1));
     switch (hashData) {
-
         case 'game' :
             store.addFollower(() => { // добавить в store слушателя - функцию игровой страницы
-                rerenderChecker()
                 virtualDom.render(Game(), root)
             })
             break;
@@ -54,58 +56,7 @@ function renderAPP() {
     }
 }
 
-function startLoader() {
-    const state = store.getState()
-    function preloadMedea() {
-        let imgSrc = [];
-        imgSrc.push(state.game.images.gameMenuBG, state.help.image.src)
-        console.log(imgSrc)
-    }
-
-    preloadMedea()
-    const root = document.getElementById('root'); // найти рутовый элемент
-    const loader = virtualDom.createVirtualNode('main', {id: "root"}, [
-        virtualDom.createVirtualNode('div', {class: 'loader'}, [
-            virtualDom.createVirtualNode('p', {},['Click to start game']),
-            virtualDom.createVirtualNode('div', {class:'startGameBTN'},[])
-        ])
-    ])
-
-
-    virtualDom.render(loader, root)
-}
-
-window.onhashchange = renderAPP; // установить слушатель на смену хэша
-renderAPP(); // init start
-
-function rerenderChecker() {
-    window.onload = null
-    window.onload = ()=>{
-        console.log('rerender')
-    }
-}
-
-//startLoader()
-
-/*var myScreenOrientation = window.screen.orientation;
-myScreenOrientation.lock("landscape");*/
-
-/*window.addEventListener('resize', (ev)=>{
-
-    console.log(ev.target.innerWidth)
-    console.log(ev.target.innerHeight)
-    //console.log(ev.target.outerHeight)
-})*/
-
-/*
-window.addEventListener('load', () => {
-    checkScreenSize()
-    window.onresize = () => {
-        checkScreenSize()
-    }
-})
-*/
-
+// other function for app
 export function playBackgroundMusic(state) {
     if (state.audio.background.isPlay) {
         window.gameAudio.Background.play()
@@ -151,15 +102,6 @@ export function changeHash(newHashValue) {
     location.hash = r || newHashValue
 } // функция для смены хеша
 
-function replaceLetter(selectors) {
-    selectors.forEach((selector) => {
-        selector.innerHTML = selector.innerHTML.split('').map(letter => {
-            return `<span>${letter === ' ' ? `&nbsp` : letter}</span>` // сохраняю пробел заменяя пустую строку на неразрывный пробел
-        }).join('')
-    })
-
-}
-
 function getScores(state) {
     let xhr = new XMLHttpRequest();
     xhr.open('POST', 'https://fe.it-academy.by/AjaxStringStorage2.php');
@@ -195,32 +137,5 @@ function initAudio(state) {
 
         window.gameAudio.drums = new Audio(state.audio.sprite.drums.src);
         window.gameAudio.drums.volume = 0.070
-    }
-}
-
-function doOnOrientationChange() {
-    switch(window.orientation) {
-        case -90: case 90:
-            alert('landscape');
-            break;
-        default:
-            alert('portrait');
-            break;
-    }
-}
-
-
-function checkScreenSettings() {
-    const screenWidth = window.innerWidth
-    const screenHeight = window.innerHeight
-    if (screenWidth > screenHeight) {}
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-        //document.querySelector('#gameScreen').style.transform = 'rotate(90deg)'
-
-        alert("Вы используете мобильное устройство (телефон или планшет).")
-
-    } else {
-        alert("Вы используете ПК.")
-        document.querySelector('#gameScreen').style.transform = 'rotate(0deg)'
     }
 }
