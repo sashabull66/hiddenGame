@@ -1,0 +1,156 @@
+import {playSpriteMusic, virtualDom} from "../../index.js";
+import {store} from "../../store/store.js";
+import GameControls from "../GameControls/GameControls.js";
+import BeforeEveryRoundModal from "./GameModals/BeforeEveryRoundModal.js";
+import DuringPauseModal from "./GameModals/DuringPauseModal.js";
+import TryingToQuitGameModal from "./GameModals/TryingToQuitGameModal.js";
+import GamePlayArea from "./GamePlayArea/GamePlayArea.js";
+import GameMenuArea from "./GameMenuArea/GameMenuArea.js";
+import WhenLevelFailsModal from "./GameModals/WhenLevelFailsModal.js";
+import BeforeFirstRoundModal from "./GameModals/BeforeFirstRoundModal.js";
+import WhenWinGameModal from "./GameModals/WhenWinGameModal.js";
+
+export default function Game() {
+    let game;
+    const state = store.getState();
+    createGameElements(state)
+    game = virtualDom.createVirtualNode('main', {id: "root"}, [
+        virtualDom.createVirtualNode('div', {
+            id: "gameScreen",
+            class: `gameScreen ${state.screen.fullscreen ? 'fullScreen' : ''}`
+        }, [
+            virtualDom.createVirtualNode('div', {class: 'game'}, [
+                state.game.isPause ? DuringPauseModal(state) : '',
+                state.game.currentLevel === 1 && !state.game.isPlayNow ? BeforeFirstRoundModal(state) : '',
+                state.game.currentLevel > 1 && !state.game.isPlayNow ? BeforeEveryRoundModal(state) : '',
+                state.game.isPause2 ? TryingToQuitGameModal(state) : '',
+                state.game.activeGame.isLose && state.game.currentItems.length > 0 ? WhenLevelFailsModal(state) : '', // ??? WTF ???
+                state.game.activeGame.isWin ? WhenWinGameModal(state) : '',
+                GamePlayArea(state), // components
+                GameMenuArea(state), // components
+                GameControls(state) // components
+            ]),
+        ])
+    ])
+    return game
+}
+
+export function resetGameStatus(state) {
+    state.game.isPlayNow = false; // деактивировать статус игры
+    state.game.isPause2 = false; // деактивировать статус модалки
+    state.game.isPause = false; // деактивировать статус модалки
+    state.game.currentLevel = 1; // установить текущий уровень в начало
+    state.game.currentItems = null; // удалить элементы для вставки
+    state.game.activeGame.score = 0; // занулить текущее количество очков
+    state.game.activeGame.gameStatistics.totalPoints = 0; // занулить глобальное количество очков за все раунды
+    state.game.activeGame.time = null; // занулить таймер
+    state.game.activeGame.isWin = false; // деактивировать статус победы
+    state.game.activeGame.isLose = false; // деактивировать статус проигрыша
+    const levels = Object.keys(state.game.levels)
+    levels.forEach((level) => { // убрать изображения для вставки на поле
+        state.game.levels[level].elementsToInsert = null
+    })
+    store.editState(state)
+    stopStartTimer('stop');
+}
+
+function createGameElements(state) {
+    if (state.game.currentLevel > Object.keys(state.game.levels).length) {
+        return
+    }
+
+    function getRandomObjects(number) { // функция для получения 10 рандомные чисел из предела
+        const quantity = 10;
+        let result = new Set()
+
+        function randomInteger(min, max) {
+            let rand = min - 0.5 + Math.random() * (max - min + 1);
+            return Math.round(rand);
+        }
+
+        for (let temp = 0; result.size < quantity; temp++) {
+            result.add(randomInteger(0, number))
+        }
+        return Array.from(result)
+    }
+
+    if (state.game.levels[state.game.currentLevel].elementsToInsert !== null && state.game.currentItems !== null) { // если есть в useState img для контента и для задач
+        return null
+    }
+
+    if (state.game.levels[state.game.currentLevel].elementsToInsert === null || !state.game.levels[state.game.currentLevel].elementsToInsert) { // если нету img для контента
+        const allQuantity = state.game.levels[state.game.currentLevel].gameElementsQuantity
+        const currentSrc = state.game.levels[state.game.currentLevel].itemsSrc
+        state.game.levels[state.game.currentLevel].elementsToInsert = new Array(allQuantity + 1).fill('')
+            .map((_, index) => virtualDom.createVirtualNode('img', {src: currentSrc + index + '.png', alt: ''}, []))
+    }
+
+    if (state.game.currentItems === null || !state.game.currentItems) { // если нету картинок для блока задач
+        state.game.currentItems = getRandomObjects(state.game.levels[state.game.currentLevel].gameElementsQuantity).map(
+            number => virtualDom.createVirtualNode('img', {
+                src: state.game.levels[state.game.currentLevel].itemsSrc + number + '.png',
+                alt: ''
+            }, [])
+        )
+    }
+
+    store.editState(state)
+}
+
+export function checkGameStatus(state) {
+    // for next level
+    if (state.game.activeGame.time > 0 && // если время таймера больше чем 0
+        state.game.isPlayNow && // если статус игры true
+        state.game.currentItems.length === 0 && // если массив элементов в панели задач равен 0
+        state.game.currentLevel < Object.keys(state.game.levels).length // если раунд не последний (10 в этом случае)
+    ) {
+        playSpriteMusic(state, 'winLevel')
+        state.game.currentItems = null // удалить элементы из блока задач
+        state.game.isPlayNow = false; // остановить статус игры
+        state.game.currentLevel += 1; // повысить уровень
+        state.game.activeGame.gameStatistics.totalPoints += state.game.activeGame.score; // добавить к рекордам счет за текущий раунд
+        state.game.activeGame.score = 0; // занулить очки для следующего раунда
+        store.editState(state) // обновить глобальное состояние
+    }
+    // for lose
+    if (state.game.activeGame.time <= 0 && // если время истекло
+        state.game.currentItems.length > 0  // если в меню задач что-то есть
+        || state.game.activeGame.score < 0) { // если очков меньше 0...
+        state.game.activeGame.isLose = true; // показать модалку при проигрыше
+        store.editState(state) // обновить глобальное состояние
+    }
+    // for win all game
+    if (state.game.activeGame.time > 0 && // если время таймера больше чем 0
+        state.game.isPlayNow && // если статус игры true
+        state.game.currentItems.length === 0 &&  // если массив элементов в панели задач равен 0
+        state.game.currentLevel === Object.keys(state.game.levels).length) { // если это последний раунд
+        state.game.activeGame.gameStatistics.totalPoints += state.game.activeGame.score // добавить к глобальному счету счет текущего раунда
+        state.game.isPlayNow = false; // остановить статус игры
+        state.game.activeGame.isWin = true // установить статус выигрыша
+        store.editState(state) // обновить глобальное состояние
+    }
+}
+
+export function stopStartTimer() {
+    const state = store.getState()
+    let timerSettings = {
+        ...state.game.activeGame.gameTimers,
+        currentLevelNumber: state.game.currentLevel
+    }
+    const levelNumber = timerSettings.currentLevelNumber
+    let timerValue = state.game.activeGame.time || timerSettings[levelNumber]
+
+    let timer = setInterval(() => {
+        if (state.game.isPlayNow && !state.game.isPause && !state.game.isPause2) {
+            timerValue -= 1000
+            state.game.activeGame.time = timerValue
+            if (timerValue === 2000 && state.game.isPlayNow) {
+                playSpriteMusic(state, 'drums')
+            }
+            store.editState(state)
+            checkGameStatus(state)
+        } else {
+            clearInterval(timer)
+        }
+    }, 1000)
+}
