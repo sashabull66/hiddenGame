@@ -20,4 +20,4 @@
 
 Цель проекта минимизировать прямую работу с DOM и лишними ненужными rerender, в чем и помогли вышеуказанные библиотеки.
 
-Деплой проекта: [https://hidden-school.netlify.app/#main]
+Деплой проекта: https://hidden-school.netlify.app
