@@ -71,13 +71,24 @@ function getHint(state) {
             Math.floor(Math.random() * (maxValue - minValue + 1) + minValue)
         )
     }
-    const currentElements = state.game.currentItems;
-    const currentElementsQuantity = currentElements.length - 1;
-    const randomElementNumber = getRandomNumberFromRange(0, currentElementsQuantity)
-    const src = 'img[src$=' + '"' + currentElements[randomElementNumber].props.src.substr(-13).toString() + '"' + ']'
-    const randomElement = document.querySelector(src)
-    state.game.activeGame.hint.showHint = true;
-    state.game.activeGame.hint.left = randomElement.offsetLeft - 5
-    state.game.activeGame.hint.top = randomElement.offsetTop - 5
-    store.editState(state)
+    if (state.game.activeGame.score >= 20) {
+        const currentElements = state.game.currentItems;
+        const currentElementsQuantity = currentElements.length - 1;
+        const randomElementNumber = getRandomNumberFromRange(0, currentElementsQuantity)
+        const src = 'img[src$=' + '"' + currentElements[randomElementNumber].props.src.substr(-13).toString() + '"' + ']'
+        const randomElement = document.querySelector(src)
+        state.game.activeGame.hint.showHint = true;
+        state.game.activeGame.hint.left = randomElement.offsetLeft - 5
+        state.game.activeGame.hint.top = randomElement.offsetTop - 5
+        state.game.activeGame.score -= 20
+        store.editState(state)
+        setTimeout(()=>{ // через три секунды скрыть подсказку
+            state.game.activeGame.hint.showHint = false;
+            state.game.activeGame.hint.left = null
+            state.game.activeGame.hint.top = null
+            store.editState(state)
+        }, 3000)
+    } else {
+        playSpriteMusic(state, 'error')
+    }
 }

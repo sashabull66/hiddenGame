@@ -33,8 +33,8 @@ img {
     justify-content: center;
     align-items: center;
     position: relative;
-    width: 100vw !important;
-    height: 100vh !important;
+    width: 100vw;
+    height: 100vh;
     margin: 0;
     padding: 0;
     overflow-y: hidden; /*скрыть scroll*/
@@ -234,8 +234,7 @@ img {
 .menu-btn {
     color: azure;
     background: linear-gradient(
-            328deg
-            , rgba(1,1,1,0.1), #326851);
+            328deg, rgba(1, 1, 1, 0.1), #326851);
     border-radius: 35px;
     min-width: 70%;
     padding: 20px 45px;
@@ -448,6 +447,7 @@ span:nth-child(4n-3) {
 }
 
 .game__menu-area {
+    padding: 12px;
     position: relative;
     display: flex;
     flex-direction: row;
@@ -460,16 +460,19 @@ span:nth-child(4n-3) {
 .game__play-area > img {
     position: absolute;
     width: 8%;
+    z-index: 6666;
 }
+
 /*LEVEL 1 START*/
 img[src$='level1/0.png'] {
-    top: 47%;
-    left: 70%;
+    top: 48%;
+    left: 75%;
 }
 
 img[src$='level1/1.png'] {
-    top: 85%;
-    left: 84%;
+    top: 70%;
+    left: 62%;
+    width: 5%;
 }
 
 img[src$='level1/2.png'] {
@@ -479,27 +482,27 @@ img[src$='level1/2.png'] {
 
 img[src$='level1/3.png'] {
     top: 50.2%;
-    left: 24%;
+    left: 21%;
 }
 
 img[src$='level1/4.png'] {
-    top: 13%;
-    left: 61%;
+    top: 37%;
+    left: 15%;
 }
 
 img[src$='level1/5.png'] {
     top: 58.2%;
-    left: 39%;
+    left: 38%;
 }
 
 img[src$='level1/6.png'] {
-    top: 47.3%;
-    left: 75%;
+    top: 49.3%;
+    left: 90%;
 }
 
 img[src$='level1/7.png'] {
     top: 61%;
-    left: 8%;
+    left: 3%;
 }
 
 img[src$='level1/8.png'] {
@@ -509,7 +512,7 @@ img[src$='level1/8.png'] {
 
 img[src$='level1/9.png'] {
     top: 58%;
-    left: 51%;
+    left: 54%;
 }
 
 img[src$='level1/10.png'] {
@@ -518,8 +521,8 @@ img[src$='level1/10.png'] {
 }
 
 img[src$='level1/11.png'] {
-    top: 90%;
-    left: 53%;
+    top: 84%;
+    left: 44%;
 }
 
 img[src$='level1/12.png'] {
@@ -539,7 +542,7 @@ img[src$='level1/14.png'] {
 
 img[src$='level1/15.png'] {
     top: 62%;
-    left: 44%;
+    left: 46%;
 }
 
 img[src$='level1/16.png'] {
@@ -583,22 +586,22 @@ img[src$='level1/23.png'] {
 }
 
 img[src$='level1/24.png'] {
-    top: 53%;
-    left: 65%;
+    top: 62%;
+    left: 70%;
 }
 
 img[src$='level1/25.png'] {
     top: 50.8%;
-    left: 41%;
+    left: 30%;
 }
 
 img[src$='level1/26.png'] {
-    top: 90%;
-    left: 21%;
+    top: 85%;
+    left: 76%;
 }
 
 img[src$='level1/27.png'] {
-    top: 62%;
+    top: 76%;
     left: 4%;
 }
 
@@ -606,11 +609,12 @@ img[src$='level1/28.png'] {
     top: 37.3%;
     left: 6%;
 }
+
 /*LEVEL 1 FINISH*/
 /*LEVEL 2 START*/
 img[src$='level2/0.png'] {
     top: 60%;
-    left: 57%;
+    left: 61%;
 }
 
 img[src$='level2/1.png'] {
@@ -636,8 +640,8 @@ img[src$='level2/4.png'] {
 }
 
 img[src$='level2/5.png'] {
-    top: 62.2%;
-    left: 75%;
+    top: 62%;
+    left: 73%;
     width: 4%;
 }
 
@@ -761,8 +765,8 @@ img[src$='level2/25.png'] {
 }
 
 img[src$='level2/26.png'] {
-    top: 95.5%;
-    left: 52%;
+    top: 75.5%;
+    left: 87%;
     width: 4%;
 }
 
@@ -776,6 +780,7 @@ img[src$='level2/28.png'] {
     left: 17%;
     width: 4%;
 }
+
 /*LEVEL 2 FINISH*/
 /*LEVEL 3 START*/
 img[src$='level3/0.png'] {
@@ -785,8 +790,8 @@ img[src$='level3/0.png'] {
 }
 
 img[src$='level3/1.png'] {
-    top: 11%;
-    left: 57%;
+    top: 21%;
+    left: 86%;
     width: 4%;
 }
 
@@ -853,9 +858,9 @@ img[src$='level3/11.png'] {
 }
 
 img[src$='level3/12.png'] {
-    top: 0.1%;
+    top: 1.1%;
     width: 13%;
-    left: 62%;
+    left: 56%;
 }
 
 img[src$='level3/13.png'] {
@@ -872,9 +877,9 @@ img[src$='level3/14.png'] {
 }
 
 img[src$='level3/15.png'] {
-    top: 29%;
-    left: 5%;
-    width: 4%;
+    top: 1%;
+    left: 27%;
+    width: 6%;
 }
 
 img[src$='level3/16.png'] {
@@ -918,6 +923,7 @@ img[src$='level3/22.png'] {
     left: 54%;
     width: 26%;
 }
+
 /*LEVEL 3 FINISH*/
 /*LEVEL 4 START*/
 img[src$='level4/0.png'] {
@@ -938,15 +944,15 @@ img[src$='level4/2.png'] {
 }
 
 img[src$='level4/3.png'] {
-    top: 12.2%;
+    top: 14.2%;
     left: 63%;
-    width: 15%;
+    width: 13%;
 }
 
 img[src$='level4/4.png'] {
-    top: 34%;
-    width: 10%;
-    left: 61%;
+    top: 37%;
+    width: 9%;
+    left: 59%;
 }
 
 img[src$='level4/5.png'] {
@@ -960,20 +966,20 @@ img[src$='level4/6.png'] {
 }
 
 img[src$='level4/7.png'] {
-    top: 16%;
-    left: 22%;
-    width: 9%;
+    top: 14%;
+    left: 40%;
+    width: 6%;
 }
 
 img[src$='level4/8.png'] {
-    top: 52%;
-    width: 12%;
-    left: 61%;
+    top: 66%;
+    width: 8%;
+    left: 87%;
 }
 
 img[src$='level4/9.png'] {
     top: 80%;
-    left: 54%;
+    left: 63%;
     height: 9%;
 }
 
@@ -995,7 +1001,7 @@ img[src$='level4/12.png'] {
 
 img[src$='level4/13.png'] {
     top: 38%;
-    left: 51%;
+    left: 49%;
 }
 
 img[src$='level4/14.png'] {
@@ -1009,8 +1015,8 @@ img[src$='level4/15.png'] {
 }
 
 img[src$='level4/16.png'] {
-    top: 18%;
-    left: 17%;
+    top: 16%;
+    left: 22%;
 }
 
 img[src$='level4/17.png'] {
@@ -1025,8 +1031,8 @@ img[src$='level4/18.png'] {
 }
 
 img[src$='level4/19.png'] {
-    top: 29%;
-    left: 58%;
+    top: 28%;
+    left: 55%;
 }
 
 img[src$='level4/20.png'] {
@@ -1035,8 +1041,9 @@ img[src$='level4/20.png'] {
 }
 
 img[src$='level4/21.png'] {
-    top: 26%;
-    left: 91%;
+    top: 79%;
+    left: 89%;
+    width: 10%;
 }
 
 img[src$='level4/22.png'] {
@@ -1045,13 +1052,14 @@ img[src$='level4/22.png'] {
 }
 
 img[src$='level4/23.png'] {
-    top: 17%;
-    left: 35%;
-    width: 5%;
+    top: 84%;
+    left: 3%;
+    width: 6%;
+    transform: rotate(90deg);
 }
 
 img[src$='level4/24.png'] {
-    top: 34%;
+    top: 32%;
     left: 68%;
 }
 
@@ -1059,6 +1067,7 @@ img[src$='level4/25.png'] {
     top: 50.8%;
     left: 41%;
 }
+
 /*LEVEL 4 FINISH*/
 /*LEVEL 5 START*/
 img[src$='level5/0.png'] {
@@ -1087,7 +1096,7 @@ img[src$='level5/3.png'] {
 img[src$='level5/4.png'] {
     top: 75%;
     width: 4%;
-    left: 94%;
+    left: 93%;
 }
 
 img[src$='level5/5.png'] {
@@ -1103,8 +1112,8 @@ img[src$='level5/6.png'] {
 }
 
 img[src$='level5/7.png'] {
-    top: 50.3%;
-    left: 8%;
+    top: 50%;
+    left: 5%;
     width: 5%;
 }
 
@@ -1133,20 +1142,20 @@ img[src$='level5/11.png'] {
 }
 
 img[src$='level5/12.png'] {
-    top: 51.2%;
-    left: 5.8%;
+    top: 59.2%;
+    left: 11.5%;
     width: 4%;
 }
 
 img[src$='level5/13.png'] {
-    top: 81%;
-    left: 24%;
+    top: 80%;
+    left: 26%;
     width: 5%;
 }
 
 img[src$='level5/14.png'] {
-    top: 77%;
-    left: 29%;
+    top: 76%;
+    left: 30%;
     width: 3%;
 }
 
@@ -1170,14 +1179,15 @@ img[src$='level5/17.png'] {
 }
 
 img[src$='level5/18.png'] {
-    top: 88%;
-    left: 55%;
+    top: 89%;
+    left: 56%;
     width: 6%;
 }
 
 img[src$='level5/19.png'] {
-    top: 86%;
-    left: 90%;
+    top: 90%;
+    left: 94%;
+    width: 5%;
 }
 
 img[src$='level5/20.png'] {
@@ -1189,7 +1199,7 @@ img[src$='level5/20.png'] {
 img[src$='level5/21.png'] {
     top: 89%;
     left: 87%;
-    width: 5%;
+    width: 7%;
 }
 
 img[src$='level5/22.png'] {
@@ -1199,9 +1209,9 @@ img[src$='level5/22.png'] {
 }
 
 img[src$='level5/23.png'] {
-    top: 77%;
-    left: 97%;
-    width: 4%;
+    top: 47%;
+    left: 53%;
+    width: 5%;
 }
 
 img[src$='level5/24.png'] {
@@ -1224,6 +1234,7 @@ img[src$='level5/27.png'] {
     top: 81.8%;
     left: 69%;
 }
+
 /*LEVEL 5 FINISH*/
 /*LEVEL 6 START*/
 img[src$='level6/0.png'] {
@@ -1245,15 +1256,15 @@ img[src$='level6/2.png'] {
 }
 
 img[src$='level6/3.png'] {
-    top: 43.6%;
-    left: 53%;
+    top: 44.6%;
+    left: 55%;
     height: 8%;
     width: 6%;
 }
 
 img[src$='level6/4.png'] {
-    top: 47%;
-    left: 59%;
+    top: 48%;
+    left: 62%;
     width: 5%;
 }
 
@@ -1278,13 +1289,13 @@ img[src$='level6/7.png'] {
 
 img[src$='level6/8.png'] {
     top: 43%;
-    left: 13%;
+    left: 15%;
     width: 7%;
 }
 
 img[src$='level6/9.png'] {
     top: 42%;
-    left: 19%;
+    left: 22%;
     width: 7%;
 }
 
@@ -1408,6 +1419,7 @@ img[src$='level6/29.png'] {
     left: 48%;
     width: 7%;
 }
+
 /*LEVEL 6 FINISH*/
 /*LEVEL 7 START*/
 img[src$='level7/0.png'] {
@@ -1425,14 +1437,14 @@ img[src$='level7/1.png'] {
 img[src$='level7/2.png'] {
     top: 36%;
     width: 7%;
-    left: 20.7%;
+    left: 22.5%;
 }
 
 img[src$='level7/3.png'] {
-    top: 33.6%;
-    left: 53%;
-    height: 8%;
+    top: 23.9%;
+    left: 78%;
     width: 6%;
+    height: 14%;
 }
 
 img[src$='level7/4.png'] {
@@ -1457,7 +1469,7 @@ img[src$='level7/6.png'] {
 
 img[src$='level7/7.png'] {
     top: 29%;
-    left: 38%;
+    left: 40%;
     width: 11%;
 }
 
@@ -1500,7 +1512,7 @@ img[src$='level7/13.png'] {
 
 img[src$='level7/14.png'] {
     top: 91%;
-    left: 81%;
+    left: 83%;
     width: 8%;
 }
 
@@ -1547,9 +1559,9 @@ img[src$='level7/21.png'] {
 }
 
 img[src$='level7/22.png'] {
-    top: 66%;
-    left: 43%;
-    width: 7%;
+    top: 80%;
+    left: 55%;
+    width: 26%;
 }
 
 img[src$='level7/23.png'] {
@@ -1566,19 +1578,19 @@ img[src$='level7/24.png'] {
 
 img[src$='level7/25.png'] {
     top: 28.8%;
-    left: 12%;
+    left: 11%;
     width: 11%;
 }
 
 img[src$='level7/26.png'] {
-    top: 31.5%;
-    left: 47%;
-    width: 8%;
+    top: 29.5%;
+    left: 52%;
+    width: 10%;
 }
 
 img[src$='level7/27.png'] {
     top: 78%;
-    left: 43%;
+    left: 37%;
     width: 17%;
 }
 
@@ -1590,15 +1602,16 @@ img[src$='level7/28.png'] {
 
 img[src$='level7/29.png'] {
     top: 60.8%;
-    left: 33%;
+    left: 36%;
     width: 12%;
 }
 
 img[src$='level7/30.png'] {
-    top: 62.8%;
-    left: 46%;
-    width: 10%;
+    top: 64.8%;
+    left: 48%;
+    width: 8%;
 }
+
 /*LEVEL 7 FINISH*/
 /*LEVEL 8 START*/
 img[src$='level8/0.png'] {
@@ -1609,7 +1622,7 @@ img[src$='level8/0.png'] {
 
 img[src$='level8/1.png'] {
     top: 27.6%;
-    left: 42%;
+    left: 43%;
     width: 4%;
 }
 
@@ -1633,7 +1646,7 @@ img[src$='level8/4.png'] {
 
 img[src$='level8/5.png'] {
     top: 70.2%;
-    left: 34%;
+    left: 37%;
     width: 6%;
 }
 
@@ -1652,7 +1665,7 @@ img[src$='level8/7.png'] {
 img[src$='level8/8.png'] {
     top: 30%;
     width: 7%;
-    left: 30%;
+    left: 29%;
 }
 
 img[src$='level8/9.png'] {
@@ -1674,14 +1687,14 @@ img[src$='level8/11.png'] {
 }
 
 img[src$='level8/12.png'] {
-    top: 48.2%;
-    left: 60.8%;
-    width: 8%;
+    top: 50.2%;
+    left: 64.8%;
+    width: 6%;
 }
 
 img[src$='level8/13.png'] {
-    top: 48%;
-    left: 34%;
+    top: 61%;
+    left: 52%;
     width: 6%;
 }
 
@@ -1692,7 +1705,7 @@ img[src$='level8/14.png'] {
 }
 
 img[src$='level8/15.png'] {
-    top: 74%;
+    top: 76%;
     left: 30%;
     width: 7%;
 }
@@ -1711,7 +1724,7 @@ img[src$='level8/17.png'] {
 }
 
 img[src$='level8/18.png'] {
-    top: 57%;
+    top: 60%;
     left: 77%;
     width: 6%;
 }
@@ -1723,7 +1736,7 @@ img[src$='level8/19.png'] {
 
 img[src$='level8/20.png'] {
     top: 45.5%;
-    left: 49%;
+    left: 50%;
     width: 4%;
 }
 
@@ -1740,9 +1753,9 @@ img[src$='level8/22.png'] {
 }
 
 img[src$='level8/23.png'] {
-    top: 32%;
+    top: 48%;
     left: 17%;
-    width: 6%;
+    width: 7%;
 }
 
 img[src$='level8/24.png'] {
@@ -1760,6 +1773,7 @@ img[src$='level8/26.png'] {
     top: 50%;
     left: 80%;
 }
+
 /*LEVEL 8 FINISH*/
 /*LEVEL 9 START*/
 img[src$='level9/0.png'] {
@@ -1769,9 +1783,9 @@ img[src$='level9/0.png'] {
 }
 
 img[src$='level9/1.png'] {
-    top: 77%;
-    left: 72%;
-    width: 10%;
+    top: 76%;
+    left: 68%;
+    width: 11%;
 }
 
 img[src$='level9/2.png'] {
@@ -1813,9 +1827,9 @@ img[src$='level9/7.png'] {
 }
 
 img[src$='level9/8.png'] {
-    top: 71%;
-    left: 13%;
-    width: 11%;
+    top: 84%;
+    left: 27%;
+    width: 12%;
 }
 
 img[src$='level9/9.png'] {
@@ -1838,14 +1852,14 @@ img[src$='level9/11.png'] {
 
 img[src$='level9/12.png'] {
     top: 72%;
-    width: 10%;
-    left: 63%;
+    width: 12%;
+    left: 9%;
 }
 
 img[src$='level9/13.png'] {
     transform: scale(-1, 1);
     width: 10%;
-    top: 82%;
+    top: 84%;
     left: 0;
 }
 
@@ -1904,9 +1918,9 @@ img[src$='level9/22.png'] {
 }
 
 img[src$='level9/23.png'] {
-    top: 85%;
+    top: 89%;
     left: 71%;
-    width: 9%;
+    width: 12%;
 }
 
 img[src$='level9/24.png'] {
@@ -1916,15 +1930,15 @@ img[src$='level9/24.png'] {
 }
 
 img[src$='level9/25.png'] {
-    top: 89.8%;
-    left: 90%;
+    top: 92.8%;
+    left: 96%;
     width: 5%;
 }
 
 img[src$='level9/26.png'] {
-    top: 66.5%;
-    left: 27%;
-    width: 6%;
+    top: 65.5%;
+    left: 18%;
+    width: 8%;
 }
 
 img[src$='level9/27.png'] {
@@ -1944,6 +1958,7 @@ img[src$='level9/29.png'] {
     left: 49%;
     width: 7%;
 }
+
 /*LEVEL 9 FINISH*/
 /*LEVEL 10 START*/
 img[src$='level10/0.png'] {
@@ -2059,7 +2074,7 @@ img[src$='level10/17.png'] {
 
 img[src$='level10/18.png'] {
     top: 29%;
-    left: 32%;
+    left: 31%;
     width: 4%;
 }
 
@@ -2110,6 +2125,7 @@ img[src$='level10/26.png'] {
     left: 10%;
     width: 4%;
 }
+
 /*LEVEL 10 FINISH*/
 
 .selector {
@@ -2128,14 +2144,14 @@ img[src$='level10/26.png'] {
 }
 
 .selector > img {
-    width: 40px;
-    height: 40px;
+    width: 100%;
+    height: auto;
     background: url("/images/game/gameMenu/grid.png") no-repeat;
-    background-size: contain;
+    background-size: 100% 100%;
 }
 
 .game_controls {
-    width: 73%;
+    width: 60%;
     height: 90%;
     display: flex;
     flex-direction: column;
@@ -2246,35 +2262,51 @@ img[src$='level10/26.png'] {
     text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
-/*.lds-dual-ring {
-    display: inline-block;
-    width: 80px;
-    height: 80px;
-}
-.lds-dual-ring:after {
-    content: " ";
-    display: block;
-    width: 64px;
-    height: 64px;
-    margin: 8px;
-    border-radius: 50%;
-    border: 6px solid #dfc;
-    border-color: #dfc transparent #dfc transparent;
-    animation: lds-dual-ring 1.2s linear infinite;
-}
-@keyframes lds-dual-ring {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}*/
-
 .hint {
     position: absolute;
     width: 60px;
     height: 60px;
     border: 2px solid red;
     border-radius: 50%;
+    z-index: 5555;
+}
+
+/*
+.hint::before {
+    content: '';
+    display: block;
+    background-color: greenyellow;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 2px solid red;
+    border-radius: 50%;
+}*/
+
+
+/*
+@media screen and (orientation: portrait) {
+    #root> * {
+        transform: rotate(90deg);
+        width: 100vh;
+        height: 100vw;
+    }
+}*/
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.startGameBTN {
+    background-color: #44a45c;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+}
+
+.startGameBTN:active {
+    background-color: red;
 }

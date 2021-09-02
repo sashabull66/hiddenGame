@@ -27,6 +27,7 @@ function gameCLickListener(event) {
             playSpriteMusic(state, 'success')
             state.game.currentItems = currentActiveElements.filter(img => img.props.src.substr(-13) !== event.target.src.substr(-13))
             state.game.levels[state.game.currentLevel].elementsToInsert = allGameElements.filter(img => img.props.src.substr(-13) !== event.target.src.substr(-13))
+            state.game.activeGame.hint.showHint = false; // спрятать подсказку если она есть
             state.game.activeGame.score += 10
             store.editState(state)
             checkGameStatus(state)

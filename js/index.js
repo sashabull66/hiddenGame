@@ -12,6 +12,8 @@ import Game, {resetGameStatus} from "./components/Game/Game.js"; // импорт
 export const virtualDom = new VDom(); // создать экземпляр класса VirtualDom
 
 function renderAPP() {
+
+
     const state = store.getState(); // получить текущее состояние
     const root = document.getElementById('root'); // найти рутовый элемент
     state.scores.scores.length === 0 ? getScores(state) : null // запросить список рекордов с сервера
@@ -21,6 +23,7 @@ function renderAPP() {
 
         case 'game' :
             store.addFollower(() => { // добавить в store слушателя - функцию игровой страницы
+                rerenderChecker()
                 virtualDom.render(Game(), root)
             })
             break;
@@ -51,10 +54,38 @@ function renderAPP() {
     }
 }
 
+function startLoader() {
+    const state = store.getState()
+    function preloadMedea() {
+        let imgSrc = [];
+        imgSrc.push(state.game.images.gameMenuBG, state.help.image.src)
+        console.log(imgSrc)
+    }
+
+    preloadMedea()
+    const root = document.getElementById('root'); // найти рутовый элемент
+    const loader = virtualDom.createVirtualNode('main', {id: "root"}, [
+        virtualDom.createVirtualNode('div', {class: 'loader'}, [
+            virtualDom.createVirtualNode('p', {},['Click to start game']),
+            virtualDom.createVirtualNode('div', {class:'startGameBTN'},[])
+        ])
+    ])
+
+
+    virtualDom.render(loader, root)
+}
+
 window.onhashchange = renderAPP; // установить слушатель на смену хэша
 renderAPP(); // init start
 
-window.onload = ()=>{requestFullScreen()}
+function rerenderChecker() {
+    window.onload = null
+    window.onload = ()=>{
+        console.log('rerender')
+    }
+}
+
+//startLoader()
 
 /*var myScreenOrientation = window.screen.orientation;
 myScreenOrientation.lock("landscape");*/
@@ -75,13 +106,34 @@ window.addEventListener('load', () => {
 })
 */
 
-
 export function playBackgroundMusic(state) {
     if (state.audio.background.isPlay) {
         window.gameAudio.Background.play()
     }
     if (!state.audio.background.isPlay) {
         window.gameAudio.Background.pause()
+    }
+}
+
+export function requestFullScreen(element = document.querySelector('#root').childNodes[0]) {
+    const state = store.getState()
+    if (state.screen.fullscreen) {
+        if (element.requestFullScreen) {
+            element.requestFullScreen();
+        } else if (element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullScreen) {
+            element.webkitRequestFullScreen();
+        }
+    }
+    if (!state.screen.fullscreen) {
+        if (document.cancelFullScreen) {
+            document.cancelFullScreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitCancelFullScreen) {
+            document.webkitCancelFullScreen();
+        }
     }
 }
 
@@ -146,38 +198,29 @@ function initAudio(state) {
     }
 }
 
+function doOnOrientationChange() {
+    switch(window.orientation) {
+        case -90: case 90:
+            alert('landscape');
+            break;
+        default:
+            alert('portrait');
+            break;
+    }
+}
 
-function checkScreenSize() {
+
+function checkScreenSettings() {
     const screenWidth = window.innerWidth
     const screenHeight = window.innerHeight
+    if (screenWidth > screenHeight) {}
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-        document.querySelector('#gameScreen').style.transform = 'rotate(90deg)'
+        //document.querySelector('#gameScreen').style.transform = 'rotate(90deg)'
+
         alert("Вы используете мобильное устройство (телефон или планшет).")
 
     } else {
         alert("Вы используете ПК.")
         document.querySelector('#gameScreen').style.transform = 'rotate(0deg)'
-    }
-}
-
-export function requestFullScreen(element = document.querySelector('#root').childNodes[0]) {
-    const state = store.getState()
-    if (state.screen.fullscreen) {
-        if (element.requestFullScreen) {
-            element.requestFullScreen();
-        } else if (element.mozRequestFullScreen) {
-            element.mozRequestFullScreen();
-        } else if (element.webkitRequestFullScreen) {
-            element.webkitRequestFullScreen();
-        }
-    }
-    if (!state.screen.fullscreen) {
-        if (document.cancelFullScreen) {
-            document.cancelFullScreen();
-        } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-        } else if (document.webkitCancelFullScreen) {
-            document.webkitCancelFullScreen();
-        }
     }
 }
