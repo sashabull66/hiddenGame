@@ -3,10 +3,10 @@ import {changeHash, playSpriteMusic} from "../../../index.js";
 import {stopStartTimer} from "../Game.js";
 import {store} from "../../../store/store.js";
 
-export default function BeforeEveryRoundModal (state) {
+export default function BeforeEveryRoundModal(state) {
     return (
         ModalWindow({
-            title: 'Wow! You have successfully completed the round! Want to start the next round?',
+            title: 'Wow! You have successfully completed the ' + (state.game.currentLevel - 1).toString() + ' round! Want to start the next round?',
             buttons: {
                 Start: {
                     title: 'Start',
